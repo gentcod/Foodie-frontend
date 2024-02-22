@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchRestaurantsStart } from "../../store/restaurant/restaurant.action";
 import RestaurantCard from "../restaurant-card/restaurant-card.component";
 import LoadingComp from "../loading-comp/loading-comp.component";
-import Loading from "../page-loading/page-loading.component";
+import Loading from "../loading/loading.component";
 
 const RestaurantCardContainer = () => {
   const dispatch = useDispatch();

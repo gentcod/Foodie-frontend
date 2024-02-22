@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
 
-import Loading from "./components/page-loading/page-loading.component";
+import Loading from "./components/loading/loading.component";
 
 const Navigation = lazy(
   () => import("./routes/navigation/navigation.component")

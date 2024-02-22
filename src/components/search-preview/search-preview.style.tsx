@@ -5,8 +5,8 @@ export const Container = styled.div`
    padding: 1rem;
    display: flex;
    flex-direction: column;
-   max-height: 30rem;
-   width: 50rem;
+   max-height: 25rem;
+   width: 45rem;
    background-color: white;
    border-radius: .5rem;
 
@@ -18,6 +18,7 @@ export const RecipesContainer = styled.div`
    flex-direction: column;
    row-gap: .5rem;
    min-height: 4rem;
+   overflow: auto;
 `;
 
 export const Recipe = styled(Link)`
@@ -26,7 +27,7 @@ export const Recipe = styled(Link)`
    height: 4rem;
    background-color: rgba(230, 190, 138, 0.5);
    margin: 0 auto;
-   padding: .5rem 2rem;
+   padding: .5rem;
 
    display: flex;
    justify-content: space-evenly;
@@ -65,7 +66,7 @@ export const Button = styled(Link)`
    text-align: center;
    width: 90%;
    margin: 0 auto;
-   margin-top: 1.5rem;
+   margin-top: .5rem;
    cursor: pointer;
    padding: .5rem;
    border-radius: .5rem;

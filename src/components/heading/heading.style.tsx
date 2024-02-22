@@ -1,8 +1,5 @@
 import styled from "styled-components";
 
-export const HeaderContainer = styled.div`
-
-`
 
 export const Header = styled.h2`
    font-weight: 300;
