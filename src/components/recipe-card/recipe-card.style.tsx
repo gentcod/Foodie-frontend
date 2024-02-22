@@ -1,15 +1,20 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { ReactComponent as DishLogo } from '../../assets/dish-dinner.svg';
+
+type RecipeCardProp = {
+   featured: Boolean;
+};
 
 export const RecipeImageContainer = styled.div`
-   height: 10rem;
-   width: 10rem;
+   height: 7rem;
+   width: 7rem;
    border-radius: 30%;
    object-fit: cover;
    border: 1px solid #e6be8a;
    overflow: hidden;
    backface-visibility: hidden;
    position: absolute;
-   top: -3rem;
+   top: -2rem;
    left: 50%;
    transform: translate(-50%, 0);
    box-shadow: .5rem .5rem 1rem rgba(0,0,0,.5);
@@ -22,10 +27,21 @@ export const RecipeImage = styled.img`
    transition: .8s all ease;
 `;
 
-export const RecipeContainer = styled.div`
-   height: 25rem;
-   width: 25rem;
-   padding: 2rem;
+export const RecipeLogo = styled(DishLogo)`
+   height: 100%;
+   width: 100%;
+   object-fit: cover;
+   transition: .8s all ease;
+`;
+
+const featuredBg = css`
+   background-color: #565656;
+`
+
+export const RecipeContainer = styled.div<RecipeCardProp>`
+   height: 20rem;
+   width: 20rem;
+   padding: 1rem;
    text-align: left;
    background-color: #a1a1a1;
    border-radius: 1rem;
@@ -35,11 +51,17 @@ export const RecipeContainer = styled.div`
    backface-visibility: hidden;
    position: relative;
 
+   ${({featured}) => featured && featuredBg};
+
    display: flex;
-   column-gap: 3rem;
+   column-gap: 1rem;
    align-items: end;
 
    &:hover ${RecipeImage} {
+      transform: scale(1.2);
+   }
+
+   &:hover ${RecipeLogo} {
       transform: scale(1.2);
    }
 `;
@@ -49,13 +71,13 @@ export const RecipeInnerLeft = styled.div`
 `;
 
 export const RecipeContentContainer = styled.div`
-   height: 15rem;
+   height: 12rem;
    width: 100%;
    display: flex;
    flex-direction: column;
-   justify-content: center;
-   align-contents: center;
-   row-gap: .5rem;
+   justify-content: start;
+   align-items: end;
+   row-gap: 2px;
    padding: .5rem;
 `;
 
@@ -71,14 +93,15 @@ export const RecipeContent = styled.p`
 `;
 
 export const RecipeName = styled(RecipeContent)`
-   font-size: 1.8rem;
+   font-size: 1.4rem;
    color: #000;
    font-weight: 1000;
-   margin-bottom: 1.5rem;
+   margin-bottom: .5rem;
 `;
 
 export const RecipeCookTime  = styled(RecipeContent)`
    width: 50%;
+   margin-right: 1rem;
 `;
 
 export const RecipeDescription = styled(RecipeContent)`

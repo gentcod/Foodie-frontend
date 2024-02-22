@@ -1,35 +1,27 @@
 import { useEffect } from "react";
-import { fetchRecipeByIdStart, fetchRecipesStart } from "../../store/recipe/recipe.action";
+import { fetchRecipesFeaturedStart } from "../../store/recipe/recipe.action";
 import {
-  selectRecipeById,
-  selectRecipeIsLoading,
-  selectRecipes,
-  // selectRecipesSearch,
+  selectRecipesFeatured,
+  selectRecipesFeaturedIsLoading,
 } from "../../store/recipe/recipe.selector";
 import { useDispatch, useSelector } from "react-redux";
 
 import RecipeCard from "../recipe-card/recipe-card.component";
 
-import { CardContainer } from "./recipe-preview.style";
-import Loading from "../loading/loading.component";
 import LoadingComp from "../loading-comp/loading-comp.component";
+import { CardContainer } from "../recipe-preview/recipe-preview.style";
 
-const RecipeCardContainer = () => {
+const FeaturedRecipes = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchRecipesStart());
-    dispatch(fetchRecipeByIdStart(1))
+    dispatch(fetchRecipesFeaturedStart());
   }, [dispatch]);
 
-  const allRecipes = useSelector(selectRecipes);
-  const isLoading = useSelector(selectRecipeIsLoading);
-
-  const recipe = useSelector(selectRecipeById)
-  console.log(recipe);
-  
+  const featuredRecipes = useSelector(selectRecipesFeatured);
+  const isLoading = useSelector(selectRecipesFeaturedIsLoading);
 
   let data;
-  data = allRecipes;
+  data = featuredRecipes;
 
   return (
     <CardContainer>
@@ -38,7 +30,7 @@ const RecipeCardContainer = () => {
       ) : (
         data.map((el) =>
           isLoading ? (
-            <Loading />
+            <LoadingComp />
           ) : (
             <RecipeCard
               key={el.id}
@@ -47,7 +39,7 @@ const RecipeCardContainer = () => {
               cookTime={el.cookTime}
               description={el.description}
               imgSrc={el.imageSrc}
-              isFeatured={false}
+              isFeatured={true}
             />
           )
         )
@@ -56,4 +48,4 @@ const RecipeCardContainer = () => {
   );
 };
 
-export default RecipeCardContainer;
+export default FeaturedRecipes;

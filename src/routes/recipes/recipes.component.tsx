@@ -3,6 +3,7 @@ import Heading from "../../components/heading/heading.component";
 
 import {
   Container,
+  FeaturedHeading,
   RecipeCategory,
   RecipeCategoryContent,
   RecipeCategoryItem,
@@ -10,6 +11,7 @@ import {
   RecipeCategoryItemName,
 } from "./recipes.style";
 import { Outlet } from "react-router-dom";
+import FeaturedRecipes from "../../components/featured-recipes/featured-recipes.component";
 
 const Recipes = () => {
   return (
@@ -29,8 +31,9 @@ const Recipes = () => {
           </RecipeCategory>
         ))}
       </Container>
-      <Heading text="Top Rated Recipes"/>
-      
+      <FeaturedHeading text="Top Rated Recipes"/>
+      <FeaturedRecipes/>
+      <Heading text="Other Recipes"/>
       <Outlet />
     </>
   );

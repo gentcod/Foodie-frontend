@@ -6,6 +6,8 @@ export type Recipe = {
    origin: string,
    cookTime: string;
    imageSrc: string;
+   category: string;
+   features: boolean;
 }
 
 export type RecipeParams = {

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+   height: auto;
    width: 100%;
    display: flex;
    flex-direction: column;
@@ -24,16 +25,16 @@ export const LoadingContainer = styled.div`
 `;
 
 export const ContainerInnerLeft = styled.div`
-   padding: .5rem;
-   width: 15rem;
-   height: 100%;
+   padding: 1rem;
+   width: 20%;
+   height: 80%;
 
    position: relative;
 `;
 
 export const ContainerInnerRight = styled.div`
    padding: 2rem 0;
-   width: 60rem;
+   width: 100%;
    height: 100%;
    display: flex;
    flex-direction: column;

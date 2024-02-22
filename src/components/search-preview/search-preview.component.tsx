@@ -1,36 +1,75 @@
-import { Button, Container, Recipe, RecipeDetail, RecipeDetailsContainer, RecipeImage, RecipesContainer } from './search-preview.style';
+import {
+  Button,
+  Container,
+  Recipe,
+  RecipeDetail,
+  RecipeDetailsContainer,
+  RecipeImage,
+  RecipesContainer,
+} from "./search-preview.style";
 import { useDispatch, useSelector } from "react-redux";
-import { selectRecipesSearch, selectSearchParams } from '../../store/recipe/recipe.selector';
-import { useEffect } from 'react';
-import { fetchRecipesSearchStart } from '../../store/recipe/recipe.action';
+import {
+  selectRecipeSearchIsLoading,
+  selectRecipesSearch,
+  selectSearchParams,
+} from "../../store/recipe/recipe.selector";
+import { useEffect } from "react";
+import {
+  fetchRecipesSearchStart,
+  fetchRecipesStart,
+} from "../../store/recipe/recipe.action";
+import LoadingComp from "../loading-comp/loading-comp.component";
 
 type SearchProps = {
-   searchString: string
-}
+  searchString: string;
+};
 
-const SearchPreview = ({searchString}: SearchProps) => {
-   const dispatch = useDispatch();
+let timeoutId: number | NodeJS.Timeout;
 
-   useEffect(() => {
-      dispatch(fetchRecipesSearchStart(searchString))
-   }, [dispatch, searchString])
-   const searchRecipes = useSelector(selectRecipesSearch)
-   const searchParams = useSelector(selectSearchParams)
+const SearchPreview = ({ searchString }: SearchProps) => {
+  const dispatch = useDispatch();
 
-   return (
-      <Container>
-         <RecipesContainer>
-            {searchRecipes.map(rec => 
-            <Recipe to={""} key={rec.id}>
-               <RecipeImage src={rec.imageSrc}/>
-               <RecipeDetailsContainer>
-                  <RecipeDetail>{rec.name}</RecipeDetail>
-               </RecipeDetailsContainer>
-            </Recipe>)}
-         </RecipesContainer>
-         <Button to={`/recipes${searchParams}`}>View All</Button>
-      </Container>
-   )
+  if (timeoutId) {
+    clearTimeout(timeoutId);
+  }
+
+  useEffect(() => {
+    timeoutId = setTimeout(() => {
+      dispatch(fetchRecipesSearchStart(searchString));
+    }, 1000);
+  }, [dispatch, searchString]);
+
+  const searchRecipes = useSelector(selectRecipesSearch);
+  const searchLoading = useSelector(selectRecipeSearchIsLoading);
+  const searchParams = useSelector(selectSearchParams);
+
+  const handleSearch = () => {
+    dispatch(fetchRecipesStart(searchString));
+  };
+
+  return (
+    <Container>
+      <RecipesContainer>
+        (
+        {searchRecipes.map((rec) =>
+          searchLoading ? (
+            <LoadingComp />
+          ) : (
+            <Recipe to={`/recipes${searchParams}`} key={rec.id}>
+              <RecipeImage src={rec.imageSrc} />
+              <RecipeDetailsContainer>
+                <RecipeDetail>{rec.name}</RecipeDetail>
+              </RecipeDetailsContainer>
+            </Recipe>
+          )
+        )}
+      </RecipesContainer>
+      )
+      <Button to={`/recipes${searchParams}`} onClick={() => handleSearch()}>
+        View All
+      </Button>
+    </Container>
+  );
 };
 
 export default SearchPreview;

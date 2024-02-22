@@ -33,7 +33,7 @@ export const data: RecipeDataProps = [
 
    {
       id: 3,
-      name: 'Fast Recipes',
+      name: 'Quick Recipes',
       description: 'A compilation of various easily made delicacies',
       imgSrc: 'https://i.ibb.co/GtSRLts/tacos.webp',
       link: '',

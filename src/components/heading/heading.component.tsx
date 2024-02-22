@@ -1,4 +1,4 @@
-import { HeaderContainer, Header } from "./heading.style";
+import { Header } from "./heading.style";
 
 type HeadingProp = { 
    text: string;
@@ -6,9 +6,9 @@ type HeadingProp = {
 
 const Heading = ({text}: HeadingProp) => {
    return (
-      <HeaderContainer>
+      <>
          <Header>{text}</Header>
-      </HeaderContainer>
+      </>
    )
 }
 

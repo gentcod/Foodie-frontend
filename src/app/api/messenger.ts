@@ -43,7 +43,9 @@ const Recipes = {
          'comment': review,
       }
    ),
-   listRecipeRatings: () => request.get('recipeRatings/')
+   listRecipeRatings: () => request.get('recipeRatings/'),
+   listFeatured: () => request.get('recipe/featured'),
+   getRecipeById: (recipeId: number) => request.get(`recipe/recipeById?id=${recipeId}`)
 }
 
 const Restaurant = {

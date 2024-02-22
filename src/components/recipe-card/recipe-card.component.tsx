@@ -1,6 +1,6 @@
 import  {ReactComponent as TimeIcon } from '../../assets/alarm.svg';
 
-import { RecipeContainer, RecipeCookTime, RecipeDescription, RecipeImage, RecipeImageContainer, RecipeInnerLeft, RecipeContentContainer, RecipeName, RecipeOrigin, RecipeIconContents } from './recipe-card.style';
+import { RecipeContainer, RecipeCookTime, RecipeImage, RecipeImageContainer, RecipeContentContainer, RecipeName, RecipeOrigin, RecipeIconContents, RecipeLogo } from './recipe-card.style';
 
 type RecipeProps = {
    name: string;
@@ -8,18 +8,18 @@ type RecipeProps = {
    description: string;
    cookTime: string;
    origin: string;
+   isFeatured: boolean;
 };
 
-const RecipeCard = ({name, imgSrc, description, cookTime, origin}: RecipeProps) => {
+const RecipeCard = ({name, imgSrc, description, cookTime, origin, isFeatured}: RecipeProps) => {
    return (
-      <RecipeContainer>
+      <RecipeContainer featured={isFeatured}>
             <RecipeImageContainer>
-               <RecipeImage src={imgSrc}/>
+               { imgSrc === "" ? <RecipeLogo/> : <RecipeImage src={imgSrc}/>}
             </RecipeImageContainer>
          <RecipeContentContainer>
             <RecipeName>{name}</RecipeName>
             <RecipeOrigin>{origin}</RecipeOrigin>
-            {/* <RecipeDescription>{description}</RecipeDescription> */}
             <RecipeIconContents>
                <RecipeCookTime>{cookTime}</RecipeCookTime>
                <TimeIcon/>
