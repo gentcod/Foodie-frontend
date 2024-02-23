@@ -12,6 +12,7 @@ import {
 } from "./recipes.style";
 import { Outlet } from "react-router-dom";
 import FeaturedRecipes from "../../components/featured-recipes/featured-recipes.component";
+import RecipeModal from "../../components/recipe-modal/recipe-modal.component";
 
 const Recipes = () => {
   return (
@@ -33,6 +34,7 @@ const Recipes = () => {
       </Container>
       <FeaturedHeading text="Top Rated Recipes"/>
       <FeaturedRecipes/>
+      <RecipeModal active={false}/>
       <Heading text="Other Recipes"/>
       <Outlet />
     </>

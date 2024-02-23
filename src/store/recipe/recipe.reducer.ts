@@ -157,16 +157,18 @@ export const recipesFeaturedReducer = (state = RECIPE_FEATURED_INITIAL_STATE, ac
 //Recipe By Id
 export type RecipeByIdState = {
    readonly recipeId: number;
-   readonly recipe?: Recipe | null;
+   readonly recipeById: Recipe;
    readonly isLoading: boolean;
    readonly error?: Error | null;
+   readonly isActive: boolean;
 };
 
 const RECIPE_BYID_INITIAL_STATE: RecipeByIdState = {
    recipeId: 0,
-   recipe: null,
+   recipeById: {} as Recipe,
    isLoading: false,
    error: null,
+   isActive: false,
 };
 
 export const recipeByIdReducer = (state = RECIPE_BYID_INITIAL_STATE, action = {} as AnyAction) => {
@@ -175,13 +177,15 @@ export const recipeByIdReducer = (state = RECIPE_BYID_INITIAL_STATE, action = {}
          ...state,
          recipeId: action.payload,
          isLoading: true,
+         isActive: false,
       }
    }
 
    if (fetchRecipeByIdSuccess.match(action)) {
       return {
          ...state,
-         recipe: action.payload,
+         recipeById: action.payload,
+         isActive: true,
          isLoading: false,
       }
    }

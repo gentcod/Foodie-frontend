@@ -1,7 +1,6 @@
 import { useEffect } from "react";
-import { fetchRecipeByIdStart, fetchRecipesStart } from "../../store/recipe/recipe.action";
+import { fetchRecipesStart } from "../../store/recipe/recipe.action";
 import {
-  selectRecipeById,
   selectRecipeIsLoading,
   selectRecipes,
   // selectRecipesSearch,
@@ -18,16 +17,11 @@ const RecipeCardContainer = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchRecipesStart());
-    dispatch(fetchRecipeByIdStart(1))
   }, [dispatch]);
 
   const allRecipes = useSelector(selectRecipes);
   const isLoading = useSelector(selectRecipeIsLoading);
-
-  const recipe = useSelector(selectRecipeById)
-  console.log(recipe);
   
-
   let data;
   data = allRecipes;
 
@@ -42,6 +36,7 @@ const RecipeCardContainer = () => {
           ) : (
             <RecipeCard
               key={el.id}
+              recipeId={el.id}
               name={el.name}
               origin={el.origin}
               cookTime={el.cookTime}

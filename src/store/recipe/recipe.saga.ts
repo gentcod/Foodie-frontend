@@ -87,7 +87,6 @@ export function* onFetchRecipesFeatured() {
 }
 
 //Recipe By Id
-
 export const fetchRecipeByIdFromApi = async (recipeId: number) => {   
    const response = await Recipes.getRecipeById(recipeId);
    return response;
@@ -96,7 +95,6 @@ export const fetchRecipeByIdFromApi = async (recipeId: number) => {
 export function* fetchRecipeByIdAsync() {
    try {
       const recipeId = yield* select(selectRecipeIdParam)
-      // const axiosParams = new URLSearchParams(recipeId.toString());
       const recipe = yield* call(fetchRecipeByIdFromApi, recipeId);
       yield* put(fetchRecipeByIdSuccess(recipe))
    } catch (error) {

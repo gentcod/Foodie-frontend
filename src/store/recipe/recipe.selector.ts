@@ -5,7 +5,7 @@ const selectRecipesReducer = (state: any): RecipeState => state.recipes;
 const selectRecipesSearchReducer = (state: any): RecipesSearchState => state.recipesSearch;
 const selectRecipesRatingsReducer = (state: any): RecipeRatingsState => state.recipesRatings;
 const selectRecipesFeaturedReducer = (state: any): RecipeFeaturedState => state.recipesFeatured;
-const selectRecipeByIdReducer = (state: any): RecipeByIdState => state.recipe
+const selectRecipeByIdReducer = (state: any): RecipeByIdState => state.recipeById
 
 //Recipes
 export const selectRecipes = createSelector(
@@ -64,10 +64,15 @@ export const selectRecipeIdParam = createSelector(
 
 export const selectRecipeById = createSelector(
    [selectRecipeByIdReducer],
-   (recipeSlice) => recipeSlice.recipe
+   (recipeSlice) => recipeSlice.recipeById
 );
 
-export const selectRecipeIdIsLoading = createSelector(
+export const selectRecipeByIdIsLoading = createSelector(
    [selectRecipeByIdReducer],
    (recipeSlice) => recipeSlice.isLoading
+);
+
+export const selectRecipeByIdIsActive = createSelector(
+   [selectRecipeByIdReducer],
+   (recipeSlice) => recipeSlice.isActive
 );
