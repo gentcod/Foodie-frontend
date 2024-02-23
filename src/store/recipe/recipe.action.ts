@@ -20,7 +20,7 @@ export type FetchRecipeFeaturedSuccess = ActionWithPayload<RECIPES_FEATURED_ACTI
 export type FetchRecipeFeaturedFailed = ActionWithPayload<RECIPES_FEATURED_ACTION_TYPES.FETCH_RECIPES_FEATURED_FAILED, Error>;
 
 export type FetchRecipeByIdStart = ActionWithPayload<RECIPE_BYID_ACTION_TYPES.FETCH_RECIPE_BYID_START, number>;
-export type FetchRecipeByIdSuccess = ActionWithPayload<RECIPE_BYID_ACTION_TYPES.FETCH_RECIPE_BYID_SUCCESS, Recipe>;
+export type FetchRecipeByIdSuccess = ActionWithPayload<RECIPE_BYID_ACTION_TYPES.FETCH_RECIPE_BYID_SUCCESS, Recipe[]>;
 export type FetchRecipeByIdFailed = ActionWithPayload<RECIPE_BYID_ACTION_TYPES.FETCH_RECIPE_BYID_FAILED, Error>;
 
 export const fetchRecipesStart = withMatcher((searchString?: string) : FetchRecipesStart => createAction(RECIPES_ACTION_TYPES.FETCH_RECIPE_START, searchString));
@@ -40,5 +40,5 @@ export const fetchRecipesFeaturedSuccess = withMatcher((recipeFeatured: Recipe[]
 export const fetchRecipesFeaturedFailed = withMatcher((error: Error) : FetchRecipeFeaturedFailed => createAction(RECIPES_FEATURED_ACTION_TYPES.FETCH_RECIPES_FEATURED_FAILED, error));
 
 export const fetchRecipeByIdStart = withMatcher((recipeId: number) : FetchRecipeByIdStart => createAction(RECIPE_BYID_ACTION_TYPES.FETCH_RECIPE_BYID_START, recipeId));
-export const fetchRecipeByIdSuccess = withMatcher((recipe: Recipe) : FetchRecipeByIdSuccess => createAction(RECIPE_BYID_ACTION_TYPES.FETCH_RECIPE_BYID_SUCCESS, recipe));
+export const fetchRecipeByIdSuccess = withMatcher((recipe: Recipe[]) : FetchRecipeByIdSuccess => createAction(RECIPE_BYID_ACTION_TYPES.FETCH_RECIPE_BYID_SUCCESS, recipe));
 export const fetchRecipeByIdFailed = withMatcher((error: Error) : FetchRecipeByIdFailed => createAction(RECIPE_BYID_ACTION_TYPES.FETCH_RECIPE_BYID_FAILED, error));

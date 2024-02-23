@@ -34,6 +34,7 @@ const FeaturedRecipes = () => {
           ) : (
             <RecipeCard
               key={el.id}
+              recipeId={el.id}
               name={el.name}
               origin={el.origin}
               cookTime={el.cookTime}
