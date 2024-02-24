@@ -26,6 +26,7 @@ const RecipeModal = ({active}: RecipeModalProps) => {
       setModalState(false)
    }
 
+   const rating = `${recipe.rating}/5`
    
    return (
       <ModalContainer isActive={modalState}>
@@ -44,7 +45,7 @@ const RecipeModal = ({active}: RecipeModalProps) => {
                </RecipeCategory>
                <RecipeRating>
                   <RatingLogo/>
-                  <RecipeContentBlockSpan>{recipe.rating}/5</RecipeContentBlockSpan>
+                  <RecipeContentBlockSpan>{recipe.rating === 0 ? "Unrated": rating}</RecipeContentBlockSpan>
                </RecipeRating>
                <RecipeCookTime>
                   <CookTimeLogo/>
