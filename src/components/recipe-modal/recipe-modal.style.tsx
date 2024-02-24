@@ -1,12 +1,29 @@
-import styled, { css } from "styled-components";
-
-// const bgImg = "https://i.ibb.co/RyVWfVB/annie-spratt-y-I3we-KNBRTc-unsplash-1.jpg";
+import styled, { css, keyframes } from "styled-components";
 
 export type ModalProps = {
    isActive: boolean;
 }
 
+const FadeIn = keyframes`
+   0%{
+      opacity: 0;
+   }
+   100%{
+      opacity: 1;
+   }
+`;
+
+const FadeOut = keyframes`
+   0%{
+      opacity: 0;
+   }
+   100%{
+      opacity: 1;
+   }
+`;
+
 const hide = css`
+   animation: ${FadeOut} 1s ease;
    display: none;
 `;
 
@@ -26,6 +43,7 @@ export const ModalContainer = styled.div<ModalProps>`
    transform: translate(50%, 5%);
    z-index: 50;
    cursor: pointer;
+   animation: ${FadeIn} 1s ease;
 
    ${({isActive}) => !isActive && hide}
 `;
