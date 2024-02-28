@@ -2,18 +2,27 @@ import { AnyAction } from 'redux'
 import { Recipe, } from '../../app/models/recipes'
 import { fetchRecipesStart, fetchRecipesSuccess, fetchRecipesFailed, fetchRecipeRatingsStart, fetchRecipeRatingsSuccess, fetchRecipesSearchStart, fetchRecipesSearchSuccess, fetchRecipesSearchFailed, fetchRecipesFeaturedStart, fetchRecipesFeaturedSuccess, fetchRecipesFeaturedFailed, fetchRecipeByIdStart, fetchRecipeByIdSuccess, fetchRecipeByIdFailed, } from './recipe.action';
 import { Rating } from '../../app/models/ratings';
+import { PaginatedResponse } from '../../app/models/pagination';
 
 //Recipes
 export type RecipeState = {
    readonly searchString: string;
-   readonly recipes: Recipe[];
+   readonly paginatedResponse: PaginatedResponse<Recipe[]>;
    readonly isLoading: boolean;
    readonly error?: Error | null;
 };
 
 const RECIPES_INITIAL_STATE: RecipeState = {
    searchString: "",
-   recipes: [],
+   paginatedResponse: {
+      items: [],
+      metaData: {
+         currentPage: 0,
+         pageSize: 0,
+         totalCount: 0,
+         totalPages: 0,
+      }
+   },
    isLoading: false,
    error: null,
 };
@@ -29,7 +38,7 @@ export const recipesReducer = (state = RECIPES_INITIAL_STATE, action = {} as Any
    if (fetchRecipesSuccess.match(action))
       return {
          ...state,
-         recipes: action.payload,
+         paginatedResponse: action.payload,
          isLoading: false,
       }
    if (fetchRecipesFailed.match(action))

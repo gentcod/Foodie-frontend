@@ -3,7 +3,7 @@ import { ReactComponent as RatingLogo} from '../../assets/star-fell.svg';
 import { ReactComponent as CookTimeLogo} from '../../assets/alarm-clock.svg';
 import { ReactComponent as CloseButtonLogo} from '../../assets/close-bold.svg';
 import { useSelector } from 'react-redux';
-import { ButtonClose, ModalContainer, RecipeCategory, RecipeContentBlockSpan, RecipeContentHeading, RecipeContentsBlockContainer, RecipeContentsContainer, RecipeCookTime, RecipeDescription, RecipeImage, RecipeImageContainer, RecipeIngredients, RecipeName, RecipeOrigin, RecipeRating } from './recipe-modal.style';
+import { ButtonClose, ButtonContainer, ModalContainer, RecipeCategory, RecipeContentBlockSpan, RecipeContentHeading, RecipeContentsBlockContainer, RecipeContentsContainer, RecipeCookTime, RecipeDescription, RecipeImage, RecipeImageContainer, RecipeIngredients, RecipeName, RecipeOrigin, RecipeRating } from './recipe-modal.style';
 import { selectRecipeById, selectRecipeByIdIsActive } from '../../store/recipe/recipe.selector';
 import { useEffect, useState } from 'react';
 
@@ -30,9 +30,11 @@ const RecipeModal = ({active}: RecipeModalProps) => {
    
    return (
       <ModalContainer isActive={modalState}>
-         <ButtonClose onClick={() => handlerCloseModal()}>
-            {<CloseButtonLogo/>}
-         </ButtonClose>
+         <ButtonContainer>
+            <ButtonClose onClick={() => handlerCloseModal()}>
+               {<CloseButtonLogo/>}
+            </ButtonClose>
+         </ButtonContainer>
          <RecipeName>{recipe.name}</RecipeName>
          <RecipeImageContainer>
             <RecipeImage src={recipe.imageSrc}/>

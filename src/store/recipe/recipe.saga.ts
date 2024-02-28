@@ -2,7 +2,7 @@ import { all, call, put, select, takeLatest } from "typed-redux-saga/macro";
 import messenger from '../../app/api/messenger';
 import { fetchRecipeRatingsFailed, fetchRecipeRatingsSuccess, fetchRecipesFailed, fetchRecipesFeaturedSuccess, fetchRecipesSearchFailed, fetchRecipesSearchSuccess, fetchRecipesSuccess, fetchRecipesFeaturedFailed, fetchRecipeByIdSuccess, fetchRecipeByIdFailed } from "./recipe.action";
 import { RECIPES_ACTION_TYPES, RECIPES_SEARCH_ACTION_TYPES, RECIPES_FEATURED_ACTION_TYPES, RECIPE_RATINGS_ACTION_TYPES, RECIPE_BYID_ACTION_TYPES } from "./recipe.types";
-import { selectRecipeIdParam, selectSearchParams } from "./recipe.selector";
+import { selectRecipeIdParam, selectRecipesParams, selectSearchParams } from "./recipe.selector";
 
 const { Recipes } = messenger;
 
@@ -19,7 +19,7 @@ export const fetchRecipesFromApi = async (params?: URLSearchParams) => {
 //Recipes Saga
 export function* fetchRecipesAsync() {
    try {
-      const searchString = yield* select(selectSearchParams)
+      const searchString = yield* select(selectRecipesParams)
       const axiosParams = getAxiosParams(searchString)
       const recipes = yield* call(fetchRecipesFromApi, axiosParams);
       yield* put(fetchRecipesSuccess(recipes));

@@ -2,9 +2,10 @@ import { createAction, ActionWithPayload, Action , withMatcher} from "../../util
 import { RECIPES_ACTION_TYPES, RECIPE_RATINGS_ACTION_TYPES, RECIPES_SEARCH_ACTION_TYPES, RECIPES_FEATURED_ACTION_TYPES, RECIPE_BYID_ACTION_TYPES } from "./recipe.types";
 import { Recipe, } from '../../app/models/recipes';
 import { Rating } from '../../app/models/ratings';
+import { PaginatedResponse } from "../../app/models/pagination";
 
 export type FetchRecipesStart = ActionWithPayload<RECIPES_ACTION_TYPES.FETCH_RECIPE_START, string | undefined>;
-export type FetchRecipesSuccess = ActionWithPayload<RECIPES_ACTION_TYPES.FETCH_RECIPE_SUCCESS, Recipe[]>;
+export type FetchRecipesSuccess = ActionWithPayload<RECIPES_ACTION_TYPES.FETCH_RECIPE_SUCCESS, PaginatedResponse<Recipe[]>>;
 export type FetchRecipesFailed = ActionWithPayload<RECIPES_ACTION_TYPES.FETCH_RECIPE_FAILED, Error>;
 
 export type FetchRecipesSearchStart = ActionWithPayload<RECIPES_SEARCH_ACTION_TYPES.FETCH_RECIPE_SEARCH_START, string>;
@@ -24,7 +25,7 @@ export type FetchRecipeByIdSuccess = ActionWithPayload<RECIPE_BYID_ACTION_TYPES.
 export type FetchRecipeByIdFailed = ActionWithPayload<RECIPE_BYID_ACTION_TYPES.FETCH_RECIPE_BYID_FAILED, Error>;
 
 export const fetchRecipesStart = withMatcher((searchString?: string) : FetchRecipesStart => createAction(RECIPES_ACTION_TYPES.FETCH_RECIPE_START, searchString));
-export const fetchRecipesSuccess = withMatcher((recipes: Recipe[]) : FetchRecipesSuccess => createAction(RECIPES_ACTION_TYPES.FETCH_RECIPE_SUCCESS, recipes));
+export const fetchRecipesSuccess = withMatcher((paginatedResponse: PaginatedResponse<Recipe[]>) : FetchRecipesSuccess => createAction(RECIPES_ACTION_TYPES.FETCH_RECIPE_SUCCESS, paginatedResponse));
 export const fetchRecipesFailed = withMatcher((error: Error) : FetchRecipesFailed => createAction(RECIPES_ACTION_TYPES.FETCH_RECIPE_FAILED, error));
 
 export const fetchRecipesSearchStart = withMatcher((searchString: string) : FetchRecipesSearchStart => createAction(RECIPES_SEARCH_ACTION_TYPES.FETCH_RECIPE_SEARCH_START, searchString));
