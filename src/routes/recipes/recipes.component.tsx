@@ -32,7 +32,7 @@ const Recipes = () => {
           </RecipeCategory>
         ))}
       </Container>
-      <FeaturedHeading text="Top Rated Recipes"/>
+      <FeaturedHeading text="Featured Recipes"/>
       <FeaturedRecipes/>
       <RecipeModal active={false}/>
       <Heading text="Other Recipes"/>

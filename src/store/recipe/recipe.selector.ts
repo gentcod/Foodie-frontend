@@ -8,9 +8,14 @@ const selectRecipesFeaturedReducer = (state: any): RecipeFeaturedState => state.
 const selectRecipeByIdReducer = (state: any): RecipeByIdState => state.recipeById
 
 //Recipes
-export const selectRecipes = createSelector(
+export const selectPaginatedRecipes = createSelector(
    [selectRecipesReducer],
-   (recipesSlice) => recipesSlice.recipes
+   (recipesSlice) => recipesSlice.paginatedResponse
+);
+
+export const selectRecipesParams = createSelector(
+   [selectRecipesReducer],
+   (recipesSlice) => recipesSlice.searchString
 );
 
 export const selectRecipeIsLoading = createSelector(

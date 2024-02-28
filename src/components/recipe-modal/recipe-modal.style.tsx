@@ -37,12 +37,11 @@ export const ModalContainer = styled.div<ModalProps>`
    text-align: center;
    padding: 1rem;
 
-   position: absolute;
-   top: 12%;
+   position: fixed;
+   top: 50%;
    right: 50%;
-   transform: translate(50%, 5%);
-   z-index: 50;
-   cursor: pointer;
+   transform: translate(50%, -50%);
+   z-index: 150;
    animation: ${FadeIn} 1s ease;
 
    ${({isActive}) => !isActive && hide}
@@ -158,11 +157,15 @@ export const RecipeContentHeading = styled.div`
    font-weight: 500;
 `;
 
+export const ButtonContainer = styled.div`
+   width: 100%;
+   display: flex;
+   justify-content: end;
+`;
+
 export const ButtonClose = styled.button`
    outline: none;
    border: none;
    background-color: transparent;
    cursor: pointer;
-   display: flex;
-   justify-content: end;
 `;
