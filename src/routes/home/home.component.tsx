@@ -16,7 +16,7 @@ const Home = () => {
     <HomeContainer>
       <FeaturedContainer>
         <FeaturedTitle>Featured recipes</FeaturedTitle>
-        <FeaturedImage src="https://i.ibb.co/mhxQWT4/board-veg.jpg" />
+        <FeaturedImage src="https://res.cloudinary.com/douvgvdla/image/upload/v1711645135/cld-sample-4.jpg" />
       </FeaturedContainer>
       <WelcomeContainer>
         <WelcomeLogo src="images/foodie.png" />

@@ -72,7 +72,7 @@ const Navigation = () => {
                         <NavigationItemIcon src={item.icon}/>
                      </UserProfile>
                      :
-                     <NavigationItem key={item.id} to={`/${item.title.replace(" ", "")}`}>
+                     <NavigationItem key={item.id} to={`#`}>
                         <span>{item.title}</span>
                         <NavigationItemIcon src={item.icon}/>
                      </NavigationItem>

@@ -51,13 +51,13 @@ const Recipes = {
    ),
    listRecipeRatings: () => request.get('recipeRatings/'),
    listFeatured: () => request.get('recipe/featured'),
-   getRecipeById: (recipeId: number) => request.get(`recipe/recipeById?id=${recipeId}`)
+   getRecipeById: (recipeId: number) => request.get(`recipe/${recipeId}`)
 }
 
 const Restaurant = {
    list: (params?: URLSearchParams) => request.get('restaurant',params),
    addRating: (resaturantId: number, rating: number, review: string) => 
-      request.put(`recipe/addRating?resaturantId=${resaturantId}`, {
+      request.put(`restaurant/addRating?resaturantId=${resaturantId}`, {
          'ratingNum': rating,
          'comment': review,
       }),

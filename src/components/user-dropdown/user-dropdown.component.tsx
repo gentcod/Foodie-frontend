@@ -33,6 +33,7 @@ type UserProp = {
 const UserDropdown = ({name, imgSrc}: UserProp) => {
    return (
       <DropdownContainer>
+         <p>COMING SOON</p>
          <UserDetailsContainer>
             <UserPicture src={imgSrc}/>
             <UserName>{name}</UserName>

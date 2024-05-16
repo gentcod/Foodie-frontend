@@ -30,8 +30,8 @@ const RecipeCard = ({recipeId, name, imgSrc, description, cookTime, origin, isFe
             <RecipeOrigin>{origin}</RecipeOrigin>
             <RecipeIconContents>
                <RecipeCookTime>{cookTime}</RecipeCookTime>
-               <TimeIcon/>
             </RecipeIconContents>
+               <TimeIcon/>
          </RecipeContentContainer>
       </RecipeContainer>
    )
