@@ -13,8 +13,9 @@ export type Recipe = {
 
 export type RecipeParams = {
    search?: string,
-   sortBy: string,
-   orderBy: number,
+   sortBy?: string,
+   orderBy?: number,
+   category?: string,
 }
 
 export type RecipeSearch = {

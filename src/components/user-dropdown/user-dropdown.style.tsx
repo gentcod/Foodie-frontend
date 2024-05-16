@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const DropdownContainer = styled.div`
-   height: 15rem;
+   height: auto;
    width: 25rem;
    background-color: #555;
    padding: 1rem;

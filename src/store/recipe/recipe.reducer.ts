@@ -114,7 +114,7 @@ export const recipesSearchReducer = (state = RECIPES_SEARCH_INITIAL_STATE, actio
    if (fetchRecipesSearchSuccess.match(action))
       return {
          ...state,
-         recipes: action.payload,
+         recipes: action.payload.items,
          isLoading: false,
       }
    if (fetchRecipesSearchFailed.match(action))

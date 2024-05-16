@@ -18,19 +18,19 @@ export const categoryData: RecipeCategoryProp = [
          {
             id: 0,
             name: "Grills",
-            imgSrc: "https://i.ibb.co/zrrqBY7/grills-cat.webp",
+            imgSrc: "https://res.cloudinary.com/douvgvdla/image/upload/v1715859504/grills-cat_gn5uw5.jpg",
          },
 
          {
             id: 1,
             name: "Vegetables",
-            imgSrc: "https://i.ibb.co/Bnkyk6Z/vegetables-cat.webp",
+            imgSrc: "https://res.cloudinary.com/douvgvdla/image/upload/v1715859531/vegetables-cat_fycgjq.jpg",
          },
 
          {
             id: 2,
             name: "Rice",
-            imgSrc: "https://i.ibb.co/r6J8D2p/rice-cat.webp",
+            imgSrc: "https://res.cloudinary.com/douvgvdla/image/upload/v1715859534/rice-cat_rj3p9k.jpg",
          },
       ],
    },

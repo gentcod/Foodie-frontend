@@ -11,7 +11,7 @@ const hide = css`
 `;
 
 export const PreviewContainer = styled.div`
-  
+  padding: 1rem;
 `;
 
 export const CardContainer = styled.div`

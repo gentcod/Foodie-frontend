@@ -9,7 +9,7 @@ export type FetchRecipesSuccess = ActionWithPayload<RECIPES_ACTION_TYPES.FETCH_R
 export type FetchRecipesFailed = ActionWithPayload<RECIPES_ACTION_TYPES.FETCH_RECIPE_FAILED, Error>;
 
 export type FetchRecipesSearchStart = ActionWithPayload<RECIPES_SEARCH_ACTION_TYPES.FETCH_RECIPE_SEARCH_START, string>;
-export type FetchRecipesSearchSuccess = ActionWithPayload<RECIPES_SEARCH_ACTION_TYPES.FETCH_RECIPE_SEARCH_SUCCESS, Recipe[]>;
+export type FetchRecipesSearchSuccess = ActionWithPayload<RECIPES_SEARCH_ACTION_TYPES.FETCH_RECIPE_SEARCH_SUCCESS, PaginatedResponse<Recipe[]>>;
 export type FetchRecipesSearchFailed = ActionWithPayload<RECIPES_SEARCH_ACTION_TYPES.FETCH_RECIPE_SEARCH_FAILED, Error>;
 
 export type FetchRecipeRatingsStart = Action<RECIPE_RATINGS_ACTION_TYPES.FETCH_RECIPE_RATINGS_START>;
@@ -29,7 +29,7 @@ export const fetchRecipesSuccess = withMatcher((paginatedResponse: PaginatedResp
 export const fetchRecipesFailed = withMatcher((error: Error) : FetchRecipesFailed => createAction(RECIPES_ACTION_TYPES.FETCH_RECIPE_FAILED, error));
 
 export const fetchRecipesSearchStart = withMatcher((searchString: string) : FetchRecipesSearchStart => createAction(RECIPES_SEARCH_ACTION_TYPES.FETCH_RECIPE_SEARCH_START, searchString));
-export const fetchRecipesSearchSuccess = withMatcher((recipes: Recipe[]) : FetchRecipesSearchSuccess => createAction(RECIPES_SEARCH_ACTION_TYPES.FETCH_RECIPE_SEARCH_SUCCESS, recipes));
+export const fetchRecipesSearchSuccess = withMatcher((recipes: PaginatedResponse<Recipe[]>) : FetchRecipesSearchSuccess => createAction(RECIPES_SEARCH_ACTION_TYPES.FETCH_RECIPE_SEARCH_SUCCESS, recipes));
 export const fetchRecipesSearchFailed = withMatcher((error: Error) : FetchRecipesSearchFailed => createAction(RECIPES_SEARCH_ACTION_TYPES.FETCH_RECIPE_SEARCH_FAILED, error));
 
 export const fetchRecipeRatingsStart = withMatcher(() : FetchRecipeRatingsStart => createAction(RECIPE_RATINGS_ACTION_TYPES.FETCH_RECIPE_RATINGS_START));

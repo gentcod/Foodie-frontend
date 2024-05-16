@@ -1,5 +1,13 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { ReactComponent as DishLogo } from '../../assets/dish-dinner.svg';
+
+export const RecipeLogo = styled(DishLogo)`
+   height: 3rem;
+   width: 3rem;
+   object-fit: cover;
+   transition: .8s all ease;
+`;
 
 export const Container = styled.div`
    padding: 1rem;
