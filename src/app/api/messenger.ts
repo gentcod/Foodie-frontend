@@ -70,8 +70,8 @@ const Bookmarks = {
 
 const Favorites = {
    list: (params: URLSearchParams) => request.get('favorite', params),
-   addFavoriteRecipe: (userId: string, recipeId: number) => request.post(`favorites/AddRecipe?userId=${userId}&recipeId=${recipeId}`, {}),
-   addFavoriteRestaurant: (userId: string, resaturantId: number) => request.post(`favorites/AddRestaurant?userId=${userId}&resaturantId=${resaturantId}`, {})
+   addFavoriteRecipe: (userId: string, recipeId: number) => request.post(`favorites/AddRecipe?recipeId=${recipeId}`, {}),
+   addFavoriteRestaurant: (userId: string, resaturantId: number) => request.post(`favorites/AddRestaurant?resaturantId=${resaturantId}`, {})
 }
 
 const messenger = {
