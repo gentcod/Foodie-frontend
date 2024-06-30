@@ -25,7 +25,7 @@ function App() {
             <Route index element={<RecipePreview />} />
             <Route path=":recipeCat" element={<RecipePreview />} />
           </Route>
-          <Route path="restaurants" element={<Restaurants />} />
+          <Route path="restaurants/" element={<Restaurants />} />
         </Route>
       </Routes>
     </Suspense>

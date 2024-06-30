@@ -1,9 +1,10 @@
-import { createStore, compose, applyMiddleware, Middleware } from "redux";
-import { rootReducer } from "./root-reducer";
+import { Middleware } from "redux-saga";
 import logger from 'redux-logger';
 import createSagaMiddleware from 'redux-saga'
 
 import { rootSaga } from "./root-saga";
+import { applyMiddleware, compose, createStore } from "@reduxjs/toolkit";
+import { rootReducer } from "./root-reducer";
 
 export type RootState = ReturnType<typeof rootReducer>;
 
@@ -28,6 +29,6 @@ const composeEnhancer =
 
 const composedEnhancers = composeEnhancer(applyMiddleware(...middlewares));
 
-export const store = createStore(rootReducer, undefined, composedEnhancers);
+export const store = createStore(rootReducer, composedEnhancers);
 
 sagaMiddleware.run(rootSaga);

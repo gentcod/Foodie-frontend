@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import  {ReactComponent as RestaurantLogo } from '../../assets/restaurant.svg';
+
 
 export const RestaurantImageContainer = styled.div`
    height: 15rem;
@@ -17,9 +19,16 @@ export const RestaurantImage = styled.img`
    transition: .8s all ease;
 `;
 
+export const RestaurantImageLogo = styled(RestaurantLogo)`
+   height: 100%;
+   width: 100%;
+   object-fit: cover;
+   transition: .8s all ease;
+`;
+
 export const RestaurantContainer = styled.div`
    height: 18rem;
-   width: 60%;
+   width: 40%;
    padding: 2rem;
    text-align: left;
    background-color: rgba(230, 190, 138, .5);
