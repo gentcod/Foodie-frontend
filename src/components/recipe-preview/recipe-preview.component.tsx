@@ -1,19 +1,18 @@
 import { useEffect } from "react";
 import { fetchRecipesStart } from "../../store/recipe/recipe.action";
 import {
-  selectPaginatedRecipes,
+  selectMetadata,
   selectRecipeIsLoading,
-  selectRecipesParams,
+  selectRecipes,
 } from "../../store/recipe/recipe.selector";
 import { useDispatch, useSelector } from "react-redux";
 
 import RecipeCard from "../recipe-card/recipe-card.component";
-import { ReactComponent as ArrowLeft } from '../../assets/arrow-left.svg';
-import { ReactComponent as ArrowRight } from '../../assets/arrow-right.svg';
 
-import { CardContainer, PageIndicator, PageNavigationButton, PageNavigationContainer, PreviewContainer } from "./recipe-preview.style";
+import { CardContainer, PreviewContainer } from "./recipe-preview.style";
 import Loading from "../loading/loading.component";
 import LoadingComp from "../loading-comp/loading-comp.component";
+import PageNavigation from "../page-navigation/page-navigation.component";
 
 const RecipeCardContainer = () => {
 
@@ -22,20 +21,13 @@ const RecipeCardContainer = () => {
     dispatch(fetchRecipesStart());
   }, [dispatch]);
 
-  const paginatedRecipes = useSelector(selectPaginatedRecipes);
+  const recipes = useSelector(selectRecipes);
   const isLoading = useSelector(selectRecipeIsLoading);
-  const searchParams = useSelector(selectRecipesParams);
-
+  const metaData = useSelector(selectMetadata);
 
   const handlerPageChange = (pageNumber: number) => {
     dispatch(fetchRecipesStart(`?pageNumber=${pageNumber}`))
   }
-  
-  let { metaData  } = paginatedRecipes;
-
-  console.log(metaData);
-  console.log(searchParams);
-  
 
   return (
     <PreviewContainer>
@@ -43,7 +35,7 @@ const RecipeCardContainer = () => {
         {isLoading ? (
           <LoadingComp />
         ) : (
-          paginatedRecipes.items.map((el) =>
+          recipes.map((el) =>
             isLoading ? (
               <Loading />
             ) : (
@@ -61,23 +53,7 @@ const RecipeCardContainer = () => {
           )
         )}
       </CardContainer>
-      <PageNavigationContainer>
-        <PageNavigationButton 
-          isFirstPage={metaData.currentPage === 1 ? true 
-          : false} 
-          onClick={() => handlerPageChange(metaData.currentPage - 1)}
-        >
-          <ArrowLeft/>
-        </PageNavigationButton>
-        <PageIndicator>{metaData.currentPage} of {metaData.totalPages}</PageIndicator>
-        <PageNavigationButton 
-          isFirstPage={metaData.currentPage === metaData.totalPages ? true 
-            : false} 
-          onClick={() => handlerPageChange(metaData.currentPage + 1)}
-        >
-          <ArrowRight/>
-        </PageNavigationButton>
-      </PageNavigationContainer>
+      <PageNavigation metaData={metaData} handlerFunc={handlerPageChange}/>
     </PreviewContainer>
   );
 };

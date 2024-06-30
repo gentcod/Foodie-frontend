@@ -8,7 +8,7 @@ export type Recipe = {
    imageSrc: string;
    category: string;
    features: boolean;
-   rating: number;
+   ratingNum: number;
 }
 
 export type RecipeParams = {

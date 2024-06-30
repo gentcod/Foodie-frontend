@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { ButtonClose, ButtonContainer, ModalContainer, RecipeCategory, RecipeContentBlockSpan, RecipeContentHeading, RecipeContentsBlockContainer, RecipeContentsContainer, RecipeCookTime, RecipeDescription, RecipeImage, RecipeImageContainer, RecipeIngredients, RecipeName, RecipeOrigin, RecipeRating } from './recipe-modal.style';
 import { selectRecipeById, selectRecipeByIdIsActive } from '../../store/recipe/recipe.selector';
 import { useEffect, useState } from 'react';
+import { Recipe } from '../../app/models/recipes';
 
 type RecipeModalProps = {
    active: boolean;
@@ -13,8 +14,8 @@ type RecipeModalProps = {
 
 const RecipeModal = ({active}: RecipeModalProps) => {
    
-   const isActive = useSelector(selectRecipeByIdIsActive);
-   const recipe = useSelector(selectRecipeById);
+   const isActive: boolean = useSelector(selectRecipeByIdIsActive);
+   const recipe: Recipe = useSelector(selectRecipeById);
 
    const [modalState, setModalState] = useState(isActive);
 
@@ -26,7 +27,7 @@ const RecipeModal = ({active}: RecipeModalProps) => {
       setModalState(false)
    }
 
-   const rating = `${recipe.rating}/5`
+   const rating = `${recipe.ratingNum}/5`
    
    return (
       <ModalContainer isActive={modalState}>
@@ -47,7 +48,7 @@ const RecipeModal = ({active}: RecipeModalProps) => {
                </RecipeCategory>
                <RecipeRating>
                   <RatingLogo/>
-                  <RecipeContentBlockSpan>{recipe.rating === 0 ? "Unrated": rating}</RecipeContentBlockSpan>
+                  <RecipeContentBlockSpan>{recipe.ratingNum === 0 ? "Unrated": rating}</RecipeContentBlockSpan>
                </RecipeRating>
                <RecipeCookTime>
                   <CookTimeLogo/>

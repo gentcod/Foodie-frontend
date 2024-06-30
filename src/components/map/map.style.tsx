@@ -17,6 +17,24 @@ export const Container = styled.div`
    row-gap: 1rem;
 `;
 
+export const PopupContainer = styled.div`
+   display: flex;
+   flex: 1 1;
+   flex-direction: row;
+   column-gap: 1rem;
+`;
+
+export const RestaurantContent = styled.div`
+   display: flex;
+   flex: 1 1;
+   flex-direction: column;
+   justify-content: center;
+`;
+
+export const RestaurantImage = styled.img`
+   width:40%;
+`;
+
 export const RestaurantName = styled.h6`
    font-weight: 700;
    font-size: 1.4rem;

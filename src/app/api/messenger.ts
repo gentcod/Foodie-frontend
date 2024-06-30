@@ -1,5 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { PaginatedResponse } from "../models/pagination";
+import { LoginDto, SignUpDto } from "../dtos/user";
+import { RatingDto } from "../dtos/rating";
 
 const sleep = () => new Promise(resolve => setTimeout(resolve, 500));
 
@@ -37,48 +39,124 @@ axios.interceptors.response.use(async response => {
 
 const request = {
    get: (url: string, params?: URLSearchParams) => axios.get(url, {params}).then(responseBody),
+   authget: (url: string, accessToken: string, params?: URLSearchParams) => axios.get(url,
+      {
+         params,
+         headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+         },
+      }
+   ).then(responseBody),
    post: (url: string, body: {}) => axios.post(url, body).then(responseBody),
-   put: (url: string, body: {}) => axios.put(url, body).then(responseBody),
-}
+   authpost: (url: string, body: {}, accessToken: string) => axios.post(url, body, 
+      {
+         headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+         },
+      }
+   ).then(responseBody),
+   put: (url: string, body: {}) => axios.put(url, body, ).then(responseBody),
+   authdelete: (url: string, accessToken: string) => axios.delete(url,
+      {
+         headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+         },
+      }
+   ).then(responseBody),
+   delete: (url: string) => axios.delete(url).then(responseBody),
+};
 
 const Recipes = {
    list: (params?: URLSearchParams) => request.get('recipe',params),
-   addRating: (recipeId: URLSearchParams, rating: number, review: string) => 
-      request.put(`recipe/addRating?recipeId=${recipeId}`, {
-         'ratingNum': rating,
-         'comment': review,
-      }
-   ),
-   listRecipeRatings: () => request.get('recipeRatings/'),
+   getRecipeById: (recipeId: number) => request.get(`recipe/${recipeId}`),
    listFeatured: () => request.get('recipe/featured'),
-   getRecipeById: (recipeId: number) => request.get(`recipe/${recipeId}`)
-}
+};
 
 const Restaurant = {
-   list: (params?: URLSearchParams) => request.get('restaurant',params),
-   addRating: (resaturantId: number, rating: number, review: string) => 
-      request.put(`restaurant/addRating?resaturantId=${resaturantId}`, {
-         'ratingNum': rating,
-         'comment': review,
-      }),
-}
+   list: (params?: URLSearchParams) => request.get('restaurant', params),
+   getRestaurantById: (resaturantId: number) => request.get(`restaurant/${resaturantId}`),
+};
+
+const Rating = {
+   getRecipesRatings: () => request.get('recipeRatings/'),
+   getRecipeRating: (recipeId: number) => request.get(`recipeRatings/${recipeId}`),
+   getRestaurantsRatings: () => request.get('restaurantRatings/'),
+   getRestarantRating: (resaturantId: number) => request.get(`restaurantRatings/${resaturantId}`),
+   addRecipeRating: (recipeId: number, ratingBody: RatingDto) => 
+      request.authpost(`recipeRatings/add/${recipeId}`, {
+         ratingNum: ratingBody.rating,
+         comment: ratingBody.comment,
+      },
+      ratingBody.accessToken
+   ),
+   addRestaurantRating: (resaturantId: number, ratingBody: RatingDto) => 
+      request.authpost(`restaurantRatings/add/${resaturantId}`, {
+         ratingNum: ratingBody.rating,
+         comment: ratingBody.comment,
+      },
+      ratingBody.accessToken
+   ),
+   removeRecipeRating: (accessToken: string, recipeId: number) => 
+      request.authdelete(`recipeRatings/remove/${recipeId}`, accessToken),
+   removeRestaurantRating: (accessToken: string, resaturantId: number) => 
+      request.authdelete(`restaurantRatings/remove/${resaturantId}`, accessToken),
+};
 
 const Bookmarks = {
-   list: (params: URLSearchParams) => request.get('bookmarks', params),
-   addBookMark: () => request.post(``, {})
-}
+   list: (accessToken: string) => request.authget('bookmarks', accessToken),
+   addBookMark: (accessToken: string, recipeId: number) => request.authpost(`bookmarks/add/${recipeId}`, {}, accessToken),
+   deleteBookMark: (accessToken: string, recipeId: number) => request.authdelete(`bookmarks/add/${recipeId}`, accessToken)
+};
+
+const CookieBookmarks = {
+   list: () => request.get('bookmarks'),
+   addBookMark: (recipeId: number) => request.post(`bookmarks/add/${recipeId}`, {}),
+   deleteBookMark: (recipeId: number) => request.delete(`bookmarks/add/${recipeId}`)
+};
 
 const Favorites = {
-   list: (params: URLSearchParams) => request.get('favorite', params),
-   addFavoriteRecipe: (userId: string, recipeId: number) => request.post(`favorites/AddRecipe?recipeId=${recipeId}`, {}),
-   addFavoriteRestaurant: (userId: string, resaturantId: number) => request.post(`favorites/AddRestaurant?resaturantId=${resaturantId}`, {})
-}
+   list: (accessToken: string) => request.authget('favorite', accessToken),
+   addFavoriteRecipe: (accessToken: string, recipeId: number) => 
+      request.authpost(`favorites/add/recipe/${recipeId}`, {}, accessToken),
+   removeFavoriteRecipe: (accessToken: string, recipeId: number) => 
+      request.authdelete(`favorites/remove/recipe/${recipeId}`, accessToken),
+   addFavoriteRestaurant: (accessToken: string, resaturantId: number) => 
+      request.authpost(`favorites/add/restaurant/${resaturantId}`, {}, accessToken),
+   removeFavoriteRestaurant: (accessToken: string, resaturantId: number) => 
+      request.authdelete(`favorites/add/restaurant/${resaturantId}`, accessToken)
+};
+
+const User = {
+   login: (loginCred: LoginDto) => request.post('account/login', {
+      email: loginCred.email,
+      password: loginCred.password
+   }),
+   signup: (signUpCred: SignUpDto) => request.post('account/signup', {
+      username: signUpCred.username,
+      firstName: signUpCred.firstName,
+      lastName: signUpCred.lastName,
+      email: signUpCred.email,
+      password: signUpCred.password
+   })
+};
+
+// getAxiosParams is an helper function that helps to convert a URLSearchParams.
+export const getAxiosParams = (queryString: string = document.location.search) => {
+   const params = new URLSearchParams(queryString);
+   return params
+};
 
 const messenger = {
    Recipes,
    Restaurant,
+   Rating,
    Bookmarks,
+   CookieBookmarks,
    Favorites,
+   User
 }
 
 export default messenger;

@@ -1,37 +1,31 @@
 import { createSelector } from "reselect";
-import { RecipeRatingsState, RecipeState, RecipesSearchState, RecipeFeaturedState, RecipeByIdState} from "./recipe.reducer";
+import { RecipeState, RecipesSearchState, RecipeFeaturedState, RecipeByIdState} from "./recipe.reducer";
+import { RootState } from "../store";
 
-const selectRecipesReducer = (state: any): RecipeState => state.recipes;
-const selectRecipesSearchReducer = (state: any): RecipesSearchState => state.recipesSearch;
-const selectRecipesRatingsReducer = (state: any): RecipeRatingsState => state.recipesRatings;
-const selectRecipesFeaturedReducer = (state: any): RecipeFeaturedState => state.recipesFeatured;
-const selectRecipeByIdReducer = (state: any): RecipeByIdState => state.recipeById
+const selectRecipesReducer = (state: RootState): RecipeState => state.recipes;
+const selectRecipesSearchReducer = (state: RootState): RecipesSearchState => state.recipesSearch;
+const selectRecipesFeaturedReducer = (state: RootState): RecipeFeaturedState => state.recipesFeatured;
+const selectRecipeByIdReducer = (state: RootState): RecipeByIdState => state.recipeById;
 
 //Recipes
-export const selectPaginatedRecipes = createSelector(
+export const selectRecipes = createSelector(
    [selectRecipesReducer],
-   (recipesSlice) => recipesSlice.paginatedResponse
+   (recipesSlice) => recipesSlice.recipes
+);
+
+export const selectMetadata = createSelector(
+   [selectRecipesReducer],
+   (recipesSlice) => recipesSlice.metaData
 );
 
 export const selectRecipesParams = createSelector(
    [selectRecipesReducer],
-   (recipesSlice) => recipesSlice.searchString
+   (recipesSlice) => recipesSlice.queryString
 );
 
 export const selectRecipeIsLoading = createSelector(
    [selectRecipesReducer],
    (recipesSlice) => recipesSlice.isLoading
-);
-
-//Ratings
-export const selectRecipesRatings = createSelector(
-   [selectRecipesRatingsReducer],
-   (recipeRatingsSlice) => recipeRatingsSlice.recipeRatings
-);
-   
-export const selectRecipesRatingsIsLoading = createSelector(
-      [selectRecipesRatingsReducer],
-      (recipeRatingsSlice) => recipeRatingsSlice.isLoading
 );
 
 //Search
@@ -81,3 +75,5 @@ export const selectRecipeByIdIsActive = createSelector(
    [selectRecipeByIdReducer],
    (recipeSlice) => recipeSlice.isActive
 );
+
+// TODO: Include functionalities for Error Response

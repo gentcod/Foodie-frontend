@@ -41,4 +41,9 @@ export const navItemsRight: NavItemsRight = [
       title: 'bookmarks',
       icon: 'icons/bookmark.svg'
    },
+   {
+      id: 4,
+      title: 'favorites',
+      icon: 'icons/favorite.svg'
+   },
 ]

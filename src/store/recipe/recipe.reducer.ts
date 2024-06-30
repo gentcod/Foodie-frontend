@@ -1,44 +1,56 @@
-import { AnyAction } from 'redux'
-import { Recipe, } from '../../app/models/recipes'
-import { fetchRecipesStart, fetchRecipesSuccess, fetchRecipesFailed, fetchRecipeRatingsStart, fetchRecipeRatingsSuccess, fetchRecipesSearchStart, fetchRecipesSearchSuccess, fetchRecipesSearchFailed, fetchRecipesFeaturedStart, fetchRecipesFeaturedSuccess, fetchRecipesFeaturedFailed, fetchRecipeByIdStart, fetchRecipeByIdSuccess, fetchRecipeByIdFailed, } from './recipe.action';
-import { Rating } from '../../app/models/ratings';
-import { PaginatedResponse } from '../../app/models/pagination';
+import { AnyAction } from "redux-saga";
+import { Recipe, } from '../../app/models/recipes';
+import { 
+   fetchRecipesStart, 
+   fetchRecipesSuccess, 
+   fetchRecipesFailed, 
+   fetchRecipesSearchStart, 
+   fetchRecipesSearchSuccess, 
+   fetchRecipesSearchFailed, 
+   fetchRecipesFeaturedStart, 
+   fetchRecipesFeaturedSuccess, 
+   fetchRecipesFeaturedFailed, 
+   fetchRecipeByIdStart, 
+   fetchRecipeByIdSuccess, 
+   fetchRecipeByIdFailed, 
+} from './recipe.action';
+import { MetaData } from '../../app/models/pagination';
 
 //Recipes
 export type RecipeState = {
-   readonly searchString: string;
-   readonly paginatedResponse: PaginatedResponse<Recipe[]>;
+   readonly queryString?: string;
+   readonly recipes: Recipe[];
+   readonly metaData: MetaData;
    readonly isLoading: boolean;
    readonly error?: Error | null;
 };
 
 const RECIPES_INITIAL_STATE: RecipeState = {
-   searchString: "",
-   paginatedResponse: {
-      items: [],
-      metaData: {
-         currentPage: 0,
-         pageSize: 0,
-         totalCount: 0,
-         totalPages: 0,
-      }
+   queryString: "",
+   recipes: [],
+   metaData: {
+      currentPage: 0,
+      pageSize: 0,
+      totalCount: 0,
+      totalPages: 0,
    },
    isLoading: false,
    error: null,
 };
 
-export const recipesReducer = (state = RECIPES_INITIAL_STATE, action = {} as AnyAction) => {
+export const recipesReducer = (state = RECIPES_INITIAL_STATE, action = {} as AnyAction): RecipeState => {
    if (fetchRecipesStart.match(action)) {
       return {
          ...state,
-         searchString: action.payload,
+         queryString: action.payload,
          isLoading: true,
       }
    }
    if (fetchRecipesSuccess.match(action))
       return {
          ...state,
-         paginatedResponse: action.payload,
+         recipes: action.payload.items.data,
+         metaData: action.payload.metaData,
          isLoading: false,
       }
    if (fetchRecipesFailed.match(action))
@@ -50,50 +62,13 @@ export const recipesReducer = (state = RECIPES_INITIAL_STATE, action = {} as Any
 
    return state;
 };
-
-
-//Recipe Ratings
-export type RecipeRatingsState = {
-   readonly recipeRatings: Rating[];
-   readonly isLoading: boolean;
-   readonly error?: Error | null;
-};
-
-const RECIPES_RATINGS_INITIAL_STATE: RecipeRatingsState = {
-   recipeRatings: [],
-   isLoading: false,
-   error: null,
-};
-
-export const recipesRatingsReducer = (state = RECIPES_RATINGS_INITIAL_STATE, action = {} as AnyAction) => {
-   if (fetchRecipeRatingsStart.match(action))
-      return {
-         ...state,
-         isLoading: true,
-      }
-   if (fetchRecipeRatingsSuccess.match(action))
-      return {
-         ...state,
-         recipeRatings: action.payload,
-         isLoading: false,
-      }
-   if (fetchRecipesFailed.match(action))
-      return {
-         ...state,
-         error: action.payload,
-         isLoading: false,
-      }
-   return state;
-
-};
-
 
 //Recipe Search
 export type RecipesSearchState = {
    readonly searchString: string;
    readonly recipes: Recipe[];
    readonly isLoading: boolean;
-   readonly error?: Error | null;
+   readonly error: Error | null;
 };
 
 const RECIPES_SEARCH_INITIAL_STATE: RecipesSearchState = {
@@ -103,7 +78,7 @@ const RECIPES_SEARCH_INITIAL_STATE: RecipesSearchState = {
    error: null,
 };
 
-export const recipesSearchReducer = (state = RECIPES_SEARCH_INITIAL_STATE, action = {} as AnyAction) => {
+export const recipesSearchReducer = (state = RECIPES_SEARCH_INITIAL_STATE, action = {} as AnyAction): RecipesSearchState => {
    if (fetchRecipesSearchStart.match(action)) {
       return {
          ...state,
@@ -114,7 +89,7 @@ export const recipesSearchReducer = (state = RECIPES_SEARCH_INITIAL_STATE, actio
    if (fetchRecipesSearchSuccess.match(action))
       return {
          ...state,
-         recipes: action.payload.items,
+         recipes: action.payload.items.data,
          isLoading: false,
       }
    if (fetchRecipesSearchFailed.match(action))
@@ -131,7 +106,7 @@ export const recipesSearchReducer = (state = RECIPES_SEARCH_INITIAL_STATE, actio
 export type RecipeFeaturedState = {
    readonly recipesFeatured: Recipe[];
    readonly isLoading: boolean;
-   readonly error?: Error | null;
+   readonly error: Error | null;
 };
 
 const RECIPE_FEATURED_INITIAL_STATE: RecipeFeaturedState = {
@@ -140,7 +115,7 @@ const RECIPE_FEATURED_INITIAL_STATE: RecipeFeaturedState = {
    error: null,
 };
 
-export const recipesFeaturedReducer = (state = RECIPE_FEATURED_INITIAL_STATE, action = {} as AnyAction) => {
+export const recipesFeaturedReducer = (state = RECIPE_FEATURED_INITIAL_STATE, action = {} as AnyAction): RecipeFeaturedState => {
    if (fetchRecipesFeaturedStart.match(action)) {
       return {
          ...state,
@@ -150,7 +125,7 @@ export const recipesFeaturedReducer = (state = RECIPE_FEATURED_INITIAL_STATE, ac
    if (fetchRecipesFeaturedSuccess.match(action))
       return {
          ...state,
-         recipesFeatured: action.payload,
+         recipesFeatured: action.payload.data,
          isLoading: false,
       }
    if (fetchRecipesFeaturedFailed.match(action))
@@ -165,7 +140,7 @@ export const recipesFeaturedReducer = (state = RECIPE_FEATURED_INITIAL_STATE, ac
 
 //Recipe By Id
 export type RecipeByIdState = {
-   readonly recipeId: number;
+   readonly recipeId?: number;
    readonly recipeById: Recipe;
    readonly isLoading: boolean;
    readonly error?: Error | null;
@@ -173,14 +148,13 @@ export type RecipeByIdState = {
 };
 
 const RECIPE_BYID_INITIAL_STATE: RecipeByIdState = {
-   recipeId: 0,
    recipeById: {} as Recipe,
    isLoading: false,
    error: null,
    isActive: false,
 };
 
-export const recipeByIdReducer = (state = RECIPE_BYID_INITIAL_STATE, action = {} as AnyAction) => {
+export const recipeByIdReducer = (state = RECIPE_BYID_INITIAL_STATE, action = {} as AnyAction): RecipeByIdState => {
    if (fetchRecipeByIdStart.match(action)) {
       return {
          ...state,
@@ -193,7 +167,7 @@ export const recipeByIdReducer = (state = RECIPE_BYID_INITIAL_STATE, action = {}
    if (fetchRecipeByIdSuccess.match(action)) {
       return {
          ...state,
-         recipeById: action.payload,
+         recipeById: action.payload.data,
          isActive: true,
          isLoading: false,
       }
@@ -208,3 +182,5 @@ export const recipeByIdReducer = (state = RECIPE_BYID_INITIAL_STATE, action = {}
    }
    return state;
 };
+
+// TODO: Include functionalities for Error Response

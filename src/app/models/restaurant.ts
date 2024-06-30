@@ -4,7 +4,7 @@ import { Bearing } from "../../app/models/bearing";
 export type Restaurant = {
    id: number,
    name: string,
-   imgSrc: string,
+   imageSrc: string,
    location: string,
    geolocation: Bearing,
    rating: Rating,

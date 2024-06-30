@@ -20,15 +20,12 @@ const FeaturedRecipes = () => {
   const featuredRecipes = useSelector(selectRecipesFeatured);
   const isLoading = useSelector(selectRecipesFeaturedIsLoading);
 
-  let data;
-  data = featuredRecipes;
-
   return (
     <CardContainer>
       {isLoading ? (
         <LoadingComp />
       ) : (
-        data.map((el) =>
+        featuredRecipes.map((el) =>
           isLoading ? (
             <LoadingComp />
           ) : (
