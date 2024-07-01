@@ -14,6 +14,9 @@ const Restaurants = lazy(
 const RecipePreview = lazy(
   () => import("./components/recipe-preview/recipe-preview.component")
 );
+const Auth = lazy(() => import("./routes/auth/auth.component"));
+const Login = lazy(() => import("./components/login-modal/login.component"));
+const SignUp = lazy(() => import("./components/signup-modal/signup.component"));
 
 function App() {
   return (
@@ -26,6 +29,10 @@ function App() {
             <Route path=":recipeCat" element={<RecipePreview />} />
           </Route>
           <Route path="restaurants/" element={<Restaurants />} />
+          <Route path="user/" element={<Auth />}>
+            <Route path="login" element={<Login />} />
+            <Route path="signup" element={<SignUp />} />
+          </Route>
         </Route>
       </Routes>
     </Suspense>

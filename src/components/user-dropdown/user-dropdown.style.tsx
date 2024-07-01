@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export const DropdownContainer = styled.div`
+type DropdownProp = {
+   left: number;
+};
+
+export const DropdownContainer = styled.div<DropdownProp>`
    height: auto;
    width: 25rem;
    background-color: #555;
@@ -9,7 +13,7 @@ export const DropdownContainer = styled.div`
    border-radius: 1rem;
    box-shadow: .6rem .6rem 1rem rgba(0, 0, 0, .3);
    position: absolute;
-   right: 13rem;
+   left: ${({left}) => (left/10) - 20}rem;
    top: 13rem;
    z-index: 10;
 
@@ -42,23 +46,45 @@ export const UserName = styled.h5`
    letter-spacing: 1px;
 `;
 
-export const UserModList = styled.ul`
-   text-align: left;
+export const UserModList = styled.div`
    padding: 1rem;
-   margin-left: 2rem;
+   // margin-left: 2rem;
 
    display: flex;
    flex-direction: column;
+   row-gap: .5rem;
+   justify-content: center;
+   align-items: center;
 `;
 
 export const UserModListItem = styled(Link)`
+   background-color: #424242;
+   width: 90%;
+   padding: .5rem 1rem;
+   padding-left: 1rem;
    text-transform: capitalize;
    font-weight: 500;
    letter-spacing: 1px;
-   padding: 5px 0;
    color: white;
+   border-radius: .5rem;
 
    &:hover {
-      color: #e6be8a;
+      background-color: #e6be8a;
+   }
+`;
+
+export const UserModListItemDiv = styled.div`
+   background-color: #424242;
+   width: 90%;
+   padding: .5rem 1rem;
+   padding-left: 1rem;
+   text-transform: capitalize;
+   font-weight: 500;
+   letter-spacing: 1px;
+   color: white;
+   border-radius: .5rem;
+
+   &:hover {
+      background-color: #e6be8a;
    }
 `;

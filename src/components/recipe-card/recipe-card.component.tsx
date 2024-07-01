@@ -8,13 +8,12 @@ type RecipeProps = {
    recipeId: number;
    name: string;
    imgSrc: string;
-   description: string;
    cookTime: string;
    origin: string;
    isFeatured: boolean;
 };
 
-const RecipeCard = ({recipeId, name, imgSrc, description, cookTime, origin, isFeatured}: RecipeProps) => {
+const RecipeCard = ({recipeId, name, imgSrc, cookTime, origin, isFeatured}: RecipeProps) => {
    const dispatch = useDispatch();
    const handleDisplayModel = (recipeId: number) => {
       dispatch(fetchRecipeByIdStart(recipeId))

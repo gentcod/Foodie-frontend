@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const HomeContainer = styled.div`
    padding: 2rem 5rem;
-   background-image: url(https://res.cloudinary.com/douvgvdla/image/upload/v1715859467/foreign_rbc9pc.jpg);
+   // background-image: url(https://res.cloudinary.com/douvgvdla/image/upload/v1715859467/foreign_rbc9pc.jpg);
    background-attachment: fixed;
    background-position: center;
 `

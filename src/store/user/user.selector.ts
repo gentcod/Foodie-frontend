@@ -18,12 +18,17 @@ export const selectLoggedInUser = createSelector(
 
 export const selectAccessToken = createSelector(
    [selectLoginUserReducer],
-   (loginUserSlice) => loginUserSlice.userData.accessToken
+   (loginUserSlice) => loginUserSlice.userData!.accessToken
 )
 
 export const selectLoginIsLoading = createSelector(
    [selectLoginUserReducer],
    (loginUserSlice) => loginUserSlice.isLoading
+);
+
+export const selectUserIsLoggedIn = createSelector(
+   [selectLoginUserReducer],
+   (loginUserSlice) => loginUserSlice.isLoggedIn
 );
 
 export const selectLoginErrorResponse = createSelector(

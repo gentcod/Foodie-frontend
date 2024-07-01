@@ -1,7 +1,14 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
+type HeaderProp = {
+   custom: boolean
+}
 
-export const Header = styled.h2`
+const noMargin = css`
+   margin-left: 0;
+`
+
+export const Header = styled.h2<HeaderProp>`
    font-weight: 300;
    font-size: 2rem;
    color: white;
@@ -9,4 +16,6 @@ export const Header = styled.h2`
    letter-spacing: .5rem;
    text-align: left;
    margin-left: 10rem;
+
+   ${({custom}) => custom && noMargin};
 `

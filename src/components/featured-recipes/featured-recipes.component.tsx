@@ -35,7 +35,6 @@ const FeaturedRecipes = () => {
               name={el.name}
               origin={el.origin}
               cookTime={el.cookTime}
-              description={el.description}
               imgSrc={el.imageSrc}
               isFeatured={true}
             />

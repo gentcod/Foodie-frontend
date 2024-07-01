@@ -59,3 +59,9 @@ export const UserProfile = styled(NavigationItem)`
 export const NavigationItemIcon = styled.img`
 
 `;
+
+export const UserName = styled.p`
+  color: white;
+  font-weight: 500;
+  text-transform: capitalize;
+`;

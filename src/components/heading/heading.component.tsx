@@ -2,12 +2,13 @@ import { Header } from "./heading.style";
 
 type HeadingProp = { 
    text: string;
+   isCustom?: boolean;
 }
 
-const Heading = ({text}: HeadingProp) => {
+const Heading = ({text, isCustom}: HeadingProp) => {
    return (
       <>
-         <Header>{text}</Header>
+         <Header custom={isCustom!}>{text}</Header>
       </>
    )
 }

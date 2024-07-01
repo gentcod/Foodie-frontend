@@ -8,12 +8,9 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import { store } from "./store/store";
-import * as serviceWorkerRegistration from './serviceWorkerRegistration';
-
-if (!process.env.REACT_APP_CLERK_PUBLISHABLE_KEY) {
-  throw new Error("Missing Publishable Key")
-}
+import { persistor, store } from "./store/store";
+import { PersistGate } from "redux-persist/integration/react";
+import Loading from "./components/loading/loading.component";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -21,15 +18,16 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
       <Provider store={store}>
-        <BrowserRouter>
-          <GlobalStyle/>
-          <App />
-        </BrowserRouter>
+        <PersistGate loading={<Loading/>} persistor={persistor}>
+          <BrowserRouter>
+            <GlobalStyle/>
+            <App />
+          </BrowserRouter>
+        </PersistGate>
       </Provider>
   </React.StrictMode>
 );
 
-serviceWorkerRegistration.register();
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals

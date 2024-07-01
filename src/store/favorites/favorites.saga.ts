@@ -4,16 +4,11 @@ import {
    selectAddFavRecipeId,
    selectRemoveFavRecipeId,
    selectAddFavRestaurantId,
-   selectAddFavRecipeErrResp,
-   selectRemoveFavRecipeErrResp,
-   selectAddFavRestaurantErrResp,
    selectRemoveFavRestaurantId,
-   selectRemoveFavRestaurantErrResp,
    selectAddFavRecipe,
    selectRemoveFavRecipe,
    selectAddFavRestaurant,
    selectRemoveFavRestaurant,
-   selectFavErrorResponse
 } from "./favorites.selector";
 import { selectAccessToken } from "../user/user.selector";
 import { 
@@ -46,8 +41,7 @@ export function* fetchFavoritesAsync() {
       const favorites = yield* call(Favorites.list, accessToken);
       yield* put(fetchFavoritesSuccess(favorites));
    } catch (error) {
-      const errorResponse = yield* select(selectFavErrorResponse);
-      yield* put(fetchFavoritesFailed(errorResponse!));
+      yield* put(fetchFavoritesFailed((error as any).data));
    }
 }
 
@@ -63,8 +57,7 @@ function* addRecipeToFavoritesAsync() {
       const favorites = yield* call(Favorites.addFavoriteRecipe, accessToken, recipeId!);
       yield* put(addRecipeToFavoritesSuccess(favorites));
    } catch (error) {
-      const errorResponse = yield* select(selectAddFavRecipeErrResp);
-      yield* put(addRecipeToFavoritesFailed(errorResponse!));
+      yield* put(addRecipeToFavoritesFailed((error as any).data));
    }
 };
 
@@ -80,8 +73,7 @@ function* removeRecipeFromFavoritesAsync() {
       const favorites = yield* call(Favorites.removeFavoriteRecipe, accessToken, recipeId!);
       yield* put(removeRecipeFromFavoritesSuccess(favorites));
    } catch (error) {
-      const errorResponse = yield* select(selectRemoveFavRecipeErrResp);
-      yield* put(removeRecipeFromFavoritesFailed(errorResponse!));
+      yield* put(removeRecipeFromFavoritesFailed((error as any).data));
    }
 };
 
@@ -97,8 +89,7 @@ function* addRestaurantToFavoritesAsync() {
       const favorites = yield* call(Favorites.addFavoriteRestaurant, accessToken, restaurantId!);
       yield* put(addRestaurantToFavoritesSuccess(favorites));
    } catch (error) {
-      const errorResponse = yield* select(selectAddFavRestaurantErrResp);
-      yield* put(addRestaurantToFavoritesFailed(errorResponse!));
+      yield* put(addRestaurantToFavoritesFailed((error as any).data));
    }
 };
 
@@ -114,8 +105,7 @@ function* removeRestaurantFromFavoritesAsync() {
       const favorites = yield* call(Favorites.removeFavoriteRestaurant, accessToken, restaurantId!);
       yield* put(removeRestaurantFromFavoritesSuccess(favorites));
    } catch (error) {
-      const errorResponse = yield* select(selectRemoveFavRestaurantErrResp);
-      yield* put(removeRestaurantFromFavoritesFailed(errorResponse!));
+      yield* put(removeRestaurantFromFavoritesFailed((error as any).data));
    }
 };
 

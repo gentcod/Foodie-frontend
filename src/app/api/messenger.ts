@@ -70,39 +70,39 @@ const request = {
 };
 
 const Recipes = {
-   list: (params?: URLSearchParams) => request.get('recipe',params),
-   getRecipeById: (recipeId: number) => request.get(`recipe/${recipeId}`),
-   listFeatured: () => request.get('recipe/featured'),
+   list: (params?: URLSearchParams) => request.get('recipes',params),
+   getRecipeById: (recipeId: number) => request.get(`recipes/${recipeId}`),
+   listFeatured: () => request.get('recipes/featured'),
 };
 
 const Restaurant = {
-   list: (params?: URLSearchParams) => request.get('restaurant', params),
-   getRestaurantById: (resaturantId: number) => request.get(`restaurant/${resaturantId}`),
+   list: (params?: URLSearchParams) => request.get('restaurants', params),
+   getRestaurantById: (resaturantId: number) => request.get(`restaurants/${resaturantId}`),
 };
 
 const Rating = {
-   getRecipesRatings: () => request.get('recipeRatings/'),
-   getRecipeRating: (recipeId: number) => request.get(`recipeRatings/${recipeId}`),
-   getRestaurantsRatings: () => request.get('restaurantRatings/'),
-   getRestarantRating: (resaturantId: number) => request.get(`restaurantRatings/${resaturantId}`),
+   getRecipesRatings: () => request.get('recipes/ratings/'),
+   getRecipeRating: (recipeId: number) => request.get(`recipes/ratings/${recipeId}`),
+   getRestaurantsRatings: () => request.get('restaurants/ratings/'),
+   getRestarantRating: (resaturantId: number) => request.get(`restaurants/ratings/${resaturantId}`),
    addRecipeRating: (recipeId: number, ratingBody: RatingDto) => 
-      request.authpost(`recipeRatings/add/${recipeId}`, {
+      request.authpost(`recipes/ratings/add/${recipeId}`, {
          ratingNum: ratingBody.rating,
          comment: ratingBody.comment,
       },
       ratingBody.accessToken
    ),
    addRestaurantRating: (resaturantId: number, ratingBody: RatingDto) => 
-      request.authpost(`restaurantRatings/add/${resaturantId}`, {
+      request.authpost(`restaurants/atings/add/${resaturantId}`, {
          ratingNum: ratingBody.rating,
          comment: ratingBody.comment,
       },
       ratingBody.accessToken
    ),
    removeRecipeRating: (accessToken: string, recipeId: number) => 
-      request.authdelete(`recipeRatings/remove/${recipeId}`, accessToken),
+      request.authdelete(`recipes/ratings/remove/${recipeId}`, accessToken),
    removeRestaurantRating: (accessToken: string, resaturantId: number) => 
-      request.authdelete(`restaurantRatings/remove/${resaturantId}`, accessToken),
+      request.authdelete(`restaurants/ratings/remove/${resaturantId}`, accessToken),
 };
 
 const Bookmarks = {

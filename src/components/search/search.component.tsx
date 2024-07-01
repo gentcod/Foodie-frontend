@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import SearchPreview from '../search-preview/search-preview.component';
 import { SearchBar, SearchBarContainer } from './search.style';
+import { getBoundaries } from '../../utils/helper/dom-locate.helper.utils';
 
-const Search = () => {
-   const [searchString, setSearchString] = useState("")
+const Search = ({elementRef, buttonRef}) => {
+   const [searchString, setSearchString] = useState("");
+   const boundary = getBoundaries(buttonRef);
 
    const searchHandler = (event: React.FormEvent<HTMLInputElement>) => {
       event.preventDefault()
@@ -11,12 +13,10 @@ const Search = () => {
    }
 
    return (
-      <>
-         <SearchBarContainer>
+         <SearchBarContainer ref={elementRef} left={boundary?.left}>
             <SearchBar placeholder='Enter keyword' onChange={searchHandler} name='search'/>
             <SearchPreview searchString={searchString}/>
          </SearchBarContainer>
-      </>
    )
 }
 

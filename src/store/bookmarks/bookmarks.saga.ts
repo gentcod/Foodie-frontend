@@ -1,11 +1,8 @@
 import { all, call, put, select, takeLatest } from "typed-redux-saga/macro";
 import messenger from "../../app/api/messenger";
 import { 
-   selectBookmarksErrorResponse,
    selectAddBookmarkRecipeId,
-   selectAddBookmarksErrorResp,
    selectRemoveBookmarkRecipeId,
-   selectRemoveBookmarksErrResp,
    selectBookmarksAfterAdd,
    selectBookmarksAfterRemove
 } from "./bookmarks.selector";
@@ -30,8 +27,7 @@ function* fetchBookmarksAsync() {
       const bookmarks = yield* call(Bookmarks.list, accessToken);
       yield* put(fetchBookmarksSuccess(bookmarks));
    } catch (error) {
-      const errorResponse = yield* select(selectBookmarksErrorResponse);
-      yield* put(fetchBookmarksFailed(errorResponse!));
+      yield* put(fetchBookmarksFailed((error as any).data));
    }
 };
 
@@ -47,8 +43,7 @@ function* addBookmarksAsync() {
       const bookmarks = yield* call(Bookmarks.addBookMark, accessToken, recipeId);
       yield* put(addBookmarkSuccess(bookmarks));
    } catch (error) {
-      const errorResponse = yield* select(selectAddBookmarksErrorResp);
-      yield* put(addBookmarkFailed(errorResponse!));
+      yield* put(addBookmarkFailed((error as any).data));
    }
 };
 
@@ -64,8 +59,7 @@ function* removeBookmarksAsync() {
       const bookmarks = yield* call(Bookmarks.deleteBookMark, accessToken, recipeId);
       yield* put(removeBookmarkSuccess(bookmarks));
    } catch (error) {
-      const errorResponse = yield* select(selectRemoveBookmarksErrResp);
-      yield* put(removeBookmarkFailed(errorResponse!));
+      yield* put(removeBookmarkFailed((error as any).data));
    }
 };
 

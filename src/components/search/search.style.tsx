@@ -1,10 +1,14 @@
 import styled from "styled-components";
 
-export const SearchBarContainer = styled.div`
+type SearchBarProp = {
+   left: number;
+};
+
+export const SearchBarContainer = styled.div<SearchBarProp>`
    display: in-line block;
    padding: 1rem;
    position: absolute;
-   right: 5rem;
+   left: ${({left}) => (left/10) - 10}rem;
    top: 12rem;
 `
 

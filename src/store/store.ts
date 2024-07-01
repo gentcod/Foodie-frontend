@@ -1,5 +1,7 @@
 import { Middleware } from "redux-saga";
 import logger from 'redux-logger';
+import storage from 'redux-persist/lib/storage';
+import { persistStore, persistReducer, PersistConfig } from 'redux-persist';
 import createSagaMiddleware from 'redux-saga'
 
 import { rootSaga } from "./root-saga";
@@ -14,7 +16,19 @@ declare global {
   }
 }
 
+type ExtendedPersistCoonfig = PersistConfig<RootState> & {
+  whitelist: (keyof RootState)[];
+}
+
+const persistConfig: ExtendedPersistCoonfig = {
+  key: 'root',
+  storage,
+  whitelist: ['loginUser']
+};
+
 const sagaMiddleware = createSagaMiddleware();
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const middlewares = [
   process.env.NODE_ENV !== 'production' && logger, 
@@ -29,6 +43,8 @@ const composeEnhancer =
 
 const composedEnhancers = composeEnhancer(applyMiddleware(...middlewares));
 
-export const store = createStore(rootReducer, composedEnhancers);
+export const store = createStore(persistedReducer, composedEnhancers);
 
 sagaMiddleware.run(rootSaga);
+
+export const persistor = persistStore(store);

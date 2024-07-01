@@ -11,24 +11,23 @@ import {
    fetchSingleRatingSuccess
 } from "./rating.action";
 import { RecipeRatingList, RecipeRating, RestaurantRatingList, RestaurantRating } from "../../app/models/ratings";
-import { PaginatedResponse } from "../../app/models/pagination";
+import { MetaData } from "../../app/models/pagination";
 
 //Recipes Ratings
 export type RecipesRatingsState = {
-   readonly paginatedResponse: PaginatedResponse<RecipeRating[]>;
+   readonly recipeRating: RecipeRating[];
+   readonly metaData: MetaData;
    readonly isLoading: boolean;
    readonly error?: Error | null;
 };
 
 const RECIPES_RATINGS_INITIAL_STATE: RecipesRatingsState = {
-   paginatedResponse: {
-      items: [],
-      metaData: {
-         currentPage: 0,
-         pageSize: 0,
-         totalCount: 0,
-         totalPages: 0,
-      }
+   recipeRating: [],
+   metaData: {
+      currentPage: 0,
+      pageSize: 0,
+      totalCount: 0,
+      totalPages: 0,
    },
    isLoading: false,
    error: null,
@@ -43,10 +42,8 @@ export const recipesRatingsReducer = (state = RECIPES_RATINGS_INITIAL_STATE, act
    if (fetchRecipeRatingsSuccess.match(action))
       return {
          ...state,
-         paginatedResponse: {
-            items: action.payload.items.data,
-            metaData: action.payload.metaData,
-         },
+         recipeRating: action.payload.items.data,
+         metaData: action.payload.metaData,
          isLoading: false,
       }
    if (fetchRecipesFailed.match(action))
@@ -60,20 +57,19 @@ export const recipesRatingsReducer = (state = RECIPES_RATINGS_INITIAL_STATE, act
 
 //Restaurants Ratings
 export type RestaurantsRatingsState = {
-   readonly paginatedResponse: PaginatedResponse<RestaurantRating[]>;
+   readonly restaurantRating: RestaurantRating[];
+   readonly metaData: MetaData;
    readonly isLoading: boolean;
    readonly error?: Error | null;
 };
 
 const RESTAURANTS_RATINGS_INITIAL_STATE: RestaurantsRatingsState = {
-   paginatedResponse: {
-      items: [],
-      metaData: {
-         currentPage: 0,
-         pageSize: 0,
-         totalCount: 0,
-         totalPages: 0,
-      }
+   restaurantRating: [],
+   metaData: {
+      currentPage: 0,
+      pageSize: 0,
+      totalCount: 0,
+      totalPages: 0,
    },
    isLoading: false,
    error: null,
@@ -88,10 +84,8 @@ export const restaurantsRatingsReducer = (state = RESTAURANTS_RATINGS_INITIAL_ST
    if (fetchRestaurantRatingsSuccess.match(action))
       return {
          ...state,
-         paginatedResponse: {
-            items: action.payload.items.data,
-            metaData: action.payload.metaData,
-         },
+         restaurantRating: action.payload.items.data,
+         metaData: action.payload.metaData,
          isLoading: false,
       }
    if (fetchRestaurantRatingsFailed.match(action))
