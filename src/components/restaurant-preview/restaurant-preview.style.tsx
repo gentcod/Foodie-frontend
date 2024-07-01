@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const backgroundImage = 'https://i.ibb.co/GnrtwQ3/jay-wennington-N-Y88-TWm-Gw-A-unsplash.jpg'
+const backgroundImage = 'https://res.cloudinary.com/douvgvdla/image/upload/v1719829549/jnr-jose-I8Rf3tItuHE-unsplash_ozjooh.jpg'
 
 export const CardContainer = styled.div`
    height: 100%;

@@ -8,11 +8,7 @@ import { selectRecipeById, selectRecipeByIdIsActive } from '../../store/recipe/r
 import { useEffect, useState } from 'react';
 import { Recipe } from '../../app/models/recipes';
 
-type RecipeModalProps = {
-   active: boolean;
-}
-
-const RecipeModal = ({active}: RecipeModalProps) => {
+const RecipeModal = () => {
    
    const isActive: boolean = useSelector(selectRecipeByIdIsActive);
    const recipe: Recipe = useSelector(selectRecipeById);

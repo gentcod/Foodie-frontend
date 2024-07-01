@@ -10,7 +10,7 @@ const selectSingleRatingReducer = (state: RootState): SingleRatingState => state
 // Recipes Ratings
 export const selectRecipesRatings = createSelector(
    [selectRecipesRatingsReducer],
-   (recipeRatingsSlice) => recipeRatingsSlice.paginatedResponse
+   (recipeRatingsSlice) => recipeRatingsSlice.recipeRating
 );
    
 export const selectRecipesRatingsIsLoading = createSelector(
@@ -21,7 +21,7 @@ export const selectRecipesRatingsIsLoading = createSelector(
 // Restaurants Ratings
 export const selectRestaurantsRating = createSelector(
    [selectRestaurantsRatingReducer],
-   (restaurantsRatingSlice) => restaurantsRatingSlice.paginatedResponse
+   (restaurantsRatingSlice) => restaurantsRatingSlice.restaurantRating
 );
    
 export const selectRestaurantsRatingsIsLoading = createSelector(

@@ -34,7 +34,7 @@ const Recipes = () => {
       </Container>
       <FeaturedHeading text="Featured Recipes"/>
       <FeaturedRecipes/>
-      <RecipeModal active={false}/>
+      <RecipeModal/>
       <Heading text="Other Recipes"/>
       <Outlet />
     </>

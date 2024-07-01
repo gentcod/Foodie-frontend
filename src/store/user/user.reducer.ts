@@ -2,20 +2,21 @@ import { AnyAction } from "redux-saga";
 import { LoginDto, SignUpDto } from "../../app/dtos/user"
 import { ErrorResponseBody, ResponseBody } from "../../app/models/response";
 import { User } from "../../app/models/user";
-import { loginUserFailed, loginUserStart, loginUserSuccess, signUpUserFailed, signUpUserStart, signUpUserSuccess } from "./user.action";
+import { loginUserFailed, loginUserStart, loginUserSuccess, logoutUserFailed, logoutUserSuccess, signUpUserFailed, signUpUserStart, signUpUserSuccess } from "./user.action";
 
 export type LoginuserState = {
    readonly loginCred?: LoginDto;
    readonly userData: User;
    readonly isLoading: boolean;
-   readonly errorResponse: ErrorResponseBody | null;
+   readonly errorResponse: ErrorResponseBody | Error | null;
+   readonly isLoggedIn: boolean;
 };
 
 const LOGIN_USER_INITIAL_STATE: LoginuserState = {
-   loginCred: undefined,
    userData: {} as User,
    isLoading: false,
-   errorResponse: null
+   errorResponse: null,
+   isLoggedIn: false,
 };
 
 export const loginUserReducer = (state = LOGIN_USER_INITIAL_STATE, action = {} as AnyAction): LoginuserState => {
@@ -30,29 +31,37 @@ export const loginUserReducer = (state = LOGIN_USER_INITIAL_STATE, action = {} a
       return {
          ...state,
          userData: action.payload.data,
+         isLoggedIn: true,
          loginCred: undefined,
          isLoading: false,
       }
 
-   if (loginUserFailed.match(action))
+   if (logoutUserSuccess.match(action))
+      return {
+         ...state,
+         userData: {} as User,
+         isLoggedIn: false,
+      }
+   if (loginUserFailed.match(action) || logoutUserFailed.match(action))
+      {console.log(action.payload);
       return {
          ...state,
          errorResponse: action.payload,
-         isLoading: false,
-      }
+         isLoggedIn: false,
+      }}
    return state
 };
 
 export type SignupUserState = {
    readonly signupCred?: SignUpDto;
-   readonly signupResponse: ResponseBody<null>;
+   readonly signupResponse: ResponseBody<null> | null;
    readonly isLoading: boolean;
    readonly errorResponse: ErrorResponseBody | null;
 };
 
 const SIGNUP_USER_INITIAL_STATE: SignupUserState = {
    signupCred: undefined,
-   signupResponse: {} as ResponseBody<null>,
+   signupResponse: null,
    isLoading: false,
    errorResponse: null
 };

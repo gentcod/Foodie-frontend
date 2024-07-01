@@ -1,6 +1,7 @@
 type NavItemsLeft = {
    id: number;
    title: string;
+   icon?: string;
 }[]
 
 type NavItemsRight = {
@@ -12,7 +13,6 @@ type NavItemsRight = {
 export const navItemsLeft: NavItemsLeft = [
    {
       id: 0,
-      
       title: 'recipes'
    },
    {
@@ -20,29 +20,25 @@ export const navItemsLeft: NavItemsLeft = [
       title: 'restaurants'
    },
    {
-      id: 3,
-      title: 'easy makes'
+      id: 2,
+      title: 'search',
+      icon: 'icons/search.svg'
    },
 ]
 
 export const navItemsRight: NavItemsRight = [
    {
-      id: 0,
-      title: 'search',
-      icon: 'icons/search.svg'
-   },
-   {
-      id: 1,
+      id: 3,
       title: 'user',
       icon: 'icons/chef.svg'
    },
    {
-      id: 3,
+      id: 4,
       title: 'bookmarks',
       icon: 'icons/bookmark.svg'
    },
    {
-      id: 4,
+      id: 5,
       title: 'favorites',
       icon: 'icons/favorite.svg'
    },

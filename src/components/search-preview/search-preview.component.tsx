@@ -6,7 +6,7 @@ import {
   RecipeDetailsContainer,
   RecipeImage,
   RecipesContainer,
-  RecipeLogo
+  RecipeLogo,
 } from "./search-preview.style";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -52,17 +52,21 @@ const SearchPreview = ({ searchString }: SearchProps) => {
     <Container>
       <RecipesContainer>
         (
-        {searchRecipes.map((rec) =>
-          searchLoading ? (
-            <LoadingComp />
-          ) : (
+        {searchLoading ? (
+          <LoadingComp />
+        ) : (
+          searchRecipes.map((rec) => (
             <Recipe to={`/recipe${searchParams}`} key={rec.id}>
-              {rec.imageSrc ? <RecipeImage src={rec.imageSrc}/> : <RecipeLogo/>}
+              {rec.imageSrc ? (
+                <RecipeImage src={rec.imageSrc} />
+              ) : (
+                <RecipeLogo />
+              )}
               <RecipeDetailsContainer>
                 <RecipeDetail>{rec.name}</RecipeDetail>
               </RecipeDetailsContainer>
             </Recipe>
-          )
+          ))
         )}
       </RecipesContainer>
       )
