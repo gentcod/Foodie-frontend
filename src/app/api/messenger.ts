@@ -112,13 +112,13 @@ const Bookmarks = {
 };
 
 const CookieBookmarks = {
-   list: () => request.get('bookmarks'),
-   addBookMark: (recipeId: number) => request.post(`bookmarks/add/${recipeId}`, {}),
-   deleteBookMark: (recipeId: number) => request.delete(`bookmarks/add/${recipeId}`)
+   list: () => request.get('cookiebookmarks'),
+   addBookMark: (recipeId: number) => request.post(`cookiebookmarks/add/${recipeId}`, {}),
+   deleteBookMark: (recipeId: number) => request.delete(`cookiebookmarks/add/${recipeId}`)
 };
 
 const Favorites = {
-   list: (accessToken: string) => request.authget('favorite', accessToken),
+   list: (accessToken: string) => request.authget('favorites', accessToken),
    addFavoriteRecipe: (accessToken: string, recipeId: number) => 
       request.authpost(`favorites/add/recipe/${recipeId}`, {}, accessToken),
    removeFavoriteRecipe: (accessToken: string, recipeId: number) => 

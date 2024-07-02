@@ -1,12 +1,6 @@
 import {
   Button,
   Container,
-  Recipe,
-  RecipeDetail,
-  RecipeDetailsContainer,
-  RecipeImage,
-  RecipesContainer,
-  RecipeLogo,
 } from "./search-preview.style";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -14,12 +8,12 @@ import {
   selectRecipesSearch,
   selectSearchParams,
 } from "../../store/recipe/recipe.selector";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import {
   fetchRecipesSearchStart,
   fetchRecipesStart,
 } from "../../store/recipe/recipe.action";
-import LoadingComp from "../loading-comp/loading-comp.component";
+import EntityBlocks from "../recipe-blocks/entity-blocks.component";
 
 type SearchProps = {
   searchString: string;
@@ -34,15 +28,27 @@ const SearchPreview = ({ searchString }: SearchProps) => {
     clearTimeout(timeoutId);
   }
 
-  useEffect(() => {
-    timeoutId = setTimeout(() => {
-      dispatch(fetchRecipesSearchStart(searchString));
-    }, 1000);
-  }, [dispatch, searchString]);
-
   const searchRecipes = useSelector(selectRecipesSearch);
   const searchLoading = useSelector(selectRecipeSearchIsLoading);
   const searchParams = useSelector(selectSearchParams);
+
+  const entityList = useMemo(() =>
+    searchRecipes.map((data) => {
+      return {
+        id: data.id,
+        imageSrc: data.imageSrc,
+        name: data.name,
+      };
+    }
+  ), [searchRecipes]);
+
+  useEffect(() => {
+    timeoutId = setTimeout(() => {
+      if (searchString.length > 0) {
+        dispatch(fetchRecipesSearchStart(searchString));
+      }
+    }, 1000);
+  }, [dispatch, searchString]);
 
   const handleSearch = () => {
     dispatch(fetchRecipesStart(searchString));
@@ -50,26 +56,7 @@ const SearchPreview = ({ searchString }: SearchProps) => {
 
   return (
     <Container>
-      <RecipesContainer>
-        (
-        {searchLoading ? (
-          <LoadingComp />
-        ) : (
-          searchRecipes.map((rec) => (
-            <Recipe to={`/recipe${searchParams}`} key={rec.id}>
-              {rec.imageSrc ? (
-                <RecipeImage src={rec.imageSrc} />
-              ) : (
-                <RecipeLogo />
-              )}
-              <RecipeDetailsContainer>
-                <RecipeDetail>{rec.name}</RecipeDetail>
-              </RecipeDetailsContainer>
-            </Recipe>
-          ))
-        )}
-      </RecipesContainer>
-      )
+      <EntityBlocks searchLoading={searchLoading} entity="recipe" searchString={searchParams} entityList={entityList}/>
       <Button to={`/recipe${searchParams}`} onClick={() => handleSearch()}>
         View All
       </Button>

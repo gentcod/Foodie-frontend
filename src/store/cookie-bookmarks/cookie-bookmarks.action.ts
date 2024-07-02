@@ -8,49 +8,49 @@ import {
 } from "./cookie-bookmarks.types";
 
 
-type FetchBookmarksStart = Action<COOKIE_BOOKMARKS_ACTION_TYPES.FETCH_BOOKMARKS_START>;
-type FetchBookmarksSuccess = ActionWithPayload<COOKIE_BOOKMARKS_ACTION_TYPES.FETCH_BOOKMARKS_SUCCESS, ResponseBody<Bookmarks>>;
-type FetchBookmarksFailed = ActionWithPayload<COOKIE_BOOKMARKS_ACTION_TYPES.FETCH_BOOKMARKS_FAILED, ErrorResponseBody>;
+type FetchCookieBookmarksStart = Action<COOKIE_BOOKMARKS_ACTION_TYPES.FETCH_BOOKMARKS_START>;
+type FetchCookieBookmarksSuccess = ActionWithPayload<COOKIE_BOOKMARKS_ACTION_TYPES.FETCH_BOOKMARKS_SUCCESS, ResponseBody<Bookmarks>>;
+type FetchCookieBookmarksFailed = ActionWithPayload<COOKIE_BOOKMARKS_ACTION_TYPES.FETCH_BOOKMARKS_FAILED, ErrorResponseBody | null>;
 
-type RefreshBookmarksStart = Action<COOKIE_BOOKMARKS_ACTION_TYPES.REFRESH_BOOKMARKS_START>;
-type RefreshBookmarksSuccess = ActionWithPayload<COOKIE_BOOKMARKS_ACTION_TYPES.REFRESH_BOOKMARKS_SUCCESS, Bookmarks>;
-type RefreshBookmarksFailed = ActionWithPayload<COOKIE_BOOKMARKS_ACTION_TYPES.REFRESH_BOOKMARKS_FAILED, Error>;
+type RefreshCookieBookmarksStart = Action<COOKIE_BOOKMARKS_ACTION_TYPES.REFRESH_BOOKMARKS_START>;
+type RefreshCookieBookmarksSuccess = ActionWithPayload<COOKIE_BOOKMARKS_ACTION_TYPES.REFRESH_BOOKMARKS_SUCCESS, Bookmarks>;
+type RefreshCookieBookmarksFailed = ActionWithPayload<COOKIE_BOOKMARKS_ACTION_TYPES.REFRESH_BOOKMARKS_FAILED, Error>;
 
-type AddBookmarkStart = ActionWithPayload<ADD_COOKIE_BOOKMARK_ACTION_TYPES.ADD_BOOKMARK_START, number>;
-type AddBookmarkSuccess = ActionWithPayload<ADD_COOKIE_BOOKMARK_ACTION_TYPES.ADD_BOOKMARK_SUCCESS, ResponseBody<Bookmarks>>;
-type AddBookmarkFailed = ActionWithPayload<ADD_COOKIE_BOOKMARK_ACTION_TYPES.ADD_BOOKMARK_FAILED, ErrorResponseBody>;
+type AddCookieBookmarkStart = ActionWithPayload<ADD_COOKIE_BOOKMARK_ACTION_TYPES.ADD_BOOKMARK_START, number>;
+type AddCookieBookmarkSuccess = ActionWithPayload<ADD_COOKIE_BOOKMARK_ACTION_TYPES.ADD_BOOKMARK_SUCCESS, ResponseBody<Bookmarks>>;
+type AddCookieBookmarkFailed = ActionWithPayload<ADD_COOKIE_BOOKMARK_ACTION_TYPES.ADD_BOOKMARK_FAILED, ErrorResponseBody | null>;
 
-type RemoveBookmarkStart = ActionWithPayload<REMOVE_COOKIE_BOOKMARKS_ACTION_TYPES.REMOVE_BOOKMARK_START, number>;
-type RemoveBookmarkSuccess = ActionWithPayload<REMOVE_COOKIE_BOOKMARKS_ACTION_TYPES.REMOVE_BOOKMARK_SUCCESS, ResponseBody<Bookmarks>>;
-type RemoveBookmarkFailed = ActionWithPayload<REMOVE_COOKIE_BOOKMARKS_ACTION_TYPES.REMOVE_BOOKMARK_FAILED, ErrorResponseBody>;
+type RemoveCookieBookmarksStart = ActionWithPayload<REMOVE_COOKIE_BOOKMARKS_ACTION_TYPES.REMOVE_BOOKMARK_START, number>;
+type RemoveCookieBookmarksSuccess = ActionWithPayload<REMOVE_COOKIE_BOOKMARKS_ACTION_TYPES.REMOVE_BOOKMARK_SUCCESS, ResponseBody<Bookmarks>>;
+type RemoveCookieBookmarksFailed = ActionWithPayload<REMOVE_COOKIE_BOOKMARKS_ACTION_TYPES.REMOVE_BOOKMARK_FAILED, ErrorResponseBody | null>;
 
 // Fetch Cookie Actions
-export const fetchBookmarksStart = withMatcher((): FetchBookmarksStart =>
+export const fetchCookieBookmarksStart = withMatcher((): FetchCookieBookmarksStart =>
    createAction(COOKIE_BOOKMARKS_ACTION_TYPES.FETCH_BOOKMARKS_START));
-export const fetchBookmarksSuccess = withMatcher((bookmarks: ResponseBody<Bookmarks>): FetchBookmarksSuccess =>
+export const fetchCookieBookmarksSuccess = withMatcher((bookmarks: ResponseBody<Bookmarks>): FetchCookieBookmarksSuccess =>
    createAction(COOKIE_BOOKMARKS_ACTION_TYPES.FETCH_BOOKMARKS_SUCCESS, bookmarks));
-export const fetchBookmarksFailed = withMatcher((errorResponse: ErrorResponseBody): FetchBookmarksFailed =>
+export const fetchCookieBookmarksFailed = withMatcher((errorResponse: ErrorResponseBody | null): FetchCookieBookmarksFailed =>
    createAction(COOKIE_BOOKMARKS_ACTION_TYPES.FETCH_BOOKMARKS_FAILED, errorResponse));
 
 // Update Cookie Actions
-export const addBookmarkStart = withMatcher((recipeId: number): AddBookmarkStart =>
+export const addCookieBookmarkStart = withMatcher((recipeId: number): AddCookieBookmarkStart =>
    createAction(ADD_COOKIE_BOOKMARK_ACTION_TYPES.ADD_BOOKMARK_START, recipeId));
-export const addBookmarkSuccess = withMatcher((bookmarks: ResponseBody<Bookmarks>): AddBookmarkSuccess =>
+export const addCookieBookmarkSuccess = withMatcher((bookmarks: ResponseBody<Bookmarks>): AddCookieBookmarkSuccess =>
    createAction(ADD_COOKIE_BOOKMARK_ACTION_TYPES.ADD_BOOKMARK_SUCCESS, bookmarks));
-export const addBookmarkFailed = withMatcher((errorResponse: ErrorResponseBody): AddBookmarkFailed =>
+export const addCookieBookmarkFailed = withMatcher((errorResponse: ErrorResponseBody | null): AddCookieBookmarkFailed =>
    createAction(ADD_COOKIE_BOOKMARK_ACTION_TYPES.ADD_BOOKMARK_FAILED, errorResponse));
 
-export const removeBookmarkStart = withMatcher((recipeId: number): RemoveBookmarkStart =>
+export const removeCookieBookmarksStart = withMatcher((recipeId: number): RemoveCookieBookmarksStart =>
    createAction(REMOVE_COOKIE_BOOKMARKS_ACTION_TYPES.REMOVE_BOOKMARK_START, recipeId));
-export const removeBookmarkSuccess = withMatcher((bookmarks: ResponseBody<Bookmarks>): RemoveBookmarkSuccess =>
+export const removeCookieBookmarksSuccess = withMatcher((bookmarks: ResponseBody<Bookmarks>): RemoveCookieBookmarksSuccess =>
    createAction(REMOVE_COOKIE_BOOKMARKS_ACTION_TYPES.REMOVE_BOOKMARK_SUCCESS, bookmarks));
-export const removeBookmarkFailed = withMatcher((errorResponse: ErrorResponseBody): RemoveBookmarkFailed =>
+export const removeCookieBookmarksFailed = withMatcher((errorResponse: ErrorResponseBody | null): RemoveCookieBookmarksFailed =>
    createAction(REMOVE_COOKIE_BOOKMARKS_ACTION_TYPES.REMOVE_BOOKMARK_FAILED, errorResponse));
 
 // Refresh Cookie Actions
-export const refreshBookmarksStart = withMatcher((): RefreshBookmarksStart =>
+export const refreshCookieBookmarksStart = withMatcher((): RefreshCookieBookmarksStart =>
    createAction(COOKIE_BOOKMARKS_ACTION_TYPES.REFRESH_BOOKMARKS_START));
-export const refreshBookmarksSucess = withMatcher((bookmarks: Bookmarks): RefreshBookmarksSuccess =>
+export const refreshCookieBookmarksSucess = withMatcher((bookmarks: Bookmarks): RefreshCookieBookmarksSuccess =>
    createAction(COOKIE_BOOKMARKS_ACTION_TYPES.REFRESH_BOOKMARKS_SUCCESS, bookmarks));
-export const refreshBookmarksFailed = withMatcher((error: Error): RefreshBookmarksFailed =>
+export const refreshCookieBookmarksFailed = withMatcher((error: Error): RefreshCookieBookmarksFailed =>
    createAction(COOKIE_BOOKMARKS_ACTION_TYPES.REFRESH_BOOKMARKS_FAILED, error));

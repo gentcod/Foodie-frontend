@@ -47,14 +47,20 @@ export const NavigationItem = styled(Link)`
 `;
 
 export const SearchItem = styled(NavigationItem)`
-  color: white;
-  text-transform: uppercase;
-  font-weight: 1000;
+  
 `;
 
 export const UserProfile = styled(NavigationItem)`
 
-`
+`;
+
+export const Bookmarks = styled(NavigationItem)`
+
+`;
+
+export const Favorites = styled(NavigationItem)`
+
+`;
 
 export const NavigationItemIcon = styled.img`
 

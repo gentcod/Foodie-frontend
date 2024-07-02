@@ -82,7 +82,7 @@ export const recipesSearchReducer = (state = RECIPES_SEARCH_INITIAL_STATE, actio
    if (fetchRecipesSearchStart.match(action)) {
       return {
          ...state,
-         searchString: action.payload,
+         searchString: `${action.payload}&pageNumber=1&pageSize=10`,
          isLoading: true,
       }
    }

@@ -6,6 +6,7 @@ type SearchBarProp = {
 
 export const SearchBarContainer = styled.div<SearchBarProp>`
    display: in-line block;
+   box-shadow: 0 .5rem 1rem rgba(2, 2, 2, .2);
    padding: 1rem;
    position: absolute;
    left: ${({left}) => (left/10) - 10}rem;
@@ -20,11 +21,14 @@ export const SearchBar = styled.input`
    border-radius: 1.2rem;
    padding: 1.5rem;
    background-color: #eee;
-   color: #555;
+   color: #999;
    margin-bottom: 1rem;
+   transition: .8s all ease;
 
    &:focus {
-      border-bottom: 3px solid #ed6b2e;
+      border-bottom: 2px solid #ed6b2e;
+      color: #333;
+      font-weight: 500;
 
       ::placeholder {
          color: #333;

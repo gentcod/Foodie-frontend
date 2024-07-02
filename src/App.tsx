@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
 
 import Loading from "./components/loading/loading.component";
+import Notifier from "./components/notifier/notifier.component";
 
 const Navigation = lazy(
   () => import("./routes/navigation/navigation.component")
@@ -35,6 +36,7 @@ function App() {
           </Route>
         </Route>
       </Routes>
+      <Notifier/>
     </Suspense>
   );
 }

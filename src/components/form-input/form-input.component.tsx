@@ -3,15 +3,17 @@ import {FormInputContainer, FormInputContent, FormInputLabel} from './form-input
 
 type FormInputProps = { 
    label: string;
+   isRequired?: boolean;
    changeFunc: (e: React.ChangeEvent<HTMLInputElement>) => void
 } & InputHTMLAttributes<HTMLInputElement>;
 
-const FormInput: FC<FormInputProps> = ({label, value, type, name, id, changeFunc}) => {
+const FormInput: FC<FormInputProps> = ({label, value, type, name, id, isRequired, changeFunc}) => {
    return (
       <FormInputContainer>
-         <FormInputContent 
+         <FormInputContent
             id={id} 
-            type={type} required 
+            type={type} 
+            required={isRequired}
             name={name} 
             value={value}
             onChange={changeFunc}

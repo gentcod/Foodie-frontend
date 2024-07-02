@@ -2,18 +2,18 @@ import { AnyAction } from "redux";
 import { Bookmarks } from "../../app/models/bookmark";
 import { ErrorResponseBody } from "../../app/models/response";
 import {
-   addBookmarkFailed,
-   addBookmarkStart,
-   addBookmarkSuccess,
-   fetchBookmarksFailed,
-   fetchBookmarksStart, 
-   fetchBookmarksSuccess, 
-   refreshBookmarksFailed, 
-   refreshBookmarksStart, 
-   refreshBookmarksSucess, 
-   removeBookmarkFailed, 
-   removeBookmarkStart, 
-   removeBookmarkSuccess
+   addCookieBookmarkFailed,
+   addCookieBookmarkStart,
+   addCookieBookmarkSuccess,
+   fetchCookieBookmarksFailed,
+   fetchCookieBookmarksStart, 
+   fetchCookieBookmarksSuccess, 
+   refreshCookieBookmarksFailed, 
+   refreshCookieBookmarksStart, 
+   refreshCookieBookmarksSucess, 
+   removeCookieBookmarksFailed, 
+   removeCookieBookmarksStart, 
+   removeCookieBookmarksSuccess
 } from "./cookie-bookmarks.action";
 
 export type CookieBookmarksState = {
@@ -31,40 +31,40 @@ const BOOKMARKS_INTITIAL_STATE: CookieBookmarksState = {
 }
 
 export const cookieBookmarksReducer = (state = BOOKMARKS_INTITIAL_STATE, action = {} as AnyAction): CookieBookmarksState => {
-   if (fetchBookmarksStart.match(action))
+   if (fetchCookieBookmarksStart.match(action))
       return {
          ...state,
          isLoading: true,
       }
 
-   if (fetchBookmarksSuccess.match(action))
+   if (fetchCookieBookmarksSuccess.match(action))
       return {
          ...state,
          bookmarks: action.payload.data,
          isLoading: false,
       }
 
-   if (fetchBookmarksFailed.match(action))
+   if (fetchCookieBookmarksFailed.match(action))
       return {
          ...state,
          errorResponse: action.payload,
          isLoading: false,
       }
 
-   if (refreshBookmarksStart.match(action))
+   if (refreshCookieBookmarksStart.match(action))
       return {
          ...state,
          isLoading: true,
       }
 
-   if (refreshBookmarksSucess.match(action))
+   if (refreshCookieBookmarksSucess.match(action))
       return {
          ...state,
          bookmarks: action.payload,
          isLoading: false,
       }
 
-   if (refreshBookmarksFailed.match(action))
+   if (refreshCookieBookmarksFailed.match(action))
       return {
          ...state,
          error: action.payload,
@@ -91,14 +91,14 @@ const UPDATED_BOOKMARKS_INTITIAL_STATE: UpdatedCookieBookmarkSate = {
 
 //Add Bookmark
 export const addcookiebookmarkReducer = (state = UPDATED_BOOKMARKS_INTITIAL_STATE, action = {} as AnyAction): UpdatedCookieBookmarkSate => {
-   if (addBookmarkStart.match(action))
+   if (addCookieBookmarkStart.match(action))
       return {
          ...state,
          recipeId: action.payload,
          isLoading: true,
       }
 
-   if (addBookmarkSuccess.match(action))
+   if (addCookieBookmarkSuccess.match(action))
       return {
          ...state,
          responseMessage: action.payload.message,
@@ -106,7 +106,7 @@ export const addcookiebookmarkReducer = (state = UPDATED_BOOKMARKS_INTITIAL_STAT
          isLoading: false,
       }
 
-   if (addBookmarkFailed.match(action))
+   if (addCookieBookmarkFailed.match(action))
       return {
          ...state,
          errorResponse: action.payload,
@@ -117,14 +117,14 @@ export const addcookiebookmarkReducer = (state = UPDATED_BOOKMARKS_INTITIAL_STAT
 
 //Remove Bookmark
 export const removeCookiebookmarkReducer = (state = UPDATED_BOOKMARKS_INTITIAL_STATE, action = {} as AnyAction): UpdatedCookieBookmarkSate => {
-   if (removeBookmarkStart.match(action))
+   if (removeCookieBookmarksStart.match(action))
       return {
          ...state,
          recipeId: action.payload,
          isLoading: true,
       }
 
-   if (removeBookmarkSuccess.match(action))
+   if (removeCookieBookmarksSuccess.match(action))
       return {
          ...state,
          responseMessage: action.payload.message,
@@ -132,7 +132,7 @@ export const removeCookiebookmarkReducer = (state = UPDATED_BOOKMARKS_INTITIAL_S
          isLoading: false,
       }
 
-   if (removeBookmarkFailed.match(action))
+   if (removeCookieBookmarksFailed.match(action))
       return {
          ...state,
          errorResponse: action.payload,

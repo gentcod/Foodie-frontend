@@ -8,6 +8,12 @@ export const inputFields: InputFieldProps[] = [
       name: 'username'
    },
    {
+      id: 'sign-up-email',
+      label: 'Email',
+      type: 'email',
+      name: 'email'
+   },
+   {
       id: 'sign-up-firstname',
       label: 'First Name',
       type: 'text',
@@ -20,10 +26,10 @@ export const inputFields: InputFieldProps[] = [
       name: 'lastName'
    },
    {
-      id: 'sign-up-email',
-      label: 'Email',
-      type: 'email',
-      name: 'email'
+      id: 'sign-up-middlename',
+      label: 'Middle Name',
+      type: 'text',
+      name: 'middleName'
    },
    {
       id: 'sign-up-password',
@@ -43,6 +49,7 @@ export const defaultFormFields = {
    username: '',
    firstName: '',
    lastName: '',
+   middleName: '',
    email: '',
    password: '',
    confirmPassword: '',
