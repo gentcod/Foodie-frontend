@@ -11,7 +11,7 @@ export const DropdownContainer = styled.div<DropdownProp>`
    background-color: #555;
    padding: 1rem;
    border-radius: 1rem;
-   box-shadow: .6rem .6rem 1rem rgba(0, 0, 0, .3);
+   box-shadow: 0 .5rem 1rem rgba(2, 2, 2, .8);
    position: absolute;
    left: ${({left}) => (left/10) - 20}rem;
    top: 13rem;

@@ -2,7 +2,17 @@ import { useDispatch } from 'react-redux';
 import  {ReactComponent as TimeIcon } from '../../assets/alarm.svg';
 import { fetchRecipeByIdStart } from '../../store/recipe/recipe.action';
 
-import { RecipeContainer, RecipeCookTime, RecipeImage, RecipeImageContainer, RecipeContentContainer, RecipeName, RecipeOrigin, RecipeIconContents, RecipeLogo } from './recipe-card.style';
+import { 
+   RecipeContainer, 
+   RecipeCookTime, 
+   RecipeImage, 
+   RecipeImageContainer, 
+   RecipeContentContainer, 
+   RecipeName, 
+   RecipeOrigin, 
+   RecipeIconContents, 
+   RecipeLogo, 
+} from './recipe-card.style';
 
 type RecipeProps = {
    recipeId: number;
@@ -15,12 +25,13 @@ type RecipeProps = {
 
 const RecipeCard = ({recipeId, name, imgSrc, cookTime, origin, isFeatured}: RecipeProps) => {
    const dispatch = useDispatch();
-   const handleDisplayModel = (recipeId: number) => {
+
+   const handleDisplayModel = () => {
       dispatch(fetchRecipeByIdStart(recipeId))
    }
 
    return (
-      <RecipeContainer featured={isFeatured} onClick={() => handleDisplayModel(recipeId)}>
+      <RecipeContainer featured={isFeatured} onClick={handleDisplayModel}>
             <RecipeImageContainer>
                { imgSrc === "" ? <RecipeLogo/> : <RecipeImage src={imgSrc}/>}
             </RecipeImageContainer>
@@ -29,8 +40,8 @@ const RecipeCard = ({recipeId, name, imgSrc, cookTime, origin, isFeatured}: Reci
             <RecipeOrigin>{origin}</RecipeOrigin>
             <RecipeIconContents>
                <RecipeCookTime>{cookTime}</RecipeCookTime>
-            </RecipeIconContents>
                <TimeIcon/>
+            </RecipeIconContents>
          </RecipeContentContainer>
       </RecipeContainer>
    )

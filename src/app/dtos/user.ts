@@ -5,8 +5,9 @@ export class LoginDto {
 
 export class SignUpDto {
    username!: string;
+   email!: string;
    firstName!: string;
    lastName!: string;
-   email!: string;
+   middleName?: string;
    password!: string;
 }

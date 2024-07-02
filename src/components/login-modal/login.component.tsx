@@ -2,11 +2,12 @@ import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUserFailed, loginUserStart } from "../../store/user/user.action";
 import { selectLoginErrorResponse, selectUserIsLoggedIn } from "../../store/user/user.selector";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { LoginContainer } from "./login.style"
 import { notify } from "../../utils/helper/toastify.helper.utils";
 import Form from "../form/form.component";
 import { inputFields } from "../../dev-data/login-form-field.data";
+import { getRedirect } from "../../utils/helper/others.helper.utils";
 
 const defaultFormFields = {
    email: '',
@@ -16,6 +17,7 @@ const defaultFormFields = {
 const Login = () => {
    const dispatch = useDispatch();
    const navigate = useNavigate();
+   const location = useLocation();
 
    const [formData, setFormData] = useState(defaultFormFields);
 
@@ -30,15 +32,16 @@ const Login = () => {
    };
 
    const isLoggedIn = useSelector(selectUserIsLoggedIn);
+   const redirect = getRedirect(location.search);
    useEffect(() => {
       if (isLoggedIn) {
          notify("Logged in successfully", "success");
          setTimeout(() => { 
             resetFormFields();
-            navigate("/");
+            navigate(`/${redirect ? redirect : ""}`);
          }, 3000);
       }
-   }, [isLoggedIn, navigate]);
+   }, [isLoggedIn, redirect, navigate]);
 
    const errResp = useSelector(selectLoginErrorResponse);
    useEffect(() => {

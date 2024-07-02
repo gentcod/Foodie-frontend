@@ -10,7 +10,7 @@ import {
 
 type FetchBookmarksStart = Action<FETCH_BOOKMARKS_ACTION_TYPES.FETCH_BOOKMARKS_START>;
 type FetchBookmarksSuccess = ActionWithPayload<FETCH_BOOKMARKS_ACTION_TYPES.FETCH_BOOKMARKS_SUCCESS, ResponseBody<Bookmarks>>;
-type FetchBookmarksFailed = ActionWithPayload<FETCH_BOOKMARKS_ACTION_TYPES.FETCH_BOOKMARKS_FAILED, ErrorResponseBody>;
+type FetchBookmarksFailed = ActionWithPayload<FETCH_BOOKMARKS_ACTION_TYPES.FETCH_BOOKMARKS_FAILED, ErrorResponseBody | null>;
 
 type RefreshBookmarksStart = Action<FETCH_BOOKMARKS_ACTION_TYPES.REFRESH_BOOKMARKS_START>;
 type RefreshBookmarksSuccess = ActionWithPayload<FETCH_BOOKMARKS_ACTION_TYPES.REFRESH_BOOKMARKS_SUCCESS, Bookmarks>;
@@ -18,31 +18,31 @@ type RefreshBookmarksFailed = ActionWithPayload<FETCH_BOOKMARKS_ACTION_TYPES.REF
 
 type AddBookmarkStart = ActionWithPayload<ADD_BOOKMARK_ACTION_TYPES.ADD_BOOKMARK_START, number>;
 type AddBookmarkSuccess = ActionWithPayload<ADD_BOOKMARK_ACTION_TYPES.ADD_BOOKMARK_SUCCESS, ResponseBody<Bookmarks>>;
-type AddBookmarkFailed = ActionWithPayload<ADD_BOOKMARK_ACTION_TYPES.ADD_BOOKMARK_FAILED, ErrorResponseBody>;
+type AddBookmarkFailed = ActionWithPayload<ADD_BOOKMARK_ACTION_TYPES.ADD_BOOKMARK_FAILED, ErrorResponseBody | null>;
 
 type RemoveBookmarkStart = ActionWithPayload<REMOVE_BOOKMARKS_ACTION_TYPES.REMOVE_BOOKMARK_START, number>;
 type RemoveBookmarkSuccess = ActionWithPayload<REMOVE_BOOKMARKS_ACTION_TYPES.REMOVE_BOOKMARK_SUCCESS, ResponseBody<Bookmarks>>;
-type RemoveBookmarkFailed = ActionWithPayload<REMOVE_BOOKMARKS_ACTION_TYPES.REMOVE_BOOKMARK_FAILED, ErrorResponseBody>;
+type RemoveBookmarkFailed = ActionWithPayload<REMOVE_BOOKMARKS_ACTION_TYPES.REMOVE_BOOKMARK_FAILED, ErrorResponseBody | null>;
 
 export const fetchBookmarksStart = withMatcher((): FetchBookmarksStart =>
    createAction(FETCH_BOOKMARKS_ACTION_TYPES.FETCH_BOOKMARKS_START));
 export const fetchBookmarksSuccess = withMatcher((bookmarks: ResponseBody<Bookmarks>): FetchBookmarksSuccess =>
    createAction(FETCH_BOOKMARKS_ACTION_TYPES.FETCH_BOOKMARKS_SUCCESS, bookmarks));
-export const fetchBookmarksFailed = withMatcher((errorResponse: ErrorResponseBody): FetchBookmarksFailed =>
+export const fetchBookmarksFailed = withMatcher((errorResponse: ErrorResponseBody | null): FetchBookmarksFailed =>
    createAction(FETCH_BOOKMARKS_ACTION_TYPES.FETCH_BOOKMARKS_FAILED, errorResponse));
 
 export const addBookmarkStart = withMatcher((recipeId: number): AddBookmarkStart =>
    createAction(ADD_BOOKMARK_ACTION_TYPES.ADD_BOOKMARK_START, recipeId));
 export const addBookmarkSuccess = withMatcher((bookmarks: ResponseBody<Bookmarks>): AddBookmarkSuccess =>
    createAction(ADD_BOOKMARK_ACTION_TYPES.ADD_BOOKMARK_SUCCESS, bookmarks));
-export const addBookmarkFailed = withMatcher((errorResponse: ErrorResponseBody): AddBookmarkFailed =>
+export const addBookmarkFailed = withMatcher((errorResponse: ErrorResponseBody | null): AddBookmarkFailed =>
    createAction(ADD_BOOKMARK_ACTION_TYPES.ADD_BOOKMARK_FAILED, errorResponse));
 
 export const removeBookmarkStart = withMatcher((recipeId: number): RemoveBookmarkStart =>
    createAction(REMOVE_BOOKMARKS_ACTION_TYPES.REMOVE_BOOKMARK_START, recipeId));
 export const removeBookmarkSuccess = withMatcher((bookmarks: ResponseBody<Bookmarks>): RemoveBookmarkSuccess =>
    createAction(REMOVE_BOOKMARKS_ACTION_TYPES.REMOVE_BOOKMARK_SUCCESS, bookmarks));
-export const removeBookmarkFailed = withMatcher((errorResponse: ErrorResponseBody): RemoveBookmarkFailed =>
+export const removeBookmarkFailed = withMatcher((errorResponse: ErrorResponseBody | null): RemoveBookmarkFailed =>
    createAction(REMOVE_BOOKMARKS_ACTION_TYPES.REMOVE_BOOKMARK_FAILED, errorResponse));
 
 export const refreshBookmarksStart = withMatcher((): RefreshBookmarksStart =>

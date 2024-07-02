@@ -2,15 +2,17 @@ import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import Form from "../form/form.component";
 import { SignUpContainer } from "./signup.style"
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { notify } from "../../utils/helper/toastify.helper.utils";
 import { selectSignupErrorResponse, selectSignupResponse } from "../../store/user/user.selector";
 import { signUpUserFailed, signUpUserStart, signUpUserSuccess } from "../../store/user/user.action";
 import { defaultFormFields, inputFields } from "../../dev-data/signup-form-field.data";
+import { getRedirect } from "../../utils/helper/others.helper.utils";
 
 const SignUp = () => {
    const dispatch = useDispatch();
    const navigate = useNavigate();
+   const location = useLocation();
 
    const [formData, setFormData] = useState(defaultFormFields);
 
@@ -30,10 +32,10 @@ const SignUp = () => {
          setTimeout(() => { 
             resetFormFields();
             dispatch(signUpUserSuccess(null));
-            navigate("/");
+            navigate(`/${getRedirect(location.search)}`);
          }, 3000);
       }
-   }, [signupResp, dispatch, navigate]);
+   }, [signupResp, location.search, dispatch, navigate]);
 
    const errResp = useSelector(selectSignupErrorResponse);
    useEffect(() => {
@@ -43,14 +45,14 @@ const SignUp = () => {
       }
    }, [errResp, dispatch]);
 
-   const { username, firstName, lastName, email, password, confirmPassword } = formData;
+   const { username, firstName, lastName, middleName, email, password, confirmPassword } = formData;
    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       if (password !== confirmPassword) {
          notify("Passwords are not the same", "error");
          return;
       }
-      dispatch(signUpUserStart({username, firstName, lastName, email, password}))
+      dispatch(signUpUserStart({username, firstName, lastName, middleName, email, password}))
    };
    return (
       <SignUpContainer>

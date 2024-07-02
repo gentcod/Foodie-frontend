@@ -10,30 +10,31 @@ import {
 import { loggedInModList, loggedOutMmdList } from "../../dev-data/modal-data";
 import { logoutUser } from "../../store/user/user.action";
 import { getBoundaries } from "../../utils/helper/dom-locate.helper.utils";
+import { useLocation } from "react-router-dom";
 
 type UserProp = {
   name: string;
-  imgSrc: string;
   elementRef: any;
   isLoggedIn: boolean;
   buttonRef: any;
 };
 
-const UserDropdown = ({ name, imgSrc, isLoggedIn, elementRef, buttonRef }: UserProp) => {
+const UserDropdown = ({ name, isLoggedIn, elementRef, buttonRef }: UserProp) => {
   const dispatch = useDispatch();
+
+  const location = useLocation();
 
   const handleLogout = () => {
     dispatch(logoutUser());
   };
   const boundary = getBoundaries(buttonRef);
-  console.log(boundary);
 
   return (
     <DropdownContainer ref={elementRef} left={boundary?.left}>
       {isLoggedIn ? (
         <>
           <UserDetailsContainer>
-            <UserPicture src={imgSrc} />
+            <UserPicture src={"icons/user-profile.svg"} />
             <UserName>{name}</UserName>
           </UserDetailsContainer>
           <UserModList>
@@ -58,7 +59,7 @@ const UserDropdown = ({ name, imgSrc, isLoggedIn, elementRef, buttonRef }: UserP
         <>
           <UserModList>
             {loggedOutMmdList.map((el) => (
-              <UserModListItem to={el.link!} key={el.id}>
+              <UserModListItem to={`${el.link!}?redirect_url=${location.pathname}`} key={el.id}>
                 {el.item}
               </UserModListItem>
             ))}
@@ -70,5 +71,3 @@ const UserDropdown = ({ name, imgSrc, isLoggedIn, elementRef, buttonRef }: UserP
 };
 
 export default UserDropdown;
-
-// TODO: Implement useRef

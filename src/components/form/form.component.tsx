@@ -1,6 +1,5 @@
 import { ChangeEvent, FormEvent } from "react";
 import FormInput from "../form-input/form-input.component";
-import Notifier from "../notifier/notifier.component";
 import Heading from "../heading/heading.component";
 import { Button, HeaderContainer, InputContainer, LoginForm } from "./form.style";
 
@@ -30,6 +29,7 @@ const Form = ({heading, formSubmitFunc, inputChangeFunc, inputData, buttonText, 
       <InputContainer onSubmit={formSubmitFunc}>
         {inputData.map(data => (
          <FormInput
+            key={data.id}
             label={data.label}
             type={data.type}
             changeFunc={inputChangeFunc}
@@ -40,7 +40,6 @@ const Form = ({heading, formSubmitFunc, inputChangeFunc, inputData, buttonText, 
         ))}
         <Button>{buttonText}</Button>
       </InputContainer>
-      <Notifier/>
     </LoginForm>
   );
 };

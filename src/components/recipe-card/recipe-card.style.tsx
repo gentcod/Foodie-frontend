@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import { ReactComponent as DishLogo } from '../../assets/dish-dinner.svg';
 
 type RecipeCardProp = {
-   featured: Boolean;
+   featured: boolean;
 };
 
 export const RecipeImageContainer = styled.div`

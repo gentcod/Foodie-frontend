@@ -2,7 +2,7 @@ export interface User {
    accessToken: string;
    user: {
       username: string;
-      name: string;
+      fullName: string;
       email: string;
    }
 }

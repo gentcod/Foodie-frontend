@@ -7,14 +7,14 @@ import {
    selectRemoveRecipeId, 
 } from "./cookie-bookmarks.selector";
 import { 
-   addBookmarkFailed, 
-   addBookmarkSuccess, 
-   fetchBookmarksFailed, 
-   fetchBookmarksSuccess, 
-   refreshBookmarksFailed, 
-   refreshBookmarksSucess, 
-   removeBookmarkFailed, 
-   removeBookmarkSuccess 
+   addCookieBookmarkFailed, 
+   addCookieBookmarkSuccess, 
+   fetchCookieBookmarksFailed, 
+   fetchCookieBookmarksSuccess, 
+   refreshCookieBookmarksFailed, 
+   refreshCookieBookmarksSucess, 
+   removeCookieBookmarksFailed, 
+   removeCookieBookmarksSuccess 
 } from "./cookie-bookmarks.action";
 import { 
    ADD_COOKIE_BOOKMARK_ACTION_TYPES, 
@@ -24,17 +24,17 @@ import {
 
 const { CookieBookmarks } = messenger;
 
-function* fetchBookmarksAsync() {
+function* fetchCookieBookmarksAsync() {
    try {
       const bookmarks = yield* call(CookieBookmarks.list);
-      yield* put(fetchBookmarksSuccess(bookmarks));
+      yield* put(fetchCookieBookmarksSuccess(bookmarks));
    } catch (error) {
-      yield* put(fetchBookmarksFailed((error as any).data));
+      yield* put(fetchCookieBookmarksFailed((error as any).data));
    }
 };
 
-function* onfetchBookmarks() {
-   yield* takeLatest(COOKIE_BOOKMARKS_ACTION_TYPES.FETCH_BOOKMARKS_START, fetchBookmarksAsync);
+function* onfetchCookieBookmarks() {
+   yield* takeLatest(COOKIE_BOOKMARKS_ACTION_TYPES.FETCH_BOOKMARKS_START, fetchCookieBookmarksAsync);
 }
 
 // Add to Bookmarks
@@ -42,9 +42,9 @@ function* addBookmarksAsync() {
    try {
       const recipeId = yield* select(selectAddRecipeId);
       const bookmarks = yield* call(CookieBookmarks.addBookMark, recipeId);
-      yield* put(addBookmarkSuccess(bookmarks));
+      yield* put(addCookieBookmarkSuccess(bookmarks));
    } catch (error) {
-      yield* put(addBookmarkFailed((error as any).data));
+      yield* put(addCookieBookmarkFailed((error as any).data));
    }
 };
 
@@ -53,54 +53,54 @@ function* onAddBookmark() {
 };
 
 // Remove fromBookmarks
-function* removeBookmarksAsync() {
+function* removeCookieBookmarksAsync() {
    try {
       const recipeId = yield* select(selectRemoveRecipeId);
       const bookmarks = yield* call(CookieBookmarks.deleteBookMark, recipeId);
-      yield* put(removeBookmarkSuccess(bookmarks));
+      yield* put(removeCookieBookmarksSuccess(bookmarks));
    } catch (error) {
-      yield* put(removeBookmarkFailed((error as any).data));
+      yield* put(removeCookieBookmarksFailed((error as any).data));
    }
 };
 
-function* onremoveBookmark() {
-   yield* takeLatest(REMOVE_COOKIE_BOOKMARKS_ACTION_TYPES.REMOVE_BOOKMARK_START, removeBookmarksAsync);
+function* onremoveCookieBookmark() {
+   yield* takeLatest(REMOVE_COOKIE_BOOKMARKS_ACTION_TYPES.REMOVE_BOOKMARK_START, removeCookieBookmarksAsync);
 };
 
 // Refresh Bookmarks After Add
-function* refreshBookmarksAfterAdd() {
+function* refreshCookieBookmarksAfterAdd() {
    try {
       const bookmarks = yield* select(selectAddCookieBookmarks);
-      yield* put(refreshBookmarksSucess(bookmarks));
+      yield* put(refreshCookieBookmarksSucess(bookmarks));
    } catch (error) {
-      yield* put(refreshBookmarksFailed(error as Error));
+      yield* put(refreshCookieBookmarksFailed(error as Error));
    }
 };
 
 function* onrefreshAddBookmark() {
-   yield* takeLatest(COOKIE_BOOKMARKS_ACTION_TYPES.REFRESH_BOOKMARKS_START, refreshBookmarksAfterAdd);
+   yield* takeLatest(COOKIE_BOOKMARKS_ACTION_TYPES.REFRESH_BOOKMARKS_START, refreshCookieBookmarksAfterAdd);
 };
 
 // Refresh Bookmarks After Add
-function* refreshBookmarksAfterRemove() {
+function* refreshCookieBookmarksAfterRemove() {
    try {
       const bookmarks = yield* select(selectRemoveCookieBookmarks);
-      yield* put(refreshBookmarksSucess(bookmarks));
+      yield* put(refreshCookieBookmarksSucess(bookmarks));
    } catch (error) {
-      yield* put(refreshBookmarksFailed(error as Error));
+      yield* put(refreshCookieBookmarksFailed(error as Error));
    }
 };
 
-function* onrefreshRemoveBookmark() {
-   yield* takeLatest(COOKIE_BOOKMARKS_ACTION_TYPES.REFRESH_BOOKMARKS_START, refreshBookmarksAfterRemove);
+function* onrefreshRemoveCookieBookmark() {
+   yield* takeLatest(COOKIE_BOOKMARKS_ACTION_TYPES.REFRESH_BOOKMARKS_START, refreshCookieBookmarksAfterRemove);
 };
 
 export function* cookieBookmarksSaga() {
    yield* all([
-      call(onfetchBookmarks), 
+      call(onfetchCookieBookmarks), 
       call(onAddBookmark), 
-      call(onremoveBookmark), 
+      call(onremoveCookieBookmark), 
       call(onrefreshAddBookmark),
-      call(onrefreshRemoveBookmark),
+      call(onrefreshRemoveCookieBookmark),
    ])
 };
