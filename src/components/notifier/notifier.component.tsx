@@ -7,7 +7,7 @@ const Notifier = () => {
     <NotifierContainer>
       <ToastContainer
         position="top-center"
-        autoClose={200}
+        autoClose={1000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

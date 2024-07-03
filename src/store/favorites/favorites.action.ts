@@ -10,12 +10,12 @@ import {
 } from "./favorites.types";
 
 type FetchFavoritessStart = Action<FAVORITES_ACTION_TYPES.FETCH_FAVORITES_START>;
-type FetchFavoritessSuccess = ActionWithPayload<FAVORITES_ACTION_TYPES.FETCH_FAVORITES_SUCCESS, ResponseBody<Favorites>>;
+type FetchFavoritesSuccess = ActionWithPayload<FAVORITES_ACTION_TYPES.FETCH_FAVORITES_SUCCESS, ResponseBody<Favorites>>;
 type FetchFavoritessFailed = ActionWithPayload<FAVORITES_ACTION_TYPES.FETCH_FAVORITES_FAILED, ErrorResponseBody | null>;
 
-type RefreshFavoritesStart = Action<FAVORITES_ACTION_TYPES.REFRESH_FAVORITES_START>;
-type RefreshFavoritesSuccess = ActionWithPayload<FAVORITES_ACTION_TYPES.REFRESH_FAVORITES_SUCCESS, Favorites>;
-type RefreshFavoritesFailed = ActionWithPayload<FAVORITES_ACTION_TYPES.REFRESH_FAVORITES_FAILED, Error>;
+type RefreshFavStatesStart = Action<FAVORITES_ACTION_TYPES.REFRESH_FAVORITES_START>;
+type RefreshFavStatesSuccess = Action<FAVORITES_ACTION_TYPES.REFRESH_FAVORITES_SUCCESS>;
+type RefreshFavStatesFailed = ActionWithPayload<FAVORITES_ACTION_TYPES.REFRESH_FAVORITES_FAILED, Error>;
 
 type AddRecipeToFavoritesStart = ActionWithPayload<ADD_RECIPE_TO_FAVORITES_ACTION_TYPES.ADD_RECIPE_TO_FAVORITES_START, number>;
 type AddRecipeToFavoritesSuccess = ActionWithPayload<ADD_RECIPE_TO_FAVORITES_ACTION_TYPES.ADD_RECIPE_TO_FAVORITES_SUCCESS, ResponseBody<Favorites>>;
@@ -35,7 +35,7 @@ type RemoveRestaurantFromFavoritesFailed = ActionWithPayload<REMOVE_RESTAURANT_F
 
 export const fetchFavoritesStart = withMatcher((): FetchFavoritessStart =>
    createAction(FAVORITES_ACTION_TYPES.FETCH_FAVORITES_START));
-export const fetchFavoritesSuccess = withMatcher((favorites: ResponseBody<Favorites>): FetchFavoritessSuccess =>
+export const fetchFavoritesSuccess = withMatcher((favorites: ResponseBody<Favorites>): FetchFavoritesSuccess =>
    createAction(FAVORITES_ACTION_TYPES.FETCH_FAVORITES_SUCCESS, favorites));
 export const fetchFavoritesFailed = withMatcher((errorResponse: ErrorResponseBody | null): FetchFavoritessFailed =>
    createAction(FAVORITES_ACTION_TYPES.FETCH_FAVORITES_FAILED, errorResponse));
@@ -69,9 +69,9 @@ export const removeRestaurantFromFavoritesFailed = withMatcher((errorResponse: E
    createAction(REMOVE_RESTAURANT_FROM_FAVORITES_ACTION_TYPES.REMOVE_RESTAURANT_FROM_FAVORITES_FAILED, errorResponse));
 
 // Refresh Favorites
-export const refreshFavoritesStart = withMatcher((): RefreshFavoritesStart =>
+export const refreshFavStatesStart = withMatcher((): RefreshFavStatesStart =>
    createAction(FAVORITES_ACTION_TYPES.REFRESH_FAVORITES_START));
-export const refreshFavoritesSucess = withMatcher((favorites: Favorites): RefreshFavoritesSuccess =>
-   createAction(FAVORITES_ACTION_TYPES.REFRESH_FAVORITES_SUCCESS, favorites));
-export const refreshFavoritesFailed = withMatcher((error: Error): RefreshFavoritesFailed =>
+export const refreshFavStatesSucess = withMatcher((): RefreshFavStatesSuccess =>
+   createAction(FAVORITES_ACTION_TYPES.REFRESH_FAVORITES_SUCCESS));
+export const refreshFavStatesFailed = withMatcher((error: Error): RefreshFavStatesFailed =>
    createAction(FAVORITES_ACTION_TYPES.REFRESH_FAVORITES_FAILED, error));

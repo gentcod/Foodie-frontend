@@ -29,16 +29,19 @@ export const Content = styled.div`
    justify-content: space-between;
    align-itms: center;
    column-gap: 1rem;
+   overflow: hidden;
 `;
 
 export const ContentContainer = styled.div`
-   height: 100%;
+   height: 50%;
+   width: 100%;
    display: flex;
    flex-direction: column;
    justify-content: start;
    align-items: center;
    column-gap: 1rem;
    color: #222;
+   margin-bottom: 1rem;
 `;
 
 export const FavLoggedContent = styled(ContentContainer)`

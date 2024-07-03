@@ -1,12 +1,12 @@
 import { createSelector } from "reselect";
-import { FavoritesState, UpdatedFavoritesState } from "./favorites.reducer";
+import { FavoritesState, UpdateFavoritesState } from "./favorites.reducer";
 import { RootState } from "../store";
 
 const selectFavoritesReducer = (state: RootState): FavoritesState => state.favorites;
-const selectAddFavRecipeReducer = (state: RootState): UpdatedFavoritesState => state.addRecipeToFavorites;
-const selectRemoveFavRecipeReducer = (state: RootState): UpdatedFavoritesState => state.removeRecipeFromFavorites;
-const selectAddFavRestaurantReducer = (state: RootState): UpdatedFavoritesState => state.addRestaurantToFavorites;
-const selectRemoveFavRestaurantReducer = (state: RootState): UpdatedFavoritesState => state.removeRestaurantFromFavorites;
+const selectAddFavRecipeReducer = (state: RootState): UpdateFavoritesState => state.addRecipeToFavorites;
+const selectRemoveFavRecipeReducer = (state: RootState): UpdateFavoritesState => state.removeRecipeFromFavorites;
+const selectAddFavRestaurantReducer = (state: RootState): UpdateFavoritesState => state.addRestaurantToFavorites;
+const selectRemoveFavRestaurantReducer = (state: RootState): UpdateFavoritesState => state.removeRestaurantFromFavorites;
 
 // Favorites Data
 export const selectFavorites = createSelector(
@@ -35,11 +35,6 @@ export const selectAddFavRecipeResp = createSelector(
    (favoritesSlice) => favoritesSlice.responseMessage
 );
 
-export const selectAddFavRecipe = createSelector(
-   [selectAddFavRecipeReducer],
-   (favoritesSlice) => favoritesSlice.favorites
-);
-
 export const selectAddFavRecipeIsLoading = createSelector(
    [selectAddFavRecipeReducer],
    (favoritesSlice) => favoritesSlice.isLoading
@@ -59,11 +54,6 @@ export const selectRemoveFavRecipeId = createSelector(
 export const selectRemoveFavRecipeResp = createSelector(
    [selectRemoveFavRecipeReducer],
    (favoritesSlice) => favoritesSlice.responseMessage
-);
-
-export const selectRemoveFavRecipe = createSelector(
-   [selectRemoveFavRecipeReducer],
-   (favoritesSlice) => favoritesSlice.favorites
 );
 
 export const selectRemoveFavRecipeIsLoading = createSelector(
@@ -87,11 +77,6 @@ export const selectAddFavRestaurantResp = createSelector(
    (favoritesSlice) => favoritesSlice.responseMessage
 );
 
-export const selectAddFavRestaurant = createSelector(
-   [selectAddFavRestaurantReducer],
-   (favoritesSlice) => favoritesSlice.favorites
-);
-
 export const selectAddFavRestaurantIsLoading = createSelector(
    [selectAddFavRestaurantReducer],
    (favoritesSlice) => favoritesSlice.isLoading
@@ -111,11 +96,6 @@ export const selectRemoveFavRestaurantId = createSelector(
 export const selectRemoveFavRestaurantResp = createSelector(
    [selectRemoveFavRestaurantReducer],
    (favoritesSlice) => favoritesSlice.responseMessage
-);
-
-export const selectRemoveFavRestaurant = createSelector(
-   [selectRemoveFavRestaurantReducer],
-   (favoritesSlice) => favoritesSlice.favorites
 );
 
 export const selectRemoveFavRestaurantIsLoading = createSelector(

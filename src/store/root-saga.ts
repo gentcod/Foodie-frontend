@@ -5,6 +5,7 @@ import { ratingsSaga } from './rating/rating.saga';
 import { userSaga } from './user/user.saga';
 import { bookmarksSaga } from './bookmarks/bookmarks.saga';
 import { cookieBookmarksSaga } from './cookie-bookmarks/cookie-bookmarks.saga';
+import { favoritesSaga } from './favorites/favorites.saga';
 
 
 export function* rootSaga() {
@@ -14,6 +15,7 @@ export function* rootSaga() {
       call(ratingsSaga), 
       call(userSaga), 
       call(bookmarksSaga),
-      call(cookieBookmarksSaga)
+      call(cookieBookmarksSaga),
+      call(favoritesSaga),
    ]);
 }
