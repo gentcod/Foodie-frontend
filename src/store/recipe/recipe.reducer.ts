@@ -12,7 +12,8 @@ import {
    fetchRecipesFeaturedFailed, 
    fetchRecipeByIdStart, 
    fetchRecipeByIdSuccess, 
-   fetchRecipeByIdFailed, 
+   fetchRecipeByIdFailed,
+   resetRecipeByIdModal, 
 } from './recipe.action';
 import { MetaData } from '../../app/models/pagination';
 
@@ -82,7 +83,7 @@ export const recipesSearchReducer = (state = RECIPES_SEARCH_INITIAL_STATE, actio
    if (fetchRecipesSearchStart.match(action)) {
       return {
          ...state,
-         searchString: `${action.payload}&pageNumber=1&pageSize=10`,
+         searchString: `${action.payload}&pageNumber=1&pageSize=5`,
          isLoading: true,
       }
    }
@@ -180,6 +181,14 @@ export const recipeByIdReducer = (state = RECIPE_BYID_INITIAL_STATE, action = {}
          isLoading: false,
       }
    }
+
+   if (resetRecipeByIdModal.match(action)) {
+      return {
+         ...state,
+         isActive: false,
+      }
+   }
+
    return state;
 };
 

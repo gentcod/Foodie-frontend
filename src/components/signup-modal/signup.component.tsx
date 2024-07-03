@@ -4,7 +4,7 @@ import { SignUpContainer } from "./signup.style"
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { notify } from "../../utils/helper/toastify.helper.utils";
-import { selectSignupErrorResponse, selectSignupResponse } from "../../store/user/user.selector";
+import { selectSignupErrorResponse, selectSignupIsLoading, selectSignupResponse } from "../../store/user/user.selector";
 import { signUpUserFailed, signUpUserStart, signUpUserSuccess } from "../../store/user/user.action";
 import { defaultFormFields, inputFields } from "../../dev-data/signup-form-field.data";
 import { getRedirect } from "../../utils/helper/others.helper.utils";
@@ -45,6 +45,8 @@ const SignUp = () => {
       }
    }, [errResp, dispatch]);
 
+   const signupIsLoading = useSelector(selectSignupIsLoading);
+
    const { username, firstName, lastName, middleName, email, password, confirmPassword } = formData;
    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
@@ -54,6 +56,7 @@ const SignUp = () => {
       }
       dispatch(signUpUserStart({username, firstName, lastName, middleName, email, password}))
    };
+
    return (
       <SignUpContainer>
          <Form
@@ -63,6 +66,7 @@ const SignUp = () => {
             inputData={inputFields}
             formData={formData}
             buttonText="Sign Up"
+            authIsLoading={signupIsLoading}
          />
       </SignUpContainer>
    );

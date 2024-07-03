@@ -19,13 +19,16 @@ export const BookmarkContainer = styled.div<NavBarProp>`
 `;
 
 export const ContentContainer = styled.div`
+   height: 100%;
    display: flex;
    flex-direction: column;
-   justify-content: center;
+   justify-content: start;
    align-itms: center;
    column-gap: 1rem;
    color: #222;
    text-align: center;
+
+   position: relative;
 `;
 
 export const Heading = styled.p`

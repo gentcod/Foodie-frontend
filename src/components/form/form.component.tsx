@@ -1,7 +1,8 @@
 import { ChangeEvent, FormEvent } from "react";
 import FormInput from "../form-input/form-input.component";
 import Heading from "../heading/heading.component";
-import { Button, HeaderContainer, InputContainer, LoginForm } from "./form.style";
+import { Button, ButtonContainer, HeaderContainer, InputContainer, LoginForm } from "./form.style";
+import Spinner from "../spinner/spinner.component";
 
 export type InputFieldProps = {
    id: string;
@@ -17,9 +18,10 @@ type FormProps = {
    inputData: InputFieldProps[];
    buttonText: string;
    formData: {};
+   authIsLoading: boolean;
 }
 
-const Form = ({heading, formSubmitFunc, inputChangeFunc, inputData, buttonText, formData}: FormProps) => {
+const Form = ({heading, formSubmitFunc, inputChangeFunc, inputData, buttonText, formData, authIsLoading}: FormProps) => {
   return (
     <LoginForm>
       <HeaderContainer>
@@ -38,7 +40,10 @@ const Form = ({heading, formSubmitFunc, inputChangeFunc, inputData, buttonText, 
             id={data.id}
          />
         ))}
-        <Button>{buttonText}</Button>
+        <ButtonContainer>
+          <Button>{buttonText}</Button>
+          {authIsLoading ? <Spinner size={2.5}/> : <></>}
+        </ButtonContainer>
       </InputContainer>
     </LoginForm>
   );

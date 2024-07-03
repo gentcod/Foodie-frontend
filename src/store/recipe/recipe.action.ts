@@ -24,6 +24,7 @@ type FetchRecipeFeaturedFailed = ActionWithPayload<RECIPES_FEATURED_ACTION_TYPES
 type FetchRecipeByIdStart = ActionWithPayload<RECIPE_BYID_ACTION_TYPES.FETCH_RECIPE_BYID_START, number>;
 type FetchRecipeByIdSuccess = ActionWithPayload<RECIPE_BYID_ACTION_TYPES.FETCH_RECIPE_BYID_SUCCESS, ResponseBody<Recipe>>;
 type FetchRecipeByIdFailed = ActionWithPayload<RECIPE_BYID_ACTION_TYPES.FETCH_RECIPE_BYID_FAILED, Error>;
+type ResetRecipeByIdModal = Action<RECIPE_BYID_ACTION_TYPES.RESET_RECIPE_BYID_MODAL>;
 
 export const fetchRecipesStart = withMatcher((paramString?: string): FetchRecipesStart =>
    createAction(RECIPES_ACTION_TYPES.FETCH_RECIPE_START, paramString));
@@ -52,5 +53,7 @@ export const fetchRecipeByIdSuccess = withMatcher((recipe: ResponseBody<Recipe>)
    createAction(RECIPE_BYID_ACTION_TYPES.FETCH_RECIPE_BYID_SUCCESS, recipe));
 export const fetchRecipeByIdFailed = withMatcher((error: Error): FetchRecipeByIdFailed =>
    createAction(RECIPE_BYID_ACTION_TYPES.FETCH_RECIPE_BYID_FAILED, error));
+export const resetRecipeByIdModal = withMatcher((): ResetRecipeByIdModal => 
+   createAction(RECIPE_BYID_ACTION_TYPES.RESET_RECIPE_BYID_MODAL));
 
 // TODO: Include functionalities for Error Response

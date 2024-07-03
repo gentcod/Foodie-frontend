@@ -108,25 +108,25 @@ const Rating = {
 const Bookmarks = {
    list: (accessToken: string) => request.authget('bookmarks', accessToken),
    addBookMark: (accessToken: string, recipeId: number) => request.authpost(`bookmarks/add/${recipeId}`, {}, accessToken),
-   deleteBookMark: (accessToken: string, recipeId: number) => request.authdelete(`bookmarks/add/${recipeId}`, accessToken)
+   deleteBookMark: (accessToken: string, recipeId: number) => request.authdelete(`bookmarks/remove/${recipeId}`, accessToken)
 };
 
 const CookieBookmarks = {
    list: () => request.get('cookiebookmarks'),
    addBookMark: (recipeId: number) => request.post(`cookiebookmarks/add/${recipeId}`, {}),
-   deleteBookMark: (recipeId: number) => request.delete(`cookiebookmarks/add/${recipeId}`)
+   deleteBookMark: (recipeId: number) => request.delete(`cookiebookmarks/remove/${recipeId}`)
 };
 
 const Favorites = {
    list: (accessToken: string) => request.authget('favorites', accessToken),
    addFavoriteRecipe: (accessToken: string, recipeId: number) => 
-      request.authpost(`favorites/add/recipe/${recipeId}`, {}, accessToken),
+      request.authpost(`favorites/recipes/add/${recipeId}`, {}, accessToken),
    removeFavoriteRecipe: (accessToken: string, recipeId: number) => 
-      request.authdelete(`favorites/remove/recipe/${recipeId}`, accessToken),
+      request.authdelete(`favorites/recipes/remove/${recipeId}`, accessToken),
    addFavoriteRestaurant: (accessToken: string, resaturantId: number) => 
-      request.authpost(`favorites/add/restaurant/${resaturantId}`, {}, accessToken),
+      request.authpost(`favorites/restaurants/add/${resaturantId}`, {}, accessToken),
    removeFavoriteRestaurant: (accessToken: string, resaturantId: number) => 
-      request.authdelete(`favorites/add/restaurant/${resaturantId}`, accessToken)
+      request.authdelete(`favorites/restaurants/remove/${resaturantId}`, accessToken)
 };
 
 const User = {
@@ -138,6 +138,7 @@ const User = {
       username: signUpCred.username,
       firstName: signUpCred.firstName,
       lastName: signUpCred.lastName,
+      middlename: signUpCred.middleName,
       email: signUpCred.email,
       password: signUpCred.password
    })
