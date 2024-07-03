@@ -95,5 +95,11 @@ function* onrefreshRemoveBookmark() {
 }
 
 export function* bookmarksSaga() {
-   yield* all([call(onfetchBookmarks), call(onAddBookmark), call(onremoveBookmark), call(onrefreshAddBookmark), call(onrefreshRemoveBookmark)]);
+   yield* all([
+      call(onfetchBookmarks), 
+      call(onAddBookmark), 
+      call(onremoveBookmark), 
+      call(onrefreshAddBookmark), 
+      call(onrefreshRemoveBookmark)
+   ]);
 }

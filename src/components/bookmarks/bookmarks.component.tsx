@@ -49,13 +49,11 @@ const BookmarksDropdown = ({ elementRef, buttonRef }) => {
   useEffect(() => {
     if (isLoggedIn) {
       dispatch(fetchBookmarksStart());
+      return;
     }
     dispatch(fetchCookieBookmarksStart());
   }, [isLoggedIn, dispatch]);
 
-  const bookmarkerrResp = useSelector(selectBookmarksErrorResponse);
-  const cookiebookmarkerrResp = useSelector(selectCookieBookmarksErrResp);
-  const errResp = isLoggedIn ? bookmarkerrResp : cookiebookmarkerrResp;
 
   const entityList = bookmarksDetails.recipes
     ? bookmarksDetails.recipes.map((data) => {
@@ -66,6 +64,10 @@ const BookmarksDropdown = ({ elementRef, buttonRef }) => {
         };
       })
     : [];
+
+  const bookmarkerrResp = useSelector(selectBookmarksErrorResponse);
+  const cookiebookmarkerrResp = useSelector(selectCookieBookmarksErrResp);
+  const errResp = isLoggedIn ? bookmarkerrResp : cookiebookmarkerrResp;
   useEffect(() => {
     if (errResp) {
       notify(errResp.message!, "error");
@@ -87,7 +89,6 @@ const BookmarksDropdown = ({ elementRef, buttonRef }) => {
   const removeBookmarkResp = useSelector(selectRemoveBookmarksResp);
   const removeCookiebookmarkResp = useSelector(selectRemoveCookieBookmarkResp);
   const resp = isLoggedIn ? removeBookmarkResp : removeCookiebookmarkResp;
-
   useEffect(() => {
     if (resp) {
       notify(resp!, "success");
@@ -99,13 +100,10 @@ const BookmarksDropdown = ({ elementRef, buttonRef }) => {
   }, [resp, isLoggedIn, dispatch]);
 
   const removeBookmarkRrrResp = useSelector(selectAddBookmarksErrorResp);
-  const removeBookiebookmarkrrResp = useSelector(
-    selectRemoveCookieBookmarksErrResp
-  );
+  const removeCookiebookmarkrrResp = useSelector(selectRemoveCookieBookmarksErrResp);
   const removeErrrResp = isLoggedIn
     ? removeBookmarkRrrResp
-    : removeBookiebookmarkrrResp;
-
+    : removeCookiebookmarkrrResp;
   useEffect(() => {
     if (removeErrrResp) {
       notify(removeErrrResp.message!, "error");

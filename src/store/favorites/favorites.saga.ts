@@ -5,10 +5,6 @@ import {
    selectRemoveFavRecipeId,
    selectAddFavRestaurantId,
    selectRemoveFavRestaurantId,
-   selectAddFavRecipe,
-   selectRemoveFavRecipe,
-   selectAddFavRestaurant,
-   selectRemoveFavRestaurant,
 } from "./favorites.selector";
 import { selectAccessToken } from "../user/user.selector";
 import { 
@@ -18,8 +14,8 @@ import {
    addRestaurantToFavoritesSuccess,
    fetchFavoritesFailed,
    fetchFavoritesSuccess,
-   refreshFavoritesFailed, 
-   refreshFavoritesSucess, 
+   refreshFavStatesFailed,
+   refreshFavStatesSucess,
    removeRecipeFromFavoritesFailed, 
    removeRecipeFromFavoritesSuccess,
    removeRestaurantFromFavoritesFailed,
@@ -35,7 +31,7 @@ import {
 
 const { Favorites } = messenger;
 
-export function* fetchFavoritesAsync() {
+function* fetchFavoritesAsync() {
    try {
       const accessToken = yield* select(selectAccessToken);
       const favorites = yield* call(Favorites.list, accessToken);
@@ -114,71 +110,25 @@ function* onRemoveRestaurantFromFavorites() {
 }
 
 // Refresh Favorites After Recipe Add
-function* refreshFavAfterRecipeAdd() {
+function* refreshFavStates() {
    try {
-      const favorites = yield* select(selectAddFavRecipe);
-      yield* put(refreshFavoritesSucess(favorites));
+      yield* put(refreshFavStatesSucess());
    } catch (error) {
-      yield* put(refreshFavoritesFailed(error as Error));
+      yield* put(refreshFavStatesFailed(error as Error));
    }
 }
 
-function* onRefreshFavAfterRecipeAdd() {
-   yield* takeLatest(FAVORITES_ACTION_TYPES.REFRESH_FAVORITES_START, refreshFavAfterRecipeAdd);
+function* onRefreshFavStates() {
+   yield* takeLatest(FAVORITES_ACTION_TYPES.REFRESH_FAVORITES_START, refreshFavStates);
 }
 
-// Refresh Favorites After Recipe Remove
-function* refreshFavAfterRecipeRemove() {
-   try {
-      const favorites = yield* select(selectRemoveFavRecipe);
-      yield* put(refreshFavoritesSucess(favorites));
-   } catch (error) {
-      yield* put(refreshFavoritesFailed(error as Error));
-   }
-}
-
-function* onRefreshFavAfterRecipeRemove() {
-   yield* takeLatest(FAVORITES_ACTION_TYPES.REFRESH_FAVORITES_START, refreshFavAfterRecipeRemove);
-}
-
-// Refresh Favorites After Restaurant Add
-function* refreshFavAfterResAdd() {
-   try {
-      const favorites = yield* select(selectAddFavRestaurant);
-      yield* put(refreshFavoritesSucess(favorites));
-   } catch (error) {
-      yield* put(refreshFavoritesFailed(error as Error));
-   }
-}
-
-function* onRefreshFavAfterResAdd() {
-   yield* takeLatest(FAVORITES_ACTION_TYPES.REFRESH_FAVORITES_START, refreshFavAfterResAdd);
-}
-
-// Refresh Favorites After Restaurant Remove
-function* refreshFavAfterResRemove() {
-   try {
-      const favorites = yield* select(selectRemoveFavRestaurant);
-      yield* put(refreshFavoritesSucess(favorites));
-   } catch (error) {
-      yield* put(refreshFavoritesFailed(error as Error));
-   }
-}
-
-function* onRefreshFavAfterResRemove() {
-   yield* takeLatest(FAVORITES_ACTION_TYPES.REFRESH_FAVORITES_START, refreshFavAfterResRemove);
-}
-
-export function* FavoritesSaga() {
+export function* favoritesSaga() {
    yield* all([ 
       call(onfetchFavorites),
       call(onAddRecipeToFavorites),
       call(onRemoveRecipeFromFavorites),
       call(onAddRestaurantToFavorites),
       call(onRemoveRestaurantFromFavorites),
-      call(onRefreshFavAfterRecipeAdd),
-      call(onRefreshFavAfterRecipeRemove),
-      call(onRefreshFavAfterResAdd),
-      call(onRefreshFavAfterResRemove),
+      call(onRefreshFavStates),
    ])
 }
