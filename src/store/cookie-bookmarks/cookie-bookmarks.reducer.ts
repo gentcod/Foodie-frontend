@@ -79,6 +79,7 @@ export type UpdatedCookieBookmarkSate = {
    readonly isLoading: boolean;
    readonly responseMessage: string | null;
    readonly errorResponse: ErrorResponseBody | null;
+   readonly error: Error | null
 }
 
 const UPDATED_BOOKMARKS_INTITIAL_STATE: UpdatedCookieBookmarkSate = {
@@ -86,7 +87,8 @@ const UPDATED_BOOKMARKS_INTITIAL_STATE: UpdatedCookieBookmarkSate = {
    responseMessage: null,
    bookmarks: {} as Bookmarks,
    isLoading: false,
-   errorResponse: null
+   errorResponse: null,
+   error: null
 }
 
 //Add Bookmark
@@ -110,6 +112,27 @@ export const addcookiebookmarkReducer = (state = UPDATED_BOOKMARKS_INTITIAL_STAT
       return {
          ...state,
          errorResponse: action.payload,
+         isLoading: false,
+      }
+
+   if (refreshCookieBookmarksStart.match(action))
+      return {
+         ...state,
+         isLoading: true,
+      }
+      
+   if (refreshCookieBookmarksSucess.match(action))
+      return {
+         ...state,
+         bookmarks: action.payload,
+         responseMessage: null,
+         isLoading: false,
+      }
+
+   if (refreshCookieBookmarksFailed.match(action))
+      return {
+         ...state,
+         error: action.payload,
          isLoading: false,
       }
    return state
@@ -136,6 +159,27 @@ export const removeCookiebookmarkReducer = (state = UPDATED_BOOKMARKS_INTITIAL_S
       return {
          ...state,
          errorResponse: action.payload,
+         isLoading: false,
+      }
+
+   if (refreshCookieBookmarksStart.match(action))
+      return {
+         ...state,
+         isLoading: true,
+      }
+      
+   if (refreshCookieBookmarksSucess.match(action))
+      return {
+         ...state,
+         bookmarks: action.payload,
+         responseMessage: null,
+         isLoading: false,
+      }
+
+   if (refreshCookieBookmarksFailed.match(action))
+      return {
+         ...state,
+         error: action.payload,
          isLoading: false,
       }
    return state

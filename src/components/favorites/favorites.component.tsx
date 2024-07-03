@@ -19,7 +19,7 @@ import {
   selectFavErrorResponse,
   selectFavorites,
 } from "../../store/favorites/favorites.selector";
-import EntityBlocks from "../recipe-blocks/entity-blocks.component";
+import EntityBlocks from "../entity-blocks/entity-blocks.component";
 
 const FavoritesDropdown = ({ elementRef, buttonRef }) => {
   const dispatch = useDispatch();
@@ -27,8 +27,8 @@ const FavoritesDropdown = ({ elementRef, buttonRef }) => {
   const isLoggedIn = useSelector(selectUserIsLoggedIn);
   dispatch(fetchFavoritesStart());
 
-//   useEffect(() => {
-//   }, [dispatch]);
+  //   useEffect(() => {
+  //   }, [dispatch]);
 
   const favorites = useSelector(selectFavorites);
 
@@ -70,7 +70,10 @@ const FavoritesDropdown = ({ elementRef, buttonRef }) => {
                 Totoal Favorite Recipes: {favorites.totalFavRecipes}
               </Heading>
               {recipesEntityList.length > 0 ? (
-                <EntityBlocks entity="recipe" entityList={recipesEntityList} />
+                <EntityBlocks
+                contentLoading={true}
+                entityType="recipe" 
+                entityList={recipesEntityList} />
               ) : (
                 <></>
               )}
@@ -81,7 +84,8 @@ const FavoritesDropdown = ({ elementRef, buttonRef }) => {
               </Heading>
               {restaurantsEntityList.length > 0 ? (
                 <EntityBlocks
-                  entity="recipe"
+                  contentLoading={true}
+                  entityType="recipe"
                   entityList={restaurantsEntityList}
                 />
               ) : (

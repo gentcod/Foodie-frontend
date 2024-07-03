@@ -22,6 +22,17 @@ export const InputContainer = styled.form`
    margin-top: 3rem;
 `;
 
+export const ButtonContainer = styled.div`
+   height: 5rem;
+   padding .5rem;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   row-gap: 1rem;
+   margin-top: 1rem;
+`;
+
 export const Button = styled.button`
    border: none;
    cursor: pointer;
@@ -29,7 +40,6 @@ export const Button = styled.button`
    border-radius: 2px;
    font-weight: 700;
    transition: .8s ease;
-   margin-top: 1rem;
 
    &:active {
       transform: translateY(1rem);

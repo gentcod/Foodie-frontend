@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUserFailed, loginUserStart } from "../../store/user/user.action";
-import { selectLoginErrorResponse, selectUserIsLoggedIn } from "../../store/user/user.selector";
+import { selectLoginErrorResponse, selectLoginIsLoading, selectUserIsLoggedIn } from "../../store/user/user.selector";
 import { useLocation, useNavigate } from "react-router-dom";
 import { LoginContainer } from "./login.style"
 import { notify } from "../../utils/helper/toastify.helper.utils";
@@ -51,6 +51,8 @@ const Login = () => {
       }
    }, [errResp, dispatch]);
 
+   const loginIsLoading = useSelector(selectLoginIsLoading);
+
    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       dispatch(loginUserStart({email, password}))
@@ -65,6 +67,7 @@ const Login = () => {
             inputData={inputFields}
             formData={formData}
             buttonText="Login"
+            authIsLoading={loginIsLoading}
          />
       </LoginContainer>
    );

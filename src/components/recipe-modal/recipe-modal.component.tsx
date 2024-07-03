@@ -3,29 +3,50 @@ import { ReactComponent as RatingLogo} from '../../assets/star-fell.svg';
 import { ReactComponent as CookTimeLogo} from '../../assets/alarm-clock.svg';
 import { ReactComponent as CloseButtonLogo} from '../../assets/close-bold.svg';
 import { useDispatch, useSelector } from 'react-redux';
-import { BookmarkIcon, ButtonClose, ButtonContainer, ModalContainer, RecipeCategory, RecipeContentBlockSpan, RecipeContentHeading, RecipeContentsBlockContainer, RecipeContentsContainer, RecipeCookTime, RecipeDescription, RecipeImage, RecipeImageContainer, RecipeIngredients, RecipeName, RecipeOrigin, RecipeRating } from './recipe-modal.style';
+import { 
+   BookmarkIcon, 
+   ButtonClose, 
+   ButtonContainer, 
+   ModalContainer, 
+   RecipeCategory, 
+   RecipeContentBlockSpan, 
+   RecipeContentHeading, 
+   RecipeContentsBlockContainer, 
+   RecipeContentsContainer, 
+   RecipeCookTime, 
+   RecipeDescription, 
+   RecipeImage, 
+   RecipeImageContainer, 
+   RecipeIngredients, 
+   RecipeName, 
+   RecipeOrigin, 
+   RecipeRating 
+} from './recipe-modal.style';
 import { selectRecipeById, selectRecipeByIdIsActive } from '../../store/recipe/recipe.selector';
 import { useEffect, useState } from 'react';
-import { Recipe } from '../../app/models/recipes';
-import { addBookmarkFailed, addBookmarkStart } from '../../store/bookmarks/bookmarks.action';
+import { addBookmarkFailed, addBookmarkStart, refreshBookmarksStart } from '../../store/bookmarks/bookmarks.action';
 import { selectAddBookmarksErrorResp, selectAddBookmarksResp } from '../../store/bookmarks/bookmarks.selector';
 import { notify } from '../../utils/helper/toastify.helper.utils';
 import { selectAddCookieBookmarkResp, selectAddCookieBookmarksErrResp } from '../../store/cookie-bookmarks/cookie-bookmarks.selector';
 import { selectUserIsLoggedIn } from '../../store/user/user.selector';
-import { addCookieBookmarkFailed, addCookieBookmarkStart } from '../../store/cookie-bookmarks/cookie-bookmarks.action';
+import { addCookieBookmarkFailed, addCookieBookmarkStart, refreshCookieBookmarksStart } from '../../store/cookie-bookmarks/cookie-bookmarks.action';
 
 const RecipeModal = () => {
    const dispatch = useDispatch();
    const isLoggedIn = useSelector(selectUserIsLoggedIn);
-   const isActive: boolean = useSelector(selectRecipeByIdIsActive);
-   const recipe: Recipe = useSelector(selectRecipeById);
+   const isActive = useSelector(selectRecipeByIdIsActive);
+   const recipe = useSelector(selectRecipeById);
 
    const [modalState, setModalState] = useState(isActive);
 
-   const handleBookmark = () => {
-      if (isLoggedIn) dispatch(addBookmarkStart(recipe.id));
+   const handleAddBookmark = () => {
+      if (isLoggedIn) {
+         dispatch(addBookmarkStart(recipe.id));
+         return;
+      }
       dispatch(addCookieBookmarkStart(recipe.id));
-   }
+      return;
+   };
 
    const bookmarkResp = useSelector(selectAddBookmarksResp);
    const cookiebookmarkResp = useSelector(selectAddCookieBookmarkResp);
@@ -34,8 +55,13 @@ const RecipeModal = () => {
    useEffect(() => {
       if (resp) {
          notify(resp!, "success");
+         if (isLoggedIn) {
+            dispatch(refreshBookmarksStart());
+            return;
+         }
+         dispatch(refreshCookieBookmarksStart());
       }
-   }, [resp]);
+   }, [resp, isLoggedIn, dispatch]);
 
    const bookmarkerrResp = useSelector(selectAddBookmarksErrorResp);
    const cookiebookmarkerrResp = useSelector(selectAddCookieBookmarksErrResp);
@@ -92,9 +118,16 @@ const RecipeModal = () => {
             <RecipeIngredients>{recipe.ingredients}</RecipeIngredients>
          </RecipeContentsContainer>
          <RecipeOrigin>Origin:   {recipe.origin}</RecipeOrigin>
-         <BookmarkIcon bookmarked={false} onClick={handleBookmark}/>
+         <BookmarkIcon bookmarked={true} onClick={handleAddBookmark}/>
       </ModalContainer>
    );
 };
 
 export default RecipeModal;
+
+// TODO: Implemented bookmarked Icon functionality
+// const bookmarks = useSelector(selectBookmarks);
+// const cookieBookmarks = useSelector(selectCookieBookmarks);
+// const bookmrks = isLoggedIn ? bookmarks : cookieBookmarks;
+// const bookmarked = bookmrks.recipes?.filter(el => el.id === recipe.id).length > 0;   
+// const [isBookmarked, setisBookmarked] = useState(bookmarked);

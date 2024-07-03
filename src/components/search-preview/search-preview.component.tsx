@@ -1,7 +1,4 @@
-import {
-  Button,
-  Container,
-} from "./search-preview.style";
+import { Button, Container } from "./search-preview.style";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectRecipeSearchIsLoading,
@@ -13,7 +10,7 @@ import {
   fetchRecipesSearchStart,
   fetchRecipesStart,
 } from "../../store/recipe/recipe.action";
-import EntityBlocks from "../recipe-blocks/entity-blocks.component";
+import EntityBlocks from "../entity-blocks/entity-blocks.component";
 
 type SearchProps = {
   searchString: string;
@@ -32,15 +29,17 @@ const SearchPreview = ({ searchString }: SearchProps) => {
   const searchLoading = useSelector(selectRecipeSearchIsLoading);
   const searchParams = useSelector(selectSearchParams);
 
-  const entityList = useMemo(() =>
-    searchRecipes.map((data) => {
-      return {
-        id: data.id,
-        imageSrc: data.imageSrc,
-        name: data.name,
-      };
-    }
-  ), [searchRecipes]);
+  const entityList = useMemo(
+    () =>
+      searchRecipes.map((data) => {
+        return {
+          id: data.id,
+          imageSrc: data.imageSrc,
+          name: data.name,
+        };
+      }),
+    [searchRecipes]
+  );
 
   useEffect(() => {
     timeoutId = setTimeout(() => {
@@ -56,7 +55,12 @@ const SearchPreview = ({ searchString }: SearchProps) => {
 
   return (
     <Container>
-      <EntityBlocks searchLoading={searchLoading} entity="recipe" searchString={searchParams} entityList={entityList}/>
+      <EntityBlocks
+        contentLoading={searchLoading}
+        entityType="recipe"
+        searchString={searchParams}
+        entityList={entityList}
+      />
       <Button to={`/recipe${searchParams}`} onClick={() => handleSearch()}>
         View All
       </Button>

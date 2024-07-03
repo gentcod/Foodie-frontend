@@ -79,6 +79,7 @@ export type UpdatedBookmarkState = {
    readonly isLoading: boolean;
    readonly responseMessage: string | null;
    readonly errorResponse: ErrorResponseBody | null;
+   readonly error: Error | null
 }
 
 const UPDATED_BOOKMARKS_INTITIAL_STATE: UpdatedBookmarkState = {
@@ -86,7 +87,8 @@ const UPDATED_BOOKMARKS_INTITIAL_STATE: UpdatedBookmarkState = {
    responseMessage: null,
    bookmarks: {} as Bookmarks,
    isLoading: false,
-   errorResponse: null
+   errorResponse: null,
+   error: null
 }
 
 //Add Bookmark
@@ -110,6 +112,27 @@ export const addbookmarkReducer = (state = UPDATED_BOOKMARKS_INTITIAL_STATE, act
       return {
          ...state,
          errorResponse: action.payload,
+         isLoading: false,
+      }
+   
+   if (refreshBookmarksStart.match(action))
+      return {
+         ...state,
+         isLoading: true,
+      }
+      
+   if (refreshBookmarksSucess.match(action))
+      return {
+         ...state,
+         bookmarks: action.payload,
+         responseMessage: null,
+         isLoading: false,
+      }
+
+   if (refreshBookmarksFailed.match(action))
+      return {
+         ...state,
+         error: action.payload,
          isLoading: false,
       }
    return state
@@ -136,6 +159,26 @@ export const removebookmarkReducer = (state = UPDATED_BOOKMARKS_INTITIAL_STATE, 
       return {
          ...state,
          errorResponse: action.payload,
+         isLoading: false,
+      }
+      
+   if (refreshBookmarksStart.match(action))
+      return {
+         ...state,
+         isLoading: true,
+      }
+      
+   if (refreshBookmarksSucess.match(action))
+      return {
+         ...state,
+         bookmarks: action.payload,
+         responseMessage: null,
+         isLoading: false,
+      }
+   if (refreshBookmarksFailed.match(action))
+      return {
+         ...state,
+         error: action.payload,
          isLoading: false,
       }
    return state
