@@ -60,6 +60,7 @@ const RecipeModal = () => {
             return;
          }
          dispatch(refreshCookieBookmarksStart());
+         return;
       }
    }, [resp, isLoggedIn, dispatch]);
 

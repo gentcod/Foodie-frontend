@@ -71,9 +71,12 @@ const BookmarksDropdown = ({ elementRef, buttonRef }) => {
   useEffect(() => {
     if (errResp) {
       notify(errResp.message!, "error");
-      isLoggedIn
-        ? dispatch(fetchBookmarksFailed(null))
-        : dispatch(fetchCookieBookmarksFailed(null));
+      if (isLoggedIn) {
+        dispatch(fetchBookmarksFailed(null));
+        return;
+      }
+      dispatch(fetchCookieBookmarksFailed(null));
+      return;
     }
   }, [errResp, isLoggedIn, dispatch]);
 
@@ -94,8 +97,10 @@ const BookmarksDropdown = ({ elementRef, buttonRef }) => {
       notify(resp!, "success");
       if (isLoggedIn) {
         dispatch(refreshBookmarksStart());
+        return;
       }
       dispatch(refreshCookieBookmarksStart());
+      return;
     }
   }, [resp, isLoggedIn, dispatch]);
 
@@ -112,6 +117,7 @@ const BookmarksDropdown = ({ elementRef, buttonRef }) => {
         return;
       }
       dispatch(removeCookieBookmarksFailed(null));
+      return;
     }
   }, [removeErrrResp, isLoggedIn, dispatch]);
 

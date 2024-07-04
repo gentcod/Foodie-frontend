@@ -1,11 +1,12 @@
 import { useDispatch } from "react-redux";
 import {
   DropdownContainer,
+  ProfileIcon,
   UserDetailsContainer,
   UserModList,
   UserModListItem,
   UserName,
-  UserPicture,
+  // UserPicture,
 } from "./user-dropdown.style";
 import { loggedInModList, loggedOutMmdList } from "../../dev-data/modal-data";
 import { logoutUser } from "../../store/user/user.action";
@@ -34,7 +35,7 @@ const UserDropdown = ({ name, isLoggedIn, elementRef, buttonRef }: UserProp) => 
       {isLoggedIn ? (
         <>
           <UserDetailsContainer>
-            <UserPicture src={"icons/user-profile.svg"} />
+            <ProfileIcon/>
             <UserName>{name}</UserName>
           </UserDetailsContainer>
           <UserModList>

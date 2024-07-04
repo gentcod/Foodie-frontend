@@ -12,6 +12,10 @@ type LogoutUser = Action<USER_ACTION_TYPES.LOGOUT_USER_START>;
 type LogoutUserSuccess = Action<USER_ACTION_TYPES.LOGOUT_USER_SUCCESS>;
 type LogoutUserFailed = ActionWithPayload<USER_ACTION_TYPES.LOGOUT_USER_FAILED, Error>;
 
+type CheckSession = Action<USER_ACTION_TYPES.CHECK_SESSION_START>;
+type CheckSessionSuccess = ActionWithPayload<USER_ACTION_TYPES.CHECK_SESSION_SUCCESS, ResponseBody<null> | null>;
+type CheckSessionFailed = ActionWithPayload<USER_ACTION_TYPES.CHECK_SESSION_FAILED, Error>;
+
 type SignUpUserStart = ActionWithPayload<USER_ACTION_TYPES.SIGNUP_USER_START, SignUpDto>;
 type SignUpUserSuccess = ActionWithPayload<USER_ACTION_TYPES.SIGNUP_USER_SUCCESS, ResponseBody<null> | null>;
 type SignUpUserFailed = ActionWithPayload<USER_ACTION_TYPES.SIGNUP_USER_FAILED, ErrorResponseBody | null>;
@@ -36,3 +40,10 @@ export const logoutUserSuccess = withMatcher((): LogoutUserSuccess =>
    createAction(USER_ACTION_TYPES.LOGOUT_USER_SUCCESS));
 export const logoutUserFailed = withMatcher((error: Error): LogoutUserFailed =>
    createAction(USER_ACTION_TYPES.LOGOUT_USER_FAILED, error));
+
+export const checkSession = withMatcher((): CheckSession =>
+   createAction(USER_ACTION_TYPES.CHECK_SESSION_START));
+export const checkSessionSuccess = withMatcher((resp: ResponseBody<null> | null): CheckSessionSuccess =>
+   createAction(USER_ACTION_TYPES.CHECK_SESSION_SUCCESS, resp));
+export const checkSessionFailed = withMatcher((error: Error): CheckSessionFailed =>
+   createAction(USER_ACTION_TYPES.CHECK_SESSION_FAILED, error));

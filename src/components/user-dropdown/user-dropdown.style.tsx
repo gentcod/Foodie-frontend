@@ -1,5 +1,12 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { ReactComponent as Profile } from '../../assets/user-profile.svg';
+
+export const ProfileIcon = styled(Profile)`
+   height: 4rem;
+   width: 4rem;
+
+`;
 
 type DropdownProp = {
    left: number;
@@ -25,10 +32,11 @@ export const UserDetailsContainer = styled.div`
    height: 5rem;
    background-color: #e6be8a;
    border-radius: 3rem;
+   padding: 1rem 3rem;
 
    display: flex;
    column-gap: 2rem;
-   justify-content: center;
+   justify-content: start;
    align-items: center;
 `;
 

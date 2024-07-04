@@ -1,6 +1,10 @@
 import { Outlet } from "react-router-dom";
 import { useRef, useState } from "react";
 import { navItemsLeft, navItemsRight } from "../../dev-data/navigation-data";
+import { ReactComponent as SearchIcon } from '../../assets/search.svg';
+import { ReactComponent as UserIcon } from '../../assets/chef.svg';
+import { ReactComponent as BookmarkIcon } from '../../assets/bookmark.svg';
+import { ReactComponent as FavoriteIcon } from '../../assets/favorite.svg';
 
 import Search from "../../components/search/search.component";
 import UserDropdown from "../../components/user-dropdown/user-dropdown.component";
@@ -11,7 +15,6 @@ import {
   Favorites,
   NavigationContainer,
   NavigationItem,
-  NavigationItemIcon,
   NavigationItemsContainer,
   NavigationItemsContainerRight,
   SearchItem,
@@ -87,7 +90,7 @@ const Navigation = () => {
                   onClick={changeSearchState} 
                   ref={searchButtonRef}>
                      <span>{item.title}</span>
-                  <NavigationItemIcon src={item.icon} />
+                  <SearchIcon />
                 </SearchItem>
               ) : (
                 <NavigationItem
@@ -111,7 +114,7 @@ const Navigation = () => {
                   ref={profileButtonRef}
                 >
                   <span>{item.title}</span>
-                  <NavigationItemIcon src={item.icon} />
+                  <UserIcon/>
                 </UserProfile>
               )
               : (
@@ -124,7 +127,7 @@ const Navigation = () => {
                     ref={bookmakrsButtonRef}
                   >
                     <span>{item.title}</span>
-                    <NavigationItemIcon src={item.icon} />
+                    <BookmarkIcon />
                   </Bookmarks>
                 )
                 :
@@ -136,7 +139,7 @@ const Navigation = () => {
                     ref={favoritesButtonRef}
                   >
                     <span>{item.title}</span>
-                    <NavigationItemIcon src={item.icon} />
+                    <FavoriteIcon/>
                   </Favorites>
                 )
               )

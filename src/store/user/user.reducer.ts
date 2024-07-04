@@ -2,12 +2,13 @@ import { AnyAction } from "redux-saga";
 import { LoginDto, SignUpDto } from "../../app/dtos/user"
 import { ErrorResponseBody, ResponseBody } from "../../app/models/response";
 import { User } from "../../app/models/user";
-import { loginUserFailed, loginUserStart, loginUserSuccess, logoutUserFailed, logoutUserSuccess, signUpUserFailed, signUpUserStart, signUpUserSuccess } from "./user.action";
+import { checkSessionFailed, checkSessionSuccess, loginUserFailed, loginUserStart, loginUserSuccess, logoutUserFailed, logoutUserSuccess, signUpUserFailed, signUpUserStart, signUpUserSuccess } from "./user.action";
 
 export type LoginuserState = {
    readonly loginCred?: LoginDto;
    readonly userData: User;
    readonly isLoading: boolean;
+   readonly response?: ResponseBody<null>;
    readonly errorResponse: ErrorResponseBody | Error | null;
    readonly isLoggedIn: boolean;
 };
@@ -26,7 +27,7 @@ export const loginUserReducer = (state = LOGIN_USER_INITIAL_STATE, action = {} a
          loginCred: action.payload,
          isLoading: true,
       }
-
+   ;
    if (loginUserSuccess.match(action))
       return {
          ...state,
@@ -35,20 +36,35 @@ export const loginUserReducer = (state = LOGIN_USER_INITIAL_STATE, action = {} a
          loginCred: undefined,
          isLoading: false,
       }
-
+   ;
    if (logoutUserSuccess.match(action))
       return {
          ...state,
          userData: {} as User,
          isLoggedIn: false,
       }
+   ;
    if (loginUserFailed.match(action) || logoutUserFailed.match(action))
-      {console.log(action.payload);
       return {
          ...state,
          errorResponse: action.payload,
          isLoggedIn: false,
-      }}
+      }
+   ;
+   if (checkSessionSuccess.match(action))
+      return {
+         ...state,
+         response: action.payload!
+      }
+   ;
+   if (checkSessionFailed.match(action))
+      return {
+         ...state,
+         userData: {} as User,
+         isLoggedIn: false,
+         // errorResponse: action.payload,
+      }
+   ;
    return state
 };
 

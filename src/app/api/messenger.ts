@@ -142,7 +142,8 @@ const User = {
       email: signUpCred.email,
       password: signUpCred.password
    }),
-   profile: (accessToken: string) => request.authget('favorites', accessToken),
+   profile: (accessToken: string) => request.authget('account/profile', accessToken),
+   session: (accessToken: string) => request.authget('account/session', accessToken),
 };
 
 // getAxiosParams is an helper function that helps to convert a URLSearchParams.
