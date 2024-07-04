@@ -1,8 +1,10 @@
 import { Routes, Route } from "react-router-dom";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 
 import Loading from "./components/loading/loading.component";
 import Notifier from "./components/notifier/notifier.component";
+import { useDispatch } from "react-redux";
+import { checkSession } from "./store/user/user.action";
 
 const Navigation = lazy(
   () => import("./routes/navigation/navigation.component")
@@ -20,6 +22,11 @@ const Login = lazy(() => import("./components/login-modal/login.component"));
 const SignUp = lazy(() => import("./components/signup-modal/signup.component"));
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(checkSession());
+  }, [dispatch]);
+  
   return (
     <Suspense fallback={<Loading />}>
       <Routes>

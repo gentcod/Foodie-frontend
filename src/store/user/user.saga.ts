@@ -1,7 +1,7 @@
 import { all, call, put, select, takeLatest } from "typed-redux-saga/macro";
 import messenger from "../../app/api/messenger";
-import { selectLoginCred, selectSignupCred } from "./user.selector";
-import { loginUserFailed, loginUserSuccess, logoutUser, logoutUserFailed, logoutUserSuccess, signUpUserFailed, signUpUserSuccess } from "./user.action";
+import { selectAccessToken, selectLoginCred, selectSignupCred } from "./user.selector";
+import { checkSessionFailed, checkSessionSuccess, loginUserFailed, loginUserSuccess, logoutUser, logoutUserFailed, logoutUserSuccess, signUpUserFailed, signUpUserSuccess } from "./user.action";
 import { USER_ACTION_TYPES } from "./user.types";
 
 const { User } = messenger
@@ -50,7 +50,22 @@ function* onLogoutUser() {
    yield* takeLatest(USER_ACTION_TYPES.LOGOUT_USER_START, logoutUserAsync);
 };
 
+// Check User Session
+function* checkUserSession() {
+   try {
+      const accessToken = yield* select(selectAccessToken);
+      const resp = yield* call(User.session, accessToken);
+      yield* put(checkSessionSuccess(resp));
+   } catch(error) {
+      yield* put(checkSessionFailed(error as Error));
+   }
+}
+
+function* onCheckSession() {
+   yield* takeLatest(USER_ACTION_TYPES.CHECK_SESSION_START, checkUserSession);
+}
+
 // User Saga
 export function* userSaga() {
-   yield* all([ call(onLoginUser), call(onSignUser), call(onLogoutUser)])
+   yield* all([ call(onLoginUser), call(onSignUser), call(onLogoutUser), call(onCheckSession)])
 }

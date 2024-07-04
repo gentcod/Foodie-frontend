@@ -6,7 +6,7 @@ type BookmarkedProp = {
 }
 
 const bookmarkedFill = css`
-   fill: #040052;
+   fill: #01032c;
 `;
 
 export const BookmarkIcon = styled(BookmarkLogo)<BookmarkedProp>`
