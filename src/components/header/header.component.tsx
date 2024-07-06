@@ -3,7 +3,7 @@ import { Container, HeaderImage, HeaderTitle } from './header.style';
 const Header = () => {
    return (
       <Container to={'/'}>
-         <HeaderImage src='images/foodie.png'/>
+         <HeaderImage />
          <HeaderTitle>Foodie</HeaderTitle>
       </Container>
    )

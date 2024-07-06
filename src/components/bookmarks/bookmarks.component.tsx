@@ -13,7 +13,7 @@ import {
   ContentContainer,
   Heading,
 } from "./bookmarks.style";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import {
   selectCookieBookmarks,
   selectCookieBookmarksErrResp,
@@ -54,15 +54,16 @@ const BookmarksDropdown = ({ elementRef, buttonRef }) => {
     dispatch(fetchCookieBookmarksStart());
   }, [isLoggedIn, dispatch]);
 
+  const recipeData = useMemo(() => bookmarksDetails.recipes?.map((data) => {
+    return {
+      id: data.id,
+      imageSrc: data.imageSrc,
+      name: data.name,
+    };
+  }), [bookmarksDetails])
 
   const entityList = bookmarksDetails.recipes
-    ? bookmarksDetails.recipes.map((data) => {
-        return {
-          id: data.id,
-          imageSrc: data.imageSrc,
-          name: data.name,
-        };
-      })
+    ? recipeData
     : [];
 
   const bookmarkerrResp = useSelector(selectBookmarksErrorResponse);

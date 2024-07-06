@@ -119,7 +119,7 @@ const RecipeModal = () => {
             <RecipeIngredients>{recipe.ingredients}</RecipeIngredients>
          </RecipeContentsContainer>
          <RecipeOrigin>Origin:   {recipe.origin}</RecipeOrigin>
-         <BookmarkIcon bookmarked={true} onClick={handleAddBookmark}/>
+         <BookmarkIcon onClick={handleAddBookmark}/>
       </ModalContainer>
    );
 };

@@ -8,7 +8,7 @@ import {
   FavoritesContainer,
   Heading,
 } from "./favorites.style";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { notify } from "../../utils/helper/toastify.helper.utils";
 import {
   fetchFavoritesFailed,
@@ -40,25 +40,31 @@ const FavoritesDropdown = ({ elementRef, buttonRef }) => {
       dispatch(fetchFavoritesStart());
   }, [isLoggedIn, dispatch]);
 
+  const favRecipes = useMemo(() => favorites.recipes.map((data) => {
+    return {
+      id: data.id,
+      imageSrc: data.imageSrc,
+      name: data.name,
+    };
+  }), [favorites])
+
   const recipesEntityList = favorites.recipes
-    ? favorites.recipes.map((data) => {
-        return {
-          id: data.id,
-          imageSrc: data.imageSrc,
-          name: data.name,
-        };
-      })
-    : [];
+    ? favRecipes
+    : []
+  ;
+  
+  const favRestaurants = useMemo(() => favorites.restaurants.map((data) => {
+    return {
+      id: data.id,
+      imageSrc: data.imageSrc,
+      name: data.name,
+    };
+  }), [favorites])
 
   const restaurantsEntityList = favorites.restaurants
-    ? favorites.restaurants.map((data) => {
-        return {
-          id: data.id,
-          imageSrc: data.imageSrc,
-          name: data.name,
-        };
-      })
-    : [];
+    ? favRestaurants
+    : []
+  ;
 
   const errResp = useSelector(selectFavErrorResponse);
   useEffect(() => {

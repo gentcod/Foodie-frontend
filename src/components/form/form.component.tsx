@@ -12,6 +12,7 @@ export type InputFieldProps = {
 }
 
 type FormProps = {
+  formName: string;
    heading: string;
    formSubmitFunc: (e: FormEvent<HTMLFormElement>) => void;
    inputChangeFunc: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -21,14 +22,23 @@ type FormProps = {
    authIsLoading: boolean;
 }
 
-const Form = ({heading, formSubmitFunc, inputChangeFunc, inputData, buttonText, formData, authIsLoading}: FormProps) => {
+const Form = ({
+  formName,
+  heading, 
+  formSubmitFunc, 
+  inputChangeFunc, 
+  inputData, 
+  buttonText, 
+  formData, 
+  authIsLoading
+}: FormProps) => {
   return (
     <LoginForm>
       <HeaderContainer>
         <Heading text={heading} isCustom={true} />
       </HeaderContainer>
 
-      <InputContainer onSubmit={formSubmitFunc}>
+      <InputContainer onSubmit={formSubmitFunc} name={formName}>
         {inputData.map(data => (
          <FormInput
             key={data.id}
@@ -41,7 +51,7 @@ const Form = ({heading, formSubmitFunc, inputChangeFunc, inputData, buttonText, 
          />
         ))}
         <ButtonContainer>
-          <Button>{buttonText}</Button>
+          <Button type="submit">{buttonText}</Button>
           {authIsLoading ? <Spinner size={2.5}/> : <></>}
         </ButtonContainer>
       </InputContainer>

@@ -22,10 +22,10 @@ const Login = () => {
    const [formData, setFormData] = useState(defaultFormFields);
 
    const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-      const {name, value} = e.target;      
+      const {name, value} = e.target;          
       setFormData({...formData, [name]: value});
    };
-   const { email, password } = formData;
+   const { email, password } = formData;   
 
    const resetFormFields = () => {
       setFormData(defaultFormFields);
@@ -55,12 +55,14 @@ const Login = () => {
 
    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
+      console.log("submitted");
       dispatch(loginUserStart({email, password}))
    };
 
    return (
       <LoginContainer>
          <Form
+            formName="login"
             heading="Login User"
             formSubmitFunc={handleSubmit}
             inputChangeFunc={handleInputChange}

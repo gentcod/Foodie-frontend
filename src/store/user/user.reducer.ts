@@ -62,7 +62,7 @@ export const loginUserReducer = (state = LOGIN_USER_INITIAL_STATE, action = {} a
          ...state,
          userData: {} as User,
          isLoggedIn: false,
-         // errorResponse: action.payload,
+         response: undefined,
       }
    ;
    return state

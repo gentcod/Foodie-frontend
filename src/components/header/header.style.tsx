@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { ReactComponent as FavoriteIcon } from '../../assets/foodie-logo.svg';
 
 export const Container = styled(Link)`
    height: 8rem;
@@ -12,9 +13,10 @@ export const Container = styled(Link)`
    column-gap: 3rem;
 `;
 
-export const HeaderImage = styled.img`
+export const HeaderImage = styled(FavoriteIcon)`
    height: 90%;
    object-fit: cover;
+   border-radius: 30%;
 `;
 
 export const HeaderTitle = styled.h1`

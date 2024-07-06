@@ -1,23 +1,33 @@
 import styled, { css, keyframes } from "styled-components";
 import  {ReactComponent as BookmarkLogo } from '../../assets/bookmark.svg';
 
-type BookmarkedProp = {
-   bookmarked: boolean;
-}
+// type BookmarkedProp = {
+//    bookmarked: boolean;
+// }
 
-const bookmarkedFill = css`
-   fill: #01032c;
-`;
+// const bookmarkedFill = css`
+//    fill: #01032c;
+// `;
 
-export const BookmarkIcon = styled(BookmarkLogo)<BookmarkedProp>`
+// export const BookmarkIcon = styled(BookmarkLogo)<BookmarkedProp>`
+//    position: absolute;
+//    top: 1rem;
+//    left: 1rem;
+//    object-fit: cover;
+//    cursor: pointer;
+//    transition: .8s all ease;
+
+//    ${({bookmarked}) => bookmarked && bookmarkedFill};
+// `;
+
+export const BookmarkIcon = styled(BookmarkLogo)`
    position: absolute;
    top: 1rem;
    left: 1rem;
    object-fit: cover;
    cursor: pointer;
    transition: .8s all ease;
-
-   ${({bookmarked}) => bookmarked && bookmarkedFill};
+   fill: #01032c;
 `;
 
 export type ModalProps = {
