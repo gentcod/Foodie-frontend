@@ -26,16 +26,17 @@ const SignUp = () => {
    };
    
    const signupResp = useSelector(selectSignupResponse);
+   const redirect = getRedirect(location.search);
    useEffect(() => {
       if (signupResp) {
          notify(signupResp.message!, "success");
          setTimeout(() => { 
             resetFormFields();
             dispatch(signUpUserSuccess(null));
-            navigate(`/${getRedirect(location.search)}`);
+            navigate(`/${redirect ? redirect : ""}`);
          }, 3000);
       }
-   }, [signupResp, location.search, dispatch, navigate]);
+   }, [signupResp, redirect, dispatch, navigate]);
 
    const errResp = useSelector(selectSignupErrorResponse);
    useEffect(() => {
@@ -60,6 +61,7 @@ const SignUp = () => {
    return (
       <SignUpContainer>
          <Form
+            formName="sign-up"
             heading="Sign Up User"
             formSubmitFunc={handleSubmit}
             inputChangeFunc={handleInputChange}

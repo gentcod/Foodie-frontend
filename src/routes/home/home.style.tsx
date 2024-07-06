@@ -1,4 +1,5 @@
 
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const HomeContainer = styled.div`
@@ -45,15 +46,18 @@ export const WelcomeContainer = styled.div`
    background-color: #333;
 `;
 
-export const WelcomeLogo = styled.img`
-   width: 20rem;
-   height: 20rem;
-   border-radius: 50%;
-`;
-
 export const WelcomeText = styled.p`
    width: 50%;
    font-size: 1.4rem;
    font-weight: 500;
    color: #e6be8a;
+`;
+
+export const ExternalLink = styled(Link)`
+   text-decoration: none;
+   color: #e8e8e8;
+
+   &:hover {
+      text-decoration: underline;
+   }
 `;

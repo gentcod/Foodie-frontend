@@ -7,9 +7,10 @@ import {
   HomeContainer,
   WelcomeText,
   WelcomeContainer,
-  WelcomeLogo,
+  ExternalLink,
 } from "./home.style";
 import RecipeCategoryContainer from "../../components/recipe-category-container/recipe-category-container.component";
+import { HeaderImage } from "../../components/header/header.style";
 
 const Home = () => {
   return (
@@ -19,15 +20,11 @@ const Home = () => {
         <FeaturedImage src="https://res.cloudinary.com/douvgvdla/image/upload/v1711645135/cld-sample-4.jpg" />
       </FeaturedContainer>
       <WelcomeContainer>
-        <WelcomeLogo src="images/foodie.png" />
+        <HeaderImage />
         <WelcomeText>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
+          Foodie is an iteration of { <ExternalLink to={'https://gentcod-foodie.netlify.app'}>Foodie-V1</ExternalLink>}. 
+          It offers a collection of various recipes, allowing users to browse through different categories, 
+          view detailed instructions, and find inspiration for cooking.
         </WelcomeText>
       </WelcomeContainer>
       <RecipeCategoryContainer />

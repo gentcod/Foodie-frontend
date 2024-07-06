@@ -15,15 +15,15 @@ import LoadingComp from "../loading-comp/loading-comp.component";
 import PageNavigation from "../page-navigation/page-navigation.component";
 
 const RecipeCardContainer = () => {
+  const recipes = useSelector(selectRecipes);
+  const isLoading = useSelector(selectRecipeIsLoading);
+  const metaData = useSelector(selectMetadata);
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchRecipesStart());
   }, [dispatch]);
 
-  const recipes = useSelector(selectRecipes);
-  const isLoading = useSelector(selectRecipeIsLoading);
-  const metaData = useSelector(selectMetadata);
 
   const handlerPageChange = (pageNumber: number) => {
     dispatch(fetchRecipesStart(`?pageNumber=${pageNumber}`))

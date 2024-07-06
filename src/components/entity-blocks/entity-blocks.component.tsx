@@ -22,7 +22,7 @@ type EntityBlocksProps = {
   searchString?: string;
   entityList: EntityListProps[];
   deletable?: DeleteableProps;
-  spinnerSize?: number
+  spinnerSize?: number;
 };
 
 const EntityBlocks = ({

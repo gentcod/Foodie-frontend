@@ -1,5 +1,8 @@
-import { Outlet } from "react-router-dom";
-import { useRef, useState } from "react";
+import { 
+  Outlet,
+  useLocation,
+} from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
 import { navItemsLeft, navItemsRight } from "../../dev-data/navigation-data";
 import { ReactComponent as SearchIcon } from '../../assets/search.svg';
 import { ReactComponent as UserIcon } from '../../assets/chef.svg';
@@ -35,6 +38,16 @@ const Navigation = () => {
   const [showProfile, setShowProfile] = useState(false);
   const [showBookmarks, setShowBookmarks] = useState(false);
   const [showFavorites, setShowFavorites] = useState(false);
+
+  const location = useLocation();
+  const currentLocation = location.pathname;
+
+  useEffect(() => {
+    setShowSearch(false);
+    setShowProfile(false);
+    setShowBookmarks(false);
+    setShowFavorites(false);
+  }, [currentLocation])
 
   const searchRef = useRef<HTMLDivElement | null>(null);
   const searchButtonRef = useRef<HTMLAnchorElement | null>(null);
@@ -72,6 +85,40 @@ const Navigation = () => {
     setShowProfile(false);
     setShowBookmarks(false);
   };
+
+  const handleRemove = (e) => {
+    e.preventDefault();
+
+    const refs = [
+      searchButtonRef,
+      profileButtonRef,
+      bookmakrsButtonRef,
+      favoritesButtonRef,
+      searchRef,
+      profileRef,
+      bookmakrsRef,
+      favoritesRef,
+    ];
+    
+    if (refs.some(ref => ref.current && ref.current.contains(e.target as Node))) {
+      return;
+    }
+
+    if (refs.some(ref => ref.current && !ref.current.contains(e.target as Node))) {
+      setShowSearch(false);
+      setShowProfile(false);
+      setShowBookmarks(false);
+      setShowFavorites(false);
+    };
+    
+  };
+  
+  useEffect(() => {
+    document.addEventListener('click', handleRemove);
+    return () => {
+      document.removeEventListener('click', handleRemove);
+    };
+  },[])
 
   const user = useSelector(selectLoggedInUser);
   const isLoggedIn = useSelector(selectUserIsLoggedIn);
