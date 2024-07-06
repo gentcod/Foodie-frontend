@@ -85,35 +85,34 @@ const Navigation = () => {
     setShowProfile(false);
     setShowBookmarks(false);
   };
-
-  const handleRemove = (e) => {
-    e.preventDefault();
-
-    const refs = [
-      searchButtonRef,
-      profileButtonRef,
-      bookmakrsButtonRef,
-      favoritesButtonRef,
-      searchRef,
-      profileRef,
-      bookmakrsRef,
-      favoritesRef,
-    ];
-    
-    if (refs.some(ref => ref.current && ref.current.contains(e.target as Node))) {
-      return;
-    }
-
-    if (refs.some(ref => ref.current && !ref.current.contains(e.target as Node))) {
-      setShowSearch(false);
-      setShowProfile(false);
-      setShowBookmarks(false);
-      setShowFavorites(false);
-    };
-    
-  };
   
   useEffect(() => {
+    const handleRemove = (e) => {  
+      const refs = [
+        searchButtonRef,
+        profileButtonRef,
+        bookmakrsButtonRef,
+        favoritesButtonRef,
+        searchRef,
+        profileRef,
+        bookmakrsRef,
+        favoritesRef,
+      ];
+      
+      if (refs.some(ref => ref.current && ref.current.contains(e.target as Node))) {
+        return;
+      }
+  
+      if (refs.some(ref => ref.current && !ref.current.contains(e.target as Node))) {
+        setShowSearch(false);
+        setShowProfile(false);
+        setShowBookmarks(false);
+        setShowFavorites(false);
+        return;
+      };
+      
+    };
+  
     document.addEventListener('click', handleRemove);
     return () => {
       document.removeEventListener('click', handleRemove);
