@@ -44,6 +44,8 @@ const Login = () => {
    }, [isLoggedIn, redirect, navigate]);
 
    const errResp = useSelector(selectLoginErrorResponse);
+   const loginIsLoading = useSelector(selectLoginIsLoading);
+
    useEffect(() => {
       if (errResp) {
          notify(errResp.message!, "error");
@@ -51,7 +53,6 @@ const Login = () => {
       }
    }, [errResp, dispatch]);
 
-   const loginIsLoading = useSelector(selectLoginIsLoading);
 
    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();

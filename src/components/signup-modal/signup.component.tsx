@@ -39,6 +39,8 @@ const SignUp = () => {
    }, [signupResp, redirect, dispatch, navigate]);
 
    const errResp = useSelector(selectSignupErrorResponse);
+   const signupIsLoading = useSelector(selectSignupIsLoading);
+   
    useEffect(() => {
       if (errResp) {
          notify(errResp.message!, "error");
@@ -46,7 +48,6 @@ const SignUp = () => {
       }
    }, [errResp, dispatch]);
 
-   const signupIsLoading = useSelector(selectSignupIsLoading);
 
    const { username, firstName, lastName, middleName, email, password, confirmPassword } = formData;
    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
