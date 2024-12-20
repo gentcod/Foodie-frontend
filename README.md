@@ -1,5 +1,5 @@
 # Foodie-V2
-A the frontend for a food recipe application
+The frontend application for a food recipe web server -> [Foodie](https://github.com/gentcod/Foodie)
 
 ## Scripts guide:
 
@@ -12,8 +12,3 @@ To run the applications, navigate to the /client-side directory and then run:
 
 `npm start`
 ##
-
-// TODO: Favorite ComponentS,to be a dropdown with Recipes and Restaurants
-// TODO: Bookmarks ComponentS
-// TODO: Users ComponentS
-// TODO: Commit changes in batch
